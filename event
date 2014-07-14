@@ -1,0 +1,4 @@
+1.catalog_product_get_final_price: set gia trang chi tiet san pham
+2.checkout_cart_product_add_after: set gia trang cart
+3.catalog_product_collection_load_after: set gia trang catalog
+4.

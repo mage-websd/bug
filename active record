@@ -1,0 +1,10 @@
+1. getFirstItem() - getLastItem() : lay 1 doi ban ghi trong db - thuoc getCollection
+2. getColumnValues('name_column') : lay tat ca gia tri cua mot cot - tra ve mang - thuoc getCollection
+3.getItemsByColumnValue('name_column','value'): tra ve mang cac doi tuong ban ghi ma cot co gia tri tuong ung
+4. (string)getModel()->getSelect(): tra ve string cau lenh mysql
+5. getFieldToFilter() : tuong duong where select
+	- $column,$value : $column = '$value';
+	- $column,array('$operator'=>'$value'): $column $operator '$value'
+		$operator: eq= , neq!= , like, nlike, is, in, nin, 
+					notnull(true or false),  null, gt> , lt< , 
+					gteq>= , lteq , (from=>value, to=>value)
