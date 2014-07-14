@@ -1,3 +1,4 @@
+Sau moi activerecode, goi load() de tra ve du lieu
 1. getFirstItem() - getLastItem() : lay 1 doi ban ghi trong db - thuoc getCollection
 2. getColumnValues('name_column') : lay tat ca gia tri cua mot cot - tra ve mang - thuoc getCollection
 3.getItemsByColumnValue('name_column','value'): tra ve mang cac doi tuong ban ghi ma cot co gia tri tuong ung
@@ -8,3 +9,9 @@
 		$operator: eq= , neq!= , like, nlike, is, in, nin, 
 					notnull(true or false),  null, gt> , lt< , 
 					gteq>= , lteq , (from=>value, to=>value)
+6. getSelect()->cac lenh sql co ban
+	- where(string)
+	- join(table, cond) - table = $thismodel->getTable(module/table)
+	- order(string)
+	-limit(limit, start)
+	- group
