@@ -1,4 +1,6 @@
+Conlection + 
 Sau moi activerecode, goi load() de tra ve du lieu
+
 1. getFirstItem() - getLastItem() : lay 1 doi ban ghi trong db - thuoc getCollection
 2. getColumnValues('name_column') : lay tat ca gia tri cua mot cot - tra ve mang - thuoc getCollection
 3.getItemsByColumnValue('name_column','value'): tra ve mang cac doi tuong ban ghi ma cot co gia tri tuong ung
@@ -9,9 +11,14 @@ Sau moi activerecode, goi load() de tra ve du lieu
 		$operator: eq= , neq!= , like, nlike, is, in, nin, 
 					notnull(true or false),  null, gt> , lt< , 
 					gteq>= , lteq , (from=>value, to=>value)
-6. getSelect()->cac lenh sql co ban
+6. addFieldToSelect(string): them cot trong select
+7. getSelect()->cac lenh sql co ban, sau cac lenh tren
 	- where(string)
 	- join(table, cond) - table = $thismodel->getTable(module/table)
 	- order(string)
 	-limit(limit, start)
 	- group
+
+8. EAV: sau cau lenh khong can goi load()
+	addAttributeToSelect(): giong getFieldToSlect()
+	addAttributeToFilter(): giong addFieldToFilter()
