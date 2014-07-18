@@ -1,1 +1,5 @@
 mage_core_model_design_package: 
+
+Block: 
+	core/text_list: auto to html
+	page/html_breadcrumbs
