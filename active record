@@ -13,6 +13,7 @@ Sau moi activerecode, goi load() de tra ve du lieu
 					gteq>= , lteq , (from=>value, to=>value)
 6. addFieldToSelect(string): them cot trong select
 7. getSelect()->cac lenh sql co ban, sau cac lenh tren
+	-columns(string): select?
 	- where(string)
 	- join(table, cond) - table = $thismodel->getTable(module/table)
 	- order(string)
@@ -22,3 +23,20 @@ Sau moi activerecode, goi load() de tra ve du lieu
 8. EAV: sau cau lenh khong can goi load()
 	addAttributeToSelect(): giong getFieldToSlect()
 	addAttributeToFilter(): giong addFieldToFilter()
+
+9. run query mysql
+	$resource = Mage::getModel('core/resource');
+	$connect = $resource->getConnection('core_read');
+	$table = $resource->getTableName('module/tagTable');
+
+	SELECT:
+		$query = "";
+		$result = $connect->fetchOne($query);//fetchRow, fetchCol, fetchAll, fetchPairs
+	UPDATE:
+		$connect->update($table, array(column=>value), array(where=>value));
+	INSERT:
+		$connect->insert($table, array(colume=>value));
+	DELETE
+		$connect->delete($table, array(where=>value))
+
+	where: array('id in(?)' => array(1,2,3));
