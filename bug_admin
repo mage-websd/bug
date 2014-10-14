@@ -12,3 +12,8 @@ UPDATE `customer_group` SET customer_group_id = 0 WHERE customer_group_code='NOT
 
 SET FOREIGN_KEY_CHECKS=1;
 
+2. Grid Admin
+	Collection - dung cac cot trong add column
+3. Khai bao admin trong config moi dung duoc menu moi
+
+4. script khong an update value: Mage::app()->setUpdateMode(false);
