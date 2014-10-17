@@ -1,0 +1,5 @@
+mysqldump -hlocalhost -uc41dgse -pwqePIhCIxH4e@ --force --add-drop-table=false --comments=false --create-options=true --extended-insert=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --no-data=false --disable-keys=false c41dgse| gzip > dgse.sql.gz
+
+
+
+scp jareddgse@dgse.tlv.smartosc.com:~/web/dgse.sql.gz ~/dgse.sql.gz
