@@ -1,1 +1,6 @@
 1. vHost khong duoc: disable cache
+2. <Directory "C:/domain.co.uk" >
+Options Indexes FollowSymLinks Includes ExecCGI
+Order allow,deny
+Allow from all
+</Directory> vhost

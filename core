@@ -3,3 +3,12 @@ mage_core_model_design_package:
 Block: 
 	core/text_list: auto to html
 	page/html_breadcrumbs
+
+upgrade: 
+	Magentoconnect: < 1.4: magento-core/Mage_All_Latest
+					> 1.4.2: http://connect20.magentocommerce.com/community/Mage_All_Latest
+	downloader\lib\Mage\Connect\Validator.php: comment: 
+		if (file_exists($dest)) {
+			$this->addError("'{$file}' already exists");
+			return false;
+		}
