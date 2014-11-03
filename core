@@ -7,8 +7,12 @@ Block:
 upgrade: 
 	Magentoconnect: < 1.4: magento-core/Mage_All_Latest
 					> 1.4.2: http://connect20.magentocommerce.com/community/Mage_All_Latest
-	downloader\lib\Mage\Connect\Validator.php: comment: 
+	downloader\lib\Mage\Connect\Validator.php: 
+or  downloader\pearlib\download\Mage_Downloader-1.5.0.0\downloader\lib\Mage\Connect
+	comment: 
 		if (file_exists($dest)) {
 			$this->addError("'{$file}' already exists");
 			return false;
 		}
+
+Call to undefined method Varien_Db_Adapter_Pdo_Mysql::isTableExists()
