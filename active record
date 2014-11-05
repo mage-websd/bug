@@ -20,6 +20,8 @@ Sau moi activerecode, goi load() de tra ve du lieu
 	-limit(limit, start)
 	- group
 
+	Dung core_resource de lay ket qua
+
 8. EAV: sau cau lenh khong can goi load()
 	addAttributeToSelect(): giong getFieldToSlect()
 	addAttributeToFilter(): giong addFieldToFilter()
