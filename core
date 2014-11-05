@@ -14,5 +14,5 @@ or  downloader\pearlib\download\Mage_Downloader-1.5.0.0\downloader\lib\Mage\Conn
 			$this->addError("'{$file}' already exists");
 			return false;
 		}
-
 Call to undefined method Varien_Db_Adapter_Pdo_Mysql::isTableExists()
+reindex web by cmd: php -f ./index.php
