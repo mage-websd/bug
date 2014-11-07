@@ -18,8 +18,8 @@ SET FOREIGN_KEY_CHECKS=1;
 
 4. script khong an update value: Mage::app()->setUpdateMode(false);
 
-4. delete log:
-'aw_core_logger',
+4. delete log: php -f log.php clean , php -f log.php status
+			'aw_core_logger',
             'dataflow_batch_export',
             'dataflow_batch_import',
             'log_customer',
