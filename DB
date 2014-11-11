@@ -3,3 +3,9 @@ mysqldump -hlocalhost -uc41dgse -pwqePIhCIxH4e@ --force --add-drop-table=false -
 
 
 scp jareddgse@dgse.tlv.smartosc.com:~/web/dgse.sql.gz ~/dgse.sql.gz
+
+Change password mysql:
+ mysqladmin -u root password NEWPASSWORD
+OR
+	update user set password=PASSWORD("NEWPASSWORD") where User='root';
+	flush privileges;
