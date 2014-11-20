@@ -4,7 +4,7 @@ Block:
 	core/text_list: auto to html
 	page/html_breadcrumbs
 
-upgrade: 
+-----------upgrade: 
 	Magentoconnect: < 1.4: magento-core/Mage_All_Latest
 					> 1.4.2: http://connect20.magentocommerce.com/community/Mage_All_Latest
 	downloader\lib\Mage\Connect\Validator.php: 
@@ -17,4 +17,7 @@ or  downloader\pearlib\download\Mage_Downloader-1.5.0.0\downloader\lib\Mage\Conn
 Call to undefined method Varien_Db_Adapter_Pdo_Mysql::isTableExists()
 reindex web by cmd: php -f ./index.php
 
+-------------------------
 2. Mage::getSingleton('core/session')->getMessages()->count() : dem so messages (success, notice, warning, error)
+
+3. customer_form_attribute: tu 1.9, cac form dung bang nay de lay attribute

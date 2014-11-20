@@ -1,9 +1,13 @@
-mysqldump -hlocalhost -uc41dgse -pwqePIhCIxH4e@ --force --add-drop-table=false --comments=false --create-options=true --extended-insert=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --no-data=false --disable-keys=false c41dgse| gzip > dgse.sql.gz
+mysqldump -hlocalhost -uroot -p --force --add-drop-table=false --comments=false --create-options=true --extended-insert=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --no-data=false --disable-keys=false farm_14_19_delete_data | gzip > 20141120_farm_14_delete_order_cus_pro.sql.gz
 
 
-
-scp jareddgse@dgse.tlv.smartosc.com:~/web/dgse.sql.gz ~/dgse.sql.gz
-
+option
+--where="colum > 1"
+--no-create-info : only data
+--no-data : only struct
+--extended-insert=true : gop cac cau lenh insert vao lam 1
+--skip-quick : insert full
+--complete-insert: add column in insert
 Change password mysql:
  mysqladmin -u root password NEWPASSWORD
 OR
