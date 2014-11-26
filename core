@@ -21,3 +21,11 @@ reindex web by cmd: php -f ./index.php
 2. Mage::getSingleton('core/session')->getMessages()->count() : dem so messages (success, notice, warning, error)
 
 3. customer_form_attribute: tu 1.9, cac form dung bang nay de lay attribute
+
+4. List product
+Layout them sau toolbar
+                <!-- Use custom product collection -->
+                <action method="setCollection">
+                    <value helper="uniqueHelper/getProductCollection" />
+                </action>
+                trong Data.php of Helper, viet ham getProductCollection, voi dieu kien custom
