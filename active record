@@ -4,6 +4,7 @@ Sau moi activerecode, goi load() de tra ve du lieu
 1. getFirstItem() - getLastItem() : lay 1 doi ban ghi trong db - thuoc getCollection
 2. getColumnValues('name_column') : lay tat ca gia tri cua mot cot - tra ve mang - thuoc getCollection
 3.getItemsByColumnValue('name_column','value'): tra ve mang cac doi tuong ban ghi ma cot co gia tri tuong ung
+4. removeAllFieldsFromSelect: remove all column in select
 4. (string)getModel()->getSelect(): tra ve string cau lenh mysql
 5. getFieldToFilter() : tuong duong where select
 	- $column,$value : $column = '$value';
