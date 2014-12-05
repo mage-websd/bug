@@ -29,3 +29,10 @@ Layout them sau toolbar
                     <value helper="uniqueHelper/getProductCollection" />
                 </action>
                 trong Data.php of Helper, viet ham getProductCollection, voi dieu kien custom
+
+5. checkout: js step
+	  $(document).observe('dom:loaded', function(){
+        $("opc-billing").observe('click', function(evt){
+            checkout.changeSection('opc-billing');
+        });
+        }

@@ -1,0 +1,6 @@
+AuthUserFile /var/www/clients/client22/web48/web/.htpasswd
+ AuthType Basic
+ AuthName "Basic authentication"
+ Require valid-user
+
+htpasswd -c .htpasswd smartosc
