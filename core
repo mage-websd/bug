@@ -36,3 +36,226 @@ Layout them sau toolbar
             checkout.changeSection('opc-billing');
         });
         }
+6. Override controller
+<frontend>
+        <routers>
+            <customer>
+                <args>
+                    <modules>
+                        <sm_fpcheckemail before="Mage_Customer">SM_FPCheckEmail</sm_fpcheckemail>
+                    </modules>
+                </args>
+            </customer>
+        </routers>
+    </frontend>
+
+7. Get handler any
+    Mage::app()->getLayout()->getUpdate()->getHandles()
+
+8. sent email
+$templateTransaction = Mage::getModel('core/email_template')
+                    ->getCollection()
+                    ->addFieldToSelect('template_id')
+                    ->addFieldToFilter('template_code', 'Sell email template')
+                    ->getFirstItem(); //get template email
+                if ($templateTransaction->getTemplateId()) {
+                    $templateId = $templateTransaction->getTemplateId();
+                    $mailTo = Mage::getStoreConfig('trans_email/ident_custom1/email');
+                    $nameTo = Mage::getStoreConfig('trans_email/ident_custom1/name');
+                    $sender = array(
+                        'name' => $params['name'],
+                        'email' => $mailTo,
+                    );
+                    $storeId = Mage::app()->getStore()->getId();
+
+                    // Set variables that can be used in email template sell
+                    $vars = array(
+                        'email_sell' => $params['email'],
+                        'name_sell' => $params['name'],
+                        'message_sell' => $params['message'],
+                    );
+                    $translate = Mage::getSingleton('core/translate'); //translate template email
+                    $mailTransactional = Mage::getModel('core/email_template');
+                    //image attachment
+                    if (isset($_FILES['img'])) {
+                        //MAX file size
+                        if (($_FILES['img']['error'] == 1 || $_FILES['img']['error'] == 2)) {
+                            Mage::getSingleton('core/session')->addError($this->__('File size must less than 2MB, please again!'));
+                            return Mage::app()->getResponse()->setRedirect(Mage::helper('sm_sell')->getSellUrl());
+                        }
+                        //error upload file
+                        if ($_FILES['img']['name'] && $_FILES['img']['error'] !== 0) {
+                            Mage::getSingleton('core/session')->addError($this->__('Error upload file, please again!'));
+                            return Mage::app()->getResponse()->setRedirect(Mage::helper('sm_sell')->getSellUrl());
+                        }
+                        //upload img success
+                        if (file_exists($_FILES['img']['tmp_name'])) {
+                            $fileInfo = $_FILES['img'];
+                            $allowFile = array('image/jpeg', 'image/png', 'image/gif');
+                            if (($fileInfo['size'] / 1e6) > 2) {
+                                Mage::getSingleton('core/session')->addNotice($this->__('File size must less than 2MB, please again!'));
+                                return Mage::app()->getResponse()->setRedirect(Mage::helper('sm_sell')->getSellUrl());
+                            } else if (!in_array($fileInfo['type'], $allowFile)) {
+                                Mage::getSingleton('core/session')->addNotice($this->__('Only allow image type: png, jpeg, gif, please again!'));
+                                return Mage::app()->getResponse()->setRedirect(Mage::helper('sm_sell')->getSellUrl());
+                            }
+
+                            $at = $mailTransactional->getMail()
+                                ->createAttachment(file_get_contents($fileInfo['tmp_name']));
+                            $at->type = $fileInfo['type'];
+                            $at->disposition = Zend_Mime::DISPOSITION_INLINE;
+                            $at->encoding = Zend_Mime::ENCODING_BASE64;
+                            $at->filename = $fileInfo['name'];
+                        }
+                    }
+                    try {
+                        $mailTransactional  //send email to admin sell
+                            ->sendTransactional($templateId, $sender, $mailTo, $nameTo, $vars, $storeId);
+                        $translate->setTranslateInline(true);
+                        Mage::getSingleton('core/session')->addSuccess($this->__("Send message success!"));
+                    } catch (Exception $e) {
+                        Mage::getSingleton('core/session')->addError($e->getMessage());
+                        return Mage::app()->getResponse()->setRedirect(Mage::helper('sm_sell')->getSellUrl());
+                    }
+                }
+9. order incremnt id
+
+$idsEntity = Mage::getModel('eav/entity_type')->getCollection()
+        ->addFieldToSelect('entity_type_id')
+        ->addFieldToFilter('entity_type_code',array(in=>array('order','invoice','shipment','creditmemo')))
+        ->getColumnValues('entity_type_id');
+    if(count($idsEntity)>0){
+        $resource = Mage::getModel('core/resource');
+        $readConnection = $resource->getConnection('core_read');
+
+        $tableEntityStore =$resource->getTableName('eav/entity_store');
+        $query = "select max(increment_last_id) as idMax from $tableEntityStore where store_id='$storeId'";
+        $results = $readConnection->fetchOne($query);
+
+        //id_increment assign order, invoice, shipment, creditmemo
+        $idMax = $results ? ($results+10) : $orderIncrementIdMax;
+
+        foreach($idsEntity as $idEntity) {
+            $query = "select entity_store_id from $tableEntityStore where store_id='$storeId'
+                        and entity_type_id='$idEntity'";
+            $results = $readConnection->fetchOne($query);
+
+            if(!$results) { //if code not exist then insert
+                $readConnection->insert(
+                    $tableEntityStore,
+                    array(
+                        'entity_type_id' => $idEntity,
+                        'store_id' => $storeId,
+                        'increment_prefix' => $storeId,
+                        'increment_last_id' => $idMax,
+                    )
+                );
+            }
+            else { //if code exist then update
+                $readConnection->update(
+                    $tableEntityStore,
+                    array('increment_last_id' => $idMax),
+                    array(
+                        'entity_store_id = ?' => $results,
+                    )
+                );
+            }
+        }
+    }
+
+10. add website, store and category
+$website = Mage::getModel('core/website')->getCollection()->addFieldToFilter("code", "proteinedieet_web")->getFirstItem();
+if(!$website->getWebsiteId()){
+    $website = Mage::getModel('core/website');
+    $website->setCode('proteinedieet_web')
+        ->setName('Proteinedieet.net')
+        ->save();
+}
+
+//Add root category for store
+$nameCategoryRoot = 'Proteinedieet.net Root Category';
+$categoryRoot = Mage::getModel('catalog/category');
+$categoryRoot->setData('name',$nameCategoryRoot);
+$categoryRoot->setData('is_active',1);
+$categoryRoot->setData('include_in_menu',1);
+$categoryRoot->setPath('1');
+$categoryRoot->save();
+
+//#addStoreGroup
+/** @var $storeGroup Mage_Core_Model_Store_Group */
+$storeGroup = Mage::getModel('core/store_group');
+$storeGroup->setWebsiteId($website->getId())
+    ->setName('Proteinedieet.net')
+    ->setRootCategoryId($categoryRoot->getId())
+    ->save();
+//#addStore
+/** @var $store Mage_Core_Model_Store */
+
+$store = Mage::getModel('core/store')->getCollection()->addFieldToFilter("code", "proteinedieet")->getFirstItem();
+if(!$store->getStoreId()){
+    $store = Mage::getModel('core/store');
+    $store->setCode('proteinedieet')
+        ->setWebsiteId($storeGroup->getWebsiteId())
+        ->setGroupId($storeGroup->getId())
+        ->setName('Proteinedieet.net')
+        ->setIsActive(1)
+        ->save();
+}
+
+11. add attribute set
+$entityTypeId = $installer->getEntityTypeId('catalog_product');
+$attributeSetIds = Mage::getModel('eav/entity_type')->load($entityTypeId)->getAttributeSetCollection()
+    ->getColumnValues('attribute_set_id'); // this is the attribute sets associated with this entity
+$attributeCode = 'fasens';
+$attributeId = $installer->getAttribute($entityTypeId, 'fasens', 'attribute_id');
+if(count($attributeSetIds) > 0) {
+    foreach ($attributeSetIds as $attributeSetId) {
+        $attributeSet = Mage::getModel('eav/entity_attribute_set')->load($attributeSetId);
+        $groupId = Mage::getModel('eav/entity_attribute_group')->getCollection()
+            ->addFieldToFilter('attribute_set_id',$attributeSetId)
+            ->addFieldToFilter('attribute_group_name','General')
+            //->setOrder('attribute_group_id',ASC)
+            ->getFirstItem()
+            ->getId();
+        $newItem = Mage::getModel('eav/entity_attribute');
+        $newItem->setEntityTypeId($entityTypeId) // catalog_product eav_entity_type id
+            ->setAttributeSetId($attributeSetId) // Attribute Set ID
+            ->setAttributeGroupId($groupId) // Attribute Group ID
+            ->setAttributeId($attributeId) // Attribute ID that need to be added manually
+            ->setSortOrder(10) // Sort Order for the attribute in the tab form edit
+            ->save();
+    }
+}
+
+//change label Fasens in store proteinedieet
+$store = Mage::getModel('core/store')->load("proteinedieet");
+if($store->getStoreId()) {
+    $storeId = $store->getStoreId();
+    $resource = Mage::getModel('core/resource');
+    $readConnection = $resource->getConnection('core_read');
+    $tableEntityStore = $resource->getTableName('eav/attribute_label');
+
+    $querySelect = "select attribute_label_id from {$tableEntityStore} where store_id = '{$storeId}' AND attribute_id = '{$attributeId}'";
+    $result = $readConnection->fetchOne($querySelect);
+    if(!$result) { //if exists then insert
+        $readConnection->insert(
+            $tableEntityStore,
+            array(
+                'attribute_id' => "$attributeId",
+                'store_id' => "$storeId",
+                'value' => 'Vanaf',
+            )
+        );
+    }
+    else { //else uipdate
+        $readConnection->update(
+            $tableEntityStore,
+            array('value' => 'Vanaf'),
+            array(
+                'attribute_label_id = ?' => $result,
+            )
+        );
+    }
+}
+
+12. 

@@ -3,4 +3,4 @@ AuthUserFile /var/www/clients/client22/web48/web/.htpasswd
  AuthName "Basic authentication"
  Require valid-user
 
-htpasswd -c .htpasswd smartosc
+htpasswd -c .htpasswd giangsoda

@@ -1,4 +1,4 @@
-mysqldump -h104.130.251.49 -udgse -p765h80m50p52ZBB --no-data=false --no-create-info=false --extended-insert=true --complete-insert=true --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false dgse | gzip > 021214_dgse.sql.gz
+mysqldump -h104.130.251.49 -udgse -p765h80m50p52ZBB --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false dgse | gzip > 101214_dgse.sql.gz
 
 
 option
