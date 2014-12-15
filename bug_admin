@@ -39,3 +39,9 @@ SET FOREIGN_KEY_CHECKS=1;
             'catalogindex_aggregation',
             'catalogindex_aggregation_tag',
             'catalogindex_aggregation_to_tag'
+			
+5. fix bug
+	- view log
+	-	Change theme default
+	-	so sanh core, base
+	- 	disable extension
