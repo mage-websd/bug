@@ -1,4 +1,4 @@
-mysqldump -h104.130.251.49 -udgse -p765h80m50p52ZBB --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false dgse | gzip > 101214_dgse.sql.gz
+mysqldump -hlocalhost -uroot -p --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false farm_19_171214 | gzip > 171214_farm_19_full.sql.gz
 
 
 option
@@ -8,9 +8,59 @@ option
 --extended-insert=true : gop cac cau lenh insert vao lam 1
 --complete-insert: add column in insert
 --skip-tz-utc : ignore time zone set
+--ignore-table=database.table1
+
 
 Change password mysql:
  mysqladmin -u root password NEWPASSWORD
 OR
 	update user set password=PASSWORD("NEWPASSWORD") where User='root';
 	flush privileges;
+
+log:
+TRUNCATE dataflow_batch_export;
+TRUNCATE dataflow_batch_import;
+TRUNCATE log_customer;
+TRUNCATE log_quote;
+TRUNCATE log_summary;
+TRUNCATE log_summary_type;
+TRUNCATE log_url;
+TRUNCATE log_url_info;
+TRUNCATE log_visitor;
+TRUNCATE log_visitor_info;
+TRUNCATE log_visitor_online;
+TRUNCATE report_viewed_product_index;
+TRUNCATE report_compared_product_index;
+TRUNCATE report_event;
+
+
+
+
+
+
+`dataflow_batch_export`
+`dataflow_batch_import`
+`log_customer`
+`log_quote`
+`log_summary`
+`log_summary_type`
+`log_url`
+`log_url_info`
+`log_visitor`
+`log_visitor_info`
+`log_visitor_online`
+`report_viewed_product_index`
+`report_compared_product_index`
+`report_event`
+
+#farm:
+ dataflow_batch_export dataflow_batch_import log_customer log_quote log_summary log_summary_type log_url log_url_info log_visitor log_visitor_info log_visitor_online report_viewed_product_index report_compared_product_index report_event
+
+
+dump ko log:
+mysqldump -h104.130.251.49 -udgse -p765h80m50p52ZBB --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false --ignore-table=databasename.dataflow_batch_export --ignore-table=databasename.dataflow_batch_import --ignore-table=databasename.log_customer --ignore-table=databasename.log_quote --ignore-table=databasename.log_summary --ignore-table=databasename.log_summary_type --ignore-table=databasename.log_url --ignore-table=databasename.log_url_info --ignore-table=databasename.log_visitor --ignore-table=databasename.log_visitor_info --ignore-table=databasename.log_visitor_online --ignore-table=databasename.report_viewed_product_index --ignore-table=databasename.report_compared_product_index --ignore-table=databasename.report_event DBFARMSTORE | gzip > 171214_farm_14_notlog.sql.gz
+
+
+dumdb struct log
+mysqldump -h104.130.251.49 -udgse -p765h80m50p52ZBB --no-data=true --no-create-info=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false DBFARMSTORE dataflow_batch_export dataflow_batch_import log_customer log_quote log_summary log_summary_type log_url log_url_info log_visitor log_visitor_info log_visitor_online report_viewed_product_index report_compared_product_index report_event | gzip > 17122014_farm_14_structlog.sql.gz
+

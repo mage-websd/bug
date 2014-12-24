@@ -45,3 +45,10 @@ SET FOREIGN_KEY_CHECKS=1;
 	-	Change theme default
 	-	so sanh core, base
 	- 	disable extension
+6. dat log index.php
+Mage::log('-----------Url ---------------', null, 'giang_url_info.log');
+Mage::log('url: ' . $_SERVER['REQUEST_URI'], null, 'giang_url_info.log');
+Mage::log('-----------Post info-----------', null, 'giang_url_info.log');
+Mage::log(print_r($_POST, true), null, 'giang_url_info.log');
+Mage::log('-----------Get info-----------', null, 'giang_url_info.log');
+Mage::log(print_r($_GET, true), null, 'giang_url_info.log');
