@@ -1,0 +1,17 @@
+1. vHost khong duoc: disable cache
+2. <Directory "C:/domain.co.uk" >
+Options Indexes FollowSymLinks Includes ExecCGI
+Order allow,deny
+Allow from all
+</Directory> vhost
+
+3. facebook
+Share: the meta trong head, them de share, sau24h, face se fetch
+<meta property="og:url" content="<?php echo $urlCurent;?>" /> 
+<meta property="og:title" content="Chocolate Pecan Pie" />
+<meta property="og:description" content="This pie is delicious!" /> 
+<meta property="og:image" content="http://dotautilities-forums.net/uploads/avatars/avatar_1298.jpg" />
+<meta property="og:site_name" content="giangweb" />
+<!-- <meta property="fb:app_id" content="<?php echo $app_id; ?>" /> -->
+<link rel="canonical" href="<?php echo $urlCurent;?>" />
+4.
