@@ -42,9 +42,10 @@ SET FOREIGN_KEY_CHECKS=1;
 			
 5. fix bug
 	- view log
-	-	Change theme default
-	-	so sanh core, base
-	- 	disable extension
+	- Change theme default
+	- so sanh core, base
+	- disable extension
+      - Dat log
 6. dat log index.php
 Mage::log('-----------Url ---------------', null, 'giang_url_info.log');
 Mage::log('url: ' . $_SERVER['REQUEST_URI'], null, 'giang_url_info.log');

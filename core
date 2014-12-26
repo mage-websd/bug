@@ -1,10 +1,10 @@
-mage_core_model_design_package: 
+1. mage_core_model_design_package: 
 
-Block: 
+2. Block: 
 	core/text_list: auto to html
 	page/html_breadcrumbs
 
------------upgrade: 
+3. -----------upgrade: 
 	Magentoconnect: < 1.4: magento-core/Mage_All_Latest
 					> 1.4.2: http://connect20.magentocommerce.com/community/Mage_All_Latest
 	downloader\lib\Mage\Connect\Validator.php: 
@@ -18,11 +18,11 @@ Call to undefined method Varien_Db_Adapter_Pdo_Mysql::isTableExists()
 reindex web by cmd: php -f ./index.php
 
 -------------------------
-2. Mage::getSingleton('core/session')->getMessages()->count() : dem so messages (success, notice, warning, error)
+4. Mage::getSingleton('core/session')->getMessages()->count() : dem so messages (success, notice, warning, error)
 
-3. customer_form_attribute: tu 1.9, cac form dung bang nay de lay attribute
+5. customer_form_attribute: tu 1.9, cac form dung bang nay de lay attribute
 
-4. List product
+6. List product
 Layout them sau toolbar
                 <!-- Use custom product collection -->
                 <action method="setCollection">
@@ -30,13 +30,13 @@ Layout them sau toolbar
                 </action>
                 trong Data.php of Helper, viet ham getProductCollection, voi dieu kien custom
 
-5. checkout: js step
+7. checkout: js step
 	  $(document).observe('dom:loaded', function(){
         $("opc-billing").observe('click', function(evt){
             checkout.changeSection('opc-billing');
         });
         }
-6. Override controller
+8. Override controller
 <frontend>
         <routers>
             <customer>
@@ -49,10 +49,10 @@ Layout them sau toolbar
         </routers>
     </frontend>
 
-7. Get handler any
+9. Get handler any
     Mage::app()->getLayout()->getUpdate()->getHandles()
 
-8. sent email
+10. sent email
 $templateTransaction = Mage::getModel('core/email_template')
                     ->getCollection()
                     ->addFieldToSelect('template_id')
@@ -118,7 +118,7 @@ $templateTransaction = Mage::getModel('core/email_template')
                         return Mage::app()->getResponse()->setRedirect(Mage::helper('sm_sell')->getSellUrl());
                     }
                 }
-9. order incremnt id
+11. order incremnt id
 
 $idsEntity = Mage::getModel('eav/entity_type')->getCollection()
         ->addFieldToSelect('entity_type_id')
@@ -163,7 +163,7 @@ $idsEntity = Mage::getModel('eav/entity_type')->getCollection()
         }
     }
 
-10. add website, store and category
+12. add website, store and category
 $website = Mage::getModel('core/website')->getCollection()->addFieldToFilter("code", "proteinedieet_web")->getFirstItem();
 if(!$website->getWebsiteId()){
     $website = Mage::getModel('core/website');
@@ -202,7 +202,7 @@ if(!$store->getStoreId()){
         ->save();
 }
 
-11. add attribute set
+13. add attribute set
 $entityTypeId = $installer->getEntityTypeId('catalog_product');
 $attributeSetIds = Mage::getModel('eav/entity_type')->load($entityTypeId)->getAttributeSetCollection()
     ->getColumnValues('attribute_set_id'); // this is the attribute sets associated with this entity
@@ -258,4 +258,4 @@ if($store->getStoreId()) {
     }
 }
 
-12. 
+14.  

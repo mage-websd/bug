@@ -1,7 +1,0 @@
-Model:
-1. ('catalog/product') : get product.
-2. catalog/category : get category.
-
-Block:
-1. ('core/page')
-2. core/page_html
