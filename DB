@@ -1,4 +1,4 @@
-mysqldump -hlocalhost -uroot -p --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false farm_19_171214 | gzip > 171214_farm_19_full.sql.gz
+mysqldump -hlocalhost -uroot -p --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false farm_19_171214 | gzip > 171214_farm_19_full_extension.sql.gz
 
 
 option
