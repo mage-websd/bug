@@ -1,0 +1,13 @@
+1. nhan biet vhost
+	sudo a2ensite giang.conf
+2. change document root sang media
+	tao folder /media/giangnt/newforder => mount sd5 vao thu muc moi nay
+3. nen zip
+	giai nen tar.bz2: tar -jxvf archive_name.tar.bz2 -C /tmp/extract_here/
+	nen tar.bz2:  tar -jcvf archive_name.tar.bz2 directory_to_compress
+	nen zip:  zip -r archive_name.zip directory_to_compress
+	giai nen zip:  unzip archive_name.zip
+4. mount phan vung sang folder
+	sudo mount /dev/sda5 /media/giangnt/newfolder
+5. xem dung luong folder size
+	du -ch /folder | grep total

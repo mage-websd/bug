@@ -53,3 +53,6 @@ Mage::log('-----------Post info-----------', null, 'giang_url_info.log');
 Mage::log(print_r($_POST, true), null, 'giang_url_info.log');
 Mage::log('-----------Get info-----------', null, 'giang_url_info.log');
 Mage::log(print_r($_GET, true), null, 'giang_url_info.log');
+
+7. last_increment_id
+eav_entity_store, eav_entity_type

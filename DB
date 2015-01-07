@@ -1,4 +1,4 @@
-mysqldump -hlocalhost -uroot -p --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false farm_19_171214 | gzip > 171214_farm_19_full_extension.sql.gz
+mysqldump -h10.0.1.200 -uc6sea -psea2013 --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false c6farm | gzip > 311214_farm_dev_old.sql.gz
 
 
 option
@@ -64,3 +64,7 @@ mysqldump -h104.130.251.49 -udgse -p765h80m50p52ZBB --no-data=false --no-create-
 dumdb struct log
 mysqldump -h104.130.251.49 -udgse -p765h80m50p52ZBB --no-data=true --no-create-info=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false DBFARMSTORE dataflow_batch_export dataflow_batch_import log_customer log_quote log_summary log_summary_type log_url log_url_info log_visitor log_visitor_info log_visitor_online report_viewed_product_index report_compared_product_index report_event | gzip > 17122014_farm_14_structlog.sql.gz
 
+
+
+
+mysqldump -uc1proteine -p1VIVc5Qi0XfYBw --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false c1proteine | gzip > 07012015_proteinedieet_net.sql.gz
