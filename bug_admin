@@ -14,6 +14,9 @@ SET FOREIGN_KEY_CHECKS=1;
 
 2. Grid Admin
 	Collection - dung cac cot trong add column
+      error filter: prepareCollection:
+            'filter_index' => 'main_table.grand_total',
+            or 'filter_condition_callback' => array($this,'_filterNames'),
 3. Khai bao admin trong config moi dung duoc menu moi
 
 4. script khong an update value: Mage::app()->setUpdateMode(false);
@@ -56,3 +59,6 @@ Mage::log(print_r($_GET, true), null, 'giang_url_info.log');
 
 7. last_increment_id
 eav_entity_store, eav_entity_type
+
+8. redirect - cache
+      etc/module/local.xml remove cache mem

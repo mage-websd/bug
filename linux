@@ -7,7 +7,15 @@
 	nen tar.bz2:  tar -jcvf archive_name.tar.bz2 directory_to_compress
 	nen zip:  zip -r archive_name.zip directory_to_compress
 	giai nen zip:  unzip archive_name.zip
+	nen 
+	giai nen gz: gunzip file.gz or gzip -d file.gz
+	giai nen tar.gz:  tar xvzf file.tar.gz
 4. mount phan vung sang folder
 	sudo mount /dev/sda5 /media/giangnt/newfolder
 5. xem dung luong folder size
 	du -ch /folder | grep total
+6. git
+	clean -f : don rac
+
+7. vmware
+	sudo su -c "apt-get install open-vm-tools open-vm-tools-dev open-vm-dkms open-vm-toolbox gcc build-essential"

@@ -1,4 +1,6 @@
-mysqldump -h10.0.1.200 -uc6sea -psea2013 --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false c6farm | gzip > 311214_farm_dev_old.sql.gz
+mysqldump -h10.0.1.200 -uc6sea -psea2013 --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false c6farm | gzip > 311214_farm_dev_old.sql.gz
+
+mysql -u root -p --default-character-set=utf8 jurgen_live_080115 < file.sql
 
 
 option
@@ -8,6 +10,7 @@ option
 --extended-insert=true : gop cac cau lenh insert vao lam 1
 --complete-insert: add column in insert
 --skip-tz-utc : ignore time zone set
+--set-charset=false
 --ignore-table=database.table1
 
 
