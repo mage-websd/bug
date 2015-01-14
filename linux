@@ -9,7 +9,9 @@
 	giai nen zip:  unzip archive_name.zip
 	nen 
 	giai nen gz: gunzip file.gz or gzip -d file.gz
-	giai nen tar.gz:  tar xvzf file.tar.gz
+	giai nen tar.gz:  tar zxvf file.tar.gz
+
+	nen bo qua folder con: them option vao cuoi: --exclude folder1  --exclude folder2...
 4. mount phan vung sang folder
 	sudo mount /dev/sda5 /media/giangnt/newfolder
 5. xem dung luong folder size

@@ -62,3 +62,5 @@ eav_entity_store, eav_entity_type
 
 8. redirect - cache
       etc/module/local.xml remove cache mem
+9. magento 1910: not order sent success
+      queue sales/order->checkout/type_onepage
