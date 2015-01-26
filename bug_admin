@@ -64,3 +64,5 @@ eav_entity_store, eav_entity_type
       etc/module/local.xml remove cache mem
 9. magento 1910: not order sent success
       queue sales/order->checkout/type_onepage
+10. formkey: layout/core.xml
+11. list product: Catalog_Model_layer, Catalog_Block_Layer_view,

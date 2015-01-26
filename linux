@@ -21,3 +21,19 @@
 
 7. vmware
 	sudo su -c "apt-get install open-vm-tools open-vm-tools-dev open-vm-dkms open-vm-toolbox gcc build-essential"
+8.apache2
+	apache2ctl -M: list all mod
+9. startup
+	sudo sed -i 's/NoDisplay=true/NoDisplay=false/g' /etc/xdg/autostart/*.desktop
+10. shortcut xubuntu
+	xfce4-terminal
+	sudo apt-get update && sudo apt-get install xubuntu-desktop
+11. install ububutu
+	php5-curl php5 mcrypt
+	a2enmod rewrite
+	sudo apt-get purge openjdk*
+    sudo add-apt-repository ppa:webupd8team/java
+    sudo apt-get update
+    sudo apt-get install oracle-java7-installer
+    sudo apt-get install oracle-java7-set-default
+    
