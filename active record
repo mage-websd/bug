@@ -29,7 +29,7 @@ Sau moi activerecode, goi load() de tra ve du lieu
 
 9. run query mysql
 	$resource = Mage::getModel('core/resource');
-	$connect = $resource->getConnection('core_read');
+	$connect = $resource->getConnection('core_read'); (core_write)
 	$table = $resource->getTableName('module/tagTable');
 
 	SELECT:
@@ -41,5 +41,7 @@ Sau moi activerecode, goi load() de tra ve du lieu
 		$connect->insert($table, array(colume=>value));
 	DELETE
 		$connect->delete($table, array(where=>value))
+
+	$writeConnection->query($query);
 
 	where: array('id in(?)' => array(1,2,3));
