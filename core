@@ -118,6 +118,18 @@ $templateTransaction = Mage::getModel('core/email_template')
                         return Mage::app()->getResponse()->setRedirect(Mage::helper('sm_sell')->getSellUrl());
                     }
                 }
+    ----------- config core
+            $config = array(
+                'ssl' => 'tls',
+                'port' => 587,
+                'auth' => 'login',
+                'username' => '',
+                'password' => ''
+            );
+            $transport = new Zend_Mail_Transport_Smtp('smtp.gmail.com', $config);
+            $mail = new Zend_Mail();
+            $mail->send($transport);
+
 11. order incremnt id
 
 $idsEntity = Mage::getModel('eav/entity_type')->getCollection()

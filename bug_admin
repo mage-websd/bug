@@ -17,12 +17,19 @@ SET FOREIGN_KEY_CHECKS=1;
       error filter: prepareCollection:
             'filter_index' => 'main_table.grand_total',
             or 'filter_condition_callback' => array($this,'_filterNames'),
+                  protected function _filterNames($collection, $column)
+                {
+                    $value = $column->getFilter()->getValue();
+                    if($value) {
+                        $collection->getSelect()->where("`sales/order_item`.`name` LIKE '%$value%'");
+                    }
+                    return $this;
+                }
 3. Khai bao admin trong config moi dung duoc menu moi
 
 4. script khong an update value: Mage::app()->setUpdateMode(false);
 
 4. delete log: php -f log.php clean , php -f log.php status
-			'aw_core_logger',
             'dataflow_batch_export',
             'dataflow_batch_import',
             'log_customer',
