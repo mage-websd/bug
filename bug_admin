@@ -49,6 +49,28 @@ SET FOREIGN_KEY_CHECKS=1;
             'catalogindex_aggregation',
             'catalogindex_aggregation_tag',
             'catalogindex_aggregation_to_tag'
+
+            TRUNCATE TABLE dataflow_batch_export;
+TRUNCATE TABLE dataflow_batch_import;
+TRUNCATE TABLE log_customer;
+TRUNCATE TABLE log_quote;
+TRUNCATE TABLE log_summary;
+TRUNCATE TABLE log_summary_type;
+TRUNCATE TABLE log_url;
+TRUNCATE TABLE log_url_info;
+TRUNCATE TABLE log_visitor;
+TRUNCATE TABLE log_visitor_info;
+TRUNCATE TABLE log_visitor_online;
+TRUNCATE TABLE index_event;
+TRUNCATE TABLE report_event;
+TRUNCATE TABLE report_viewed_product_index;
+TRUNCATE TABLE report_compared_product_index;
+TRUNCATE TABLE catalog_compare_item;
+TRUNCATE TABLE catalogindex_aggregation;
+TRUNCATE TABLE catalogindex_aggregation_tag;
+TRUNCATE TABLE catalogindex_aggregation_to_tag;
+
+
 			
 5. fix bug
 	- view log
@@ -73,3 +95,8 @@ eav_entity_store, eav_entity_type
       queue sales/order->checkout/type_onepage
 10. formkey: layout/core.xml
 11. list product: Catalog_Model_layer, Catalog_Block_Layer_view,
+12. duplicate save product UNQ_CATALOGINVENTORY_STOCK_ITEM_PRODUCT_ID_STOCK_ID:
+    max_id_product_status of table cataloginventory_stock_status
+    max_id_product_item of cataloginventory_stock_item
+    max_id_product_item > max_id_product_status : delete all record of cataloginventory_stock_item have product id > max_id_product_status.
+13.
