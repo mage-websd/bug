@@ -21,6 +21,10 @@ Sau moi activerecode, goi load() de tra ve du lieu
 	-limit(limit, start)
 	- group
 
+	$select = clone $collection->getSelect();
+	$select->columns()->where()..;
+	$result = $collection->getConnect()->fetchAll($select);
+
 	Dung core_resource de lay ket qua
 
 8. EAV: sau cau lenh khong can goi load()
