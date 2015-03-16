@@ -271,3 +271,8 @@ if($store->getStoreId()) {
 }
 
 14.  norouter: $this->norouteAction(); in controller
+
+15. script
+Mage::register('isSecureArea', 1);
+Mage::app()->setUpdateMode(false);
+$baseUrl = Mage::app()->getStore(Mage::app()->getStore()->getStoreId())->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
