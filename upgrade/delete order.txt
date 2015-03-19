@@ -1,0 +1,197 @@
+SET FOREIGN_KEY_CHECKS=0;
+TRUNCATE sales_flat_quote;
+TRUNCATE sales_flat_quote_item;
+TRUNCATE sales_flat_quote_address;
+TRUNCATE sales_flat_quote_address_item;
+TRUNCATE sales_flat_quote_item_option;
+TRUNCATE sales_flat_quote_payment;
+TRUNCATE sales_flat_quote_shipping_rate;
+TRUNCATE sales_flat_order;
+TRUNCATE sales_flat_order_grid;
+TRUNCATE sales_flat_order_item;
+TRUNCATE sales_flat_order_address;
+TRUNCATE sales_flat_order_payment;
+TRUNCATE sales_flat_order_status_history;
+TRUNCATE sales_flat_invoice;
+TRUNCATE sales_flat_invoice_grid;
+TRUNCATE sales_flat_invoice_item;
+TRUNCATE sales_flat_invoice_comment;
+TRUNCATE sales_flat_shipment;
+TRUNCATE sales_flat_shipment_grid;
+TRUNCATE sales_flat_shipment_item;
+TRUNCATE sales_flat_shipment_comment;
+TRUNCATE sales_flat_shipment_track;
+TRUNCATE sales_flat_creditmemo;
+TRUNCATE sales_flat_creditmemo_grid;
+TRUNCATE sales_flat_creditmemo_item;
+TRUNCATE sales_flat_creditmemo_comment;
+TRUNCATE sales_recurring_profile;
+TRUNCATE sales_recurring_profile_order;
+TRUNCATE sales_order_tax;
+TRUNCATE sales_order_aggregated_created;
+TRUNCATE sales_shipping_aggregated;
+TRUNCATE sales_shipping_aggregated_order;
+TRUNCATE sales_invoiced_aggregated;
+TRUNCATE sales_invoiced_aggregated_order;
+TRUNCATE sales_refunded_aggregated;
+TRUNCATE sales_refunded_aggregated_order;
+TRUNCATE sales_payment_transaction;
+TRUNCATE sales_bestsellers_aggregated_daily;
+TRUNCATE sales_bestsellers_aggregated_monthly;
+TRUNCATE sales_bestsellers_aggregated_yearly;
+TRUNCATE sales_billing_agreement;
+TRUNCATE sales_billing_agreement_order;
+SET FOREIGN_KEY_CHECKS=1;
+
+
+--data migrade
+
+use farm_order_exec_14;
+SET FOREIGN_KEY_CHECKS=0;
+
+ALTER TABLE `sales_flat_creditmemo` CHANGE `base_shipping_hidden_tax_amount` `base_shipping_hidden_tax_amnt` DECIMAL(12,4) NULL DEFAULT NULL COMMENT 'Base Shipping Hidden Tax Amount';
+
+ALTER TABLE `sales_flat_creditmemo_item` CHANGE `base_weee_tax_applied_row_amount` `base_weee_tax_applied_row_amnt` DECIMAL(12,4) NULL DEFAULT NULL COMMENT 'Base Weee Tax Applied Row Amnt';
+
+ALTER TABLE `sales_flat_invoice_item` CHANGE `base_weee_tax_applied_row_amount` `base_weee_tax_applied_row_amnt` DECIMAL(12,4) NULL DEFAULT NULL COMMENT 'Base Weee Tax Applied Row Amnt';
+
+ALTER TABLE `sales_flat_order` CHANGE `forced_do_shipment_with_invoice` `forced_shipment_with_invoice` SMALLINT(5) UNSIGNED NULL DEFAULT NULL COMMENT 'Forced Do Shipment With Invoice', CHANGE `payment_authorization_expiration` `payment_auth_expiration` INT(11) NULL DEFAULT NULL COMMENT 'Payment Authorization Expiration', CHANGE `base_shipping_hidden_tax_amount` `base_shipping_hidden_tax_amnt` DECIMAL(12,4) NULL DEFAULT NULL COMMENT 'Base Shipping Hidden Tax Amount';
+
+ALTER TABLE `sales_flat_order_item` CHANGE `base_weee_tax_applied_row_amount` `base_weee_tax_applied_row_amnt` DECIMAL(12,4) NULL DEFAULT NULL COMMENT 'Base Weee Tax Applied Row Amnt';
+
+ALTER TABLE `sales_flat_quote_item` CHANGE `base_weee_tax_applied_row_amount` `base_weee_tax_applied_row_amnt` DECIMAL(12,4) NULL DEFAULT NULL COMMENT 'Base Weee Tax Applied Row Amnt';
+
+ALTER TABLE `sales_flat_quote_address` CHANGE `base_shipping_hidden_tax_amount` `base_shipping_hidden_tax_amnt` DECIMAL(12,5) NULL DEFAULT NULL COMMENT 'Base Shipping Hidden Tax Amount';
+
+ALTER TABLE `sales_flat_shipment_track` CHANGE `number` `track_number` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'Number';
+
+ALTER TABLE `sales_flat_invoice` CHANGE `base_shipping_hidden_tax_amount` `base_shipping_hidden_tax_amnt` DECIMAL(12,4) NULL DEFAULT NULL COMMENT 'Base Shipping Hidden Tax Amount';
+
+delete from `sales_flat_order_grid` where entity_id = '12395';
+delete from `sales_flat_order_grid` where entity_id = '19764';
+
+delete from `sales_flat_order` where entity_id = '12395';
+delete from `sales_flat_order` where entity_id = '19764'; 
+
+SET FOREIGN_KEY_CHECKS=1;
+
+--increment_id = 100012307-1  --100018983-1
+
+
+----------------dumdb---farm_14_org_281114
+
+mysqldump -hlocalhost -uroot -p  --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false farm_19_171214 sales_flat_quote sales_flat_quote_item sales_flat_quote_address sales_flat_quote_address_item sales_flat_quote_item_option sales_flat_quote_payment sales_flat_quote_shipping_rate sales_flat_order sales_flat_order_grid sales_flat_order_item sales_flat_order_address sales_flat_order_payment sales_flat_order_status_history sales_flat_invoice sales_flat_invoice_grid sales_flat_invoice_item sales_flat_invoice_comment sales_flat_shipment sales_flat_shipment_grid sales_flat_shipment_item sales_flat_shipment_comment sales_flat_shipment_track sales_flat_creditmemo sales_flat_creditmemo_grid sales_flat_creditmemo_item sales_flat_creditmemo_comment sales_recurring_profile sales_recurring_profile_order sales_order_tax sales_order_aggregated_created sales_shipping_aggregated sales_shipping_aggregated_order sales_invoiced_aggregated sales_invoiced_aggregated_order sales_refunded_aggregated sales_refunded_aggregated_order sales_payment_transaction sales_bestsellers_aggregated_daily sales_bestsellers_aggregated_monthly sales_bestsellers_aggregated_yearly sales_billing_agreement sales_billing_agreement_order  > 171214_farm_14_order.sql
+
+
+
+mysqldump -hlocalhost -uroot -p --no-data=false --no-create-info=true --extended-insert=false --complete-insert=true --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false farm_order_exec_14 > 171214_farm_19_data_order_only.sql
+
+--array --
+array(
+	'sales_flat_quote' => array('entity_id'=>'quote_id', 'sales_flat_quote_payment'),
+	'sales_flat_quote_item' => array('item_id', 'sales_flat_quote_item_option'),
+	'sales_flat_quote_address' => array('address_id', 'sales_flat_quote_shipping_rate'),
+	'sales_flat_quote_address_item',
+	'sales_flat_order' => array('entity_id'=>'parent_id','sales_flat_order_address','sales_flat_order_payment',),
+	'sales_flat_order_grid' => array('entity_id'=> 'order_id','sales_order_tax',),
+	'sales_flat_order_item',
+	'sales_flat_order_status_history',
+	'sales_flat_invoice'=>array('entity_id'=> 'parent_id', 'sales_flat_invoice_item',),
+	'sales_flat_invoice_grid',
+	'sales_flat_invoice_comment',
+	'sales_flat_shipment' => array('entity_id'=>'parent_id','sales_flat_shipment_item',),
+	'sales_flat_shipment_grid',
+	'sales_flat_shipment_comment',
+	'sales_flat_shipment_track',
+	'sales_flat_creditmemo' => array('entity_id'=>'parent_id','sales_flat_creditmemo_item',),
+	'sales_flat_creditmemo_grid',
+	'sales_flat_creditmemo_comment',
+	'sales_recurring_profile' => array('profile_id','sales_recurring_profile_order',),
+	'sales_payment_transaction',
+
+	'custom_change_flag'=> array(
+		'period',
+		'sales_order_aggregated_created',
+		'sales_shipping_aggregated',
+		'sales_shipping_aggregated_order',
+		'sales_invoiced_aggregated',
+		'sales_invoiced_aggregated_order',
+		'sales_refunded_aggregated',
+		'sales_refunded_aggregated_order',
+	)
+
+
+
+
+
+	'sales_order_aggregated_created' => array('change_flag'=> 'period'),
+
+	'sales_shipping_aggregated'=> array('change_flag'=> 'period'),
+	'sales_shipping_aggregated_order'=> array('change_flag'=> 'period'),
+	'sales_invoiced_aggregated'=> array('change_flag'=> 'period'),
+	'sales_invoiced_aggregated_order'=> array('change_flag'=> 'period'),
+	'sales_refunded_aggregated' => array('change_flag'=> 'period'),
+	'sales_refunded_aggregated_order'=> array('change_flag'=> 'period'),
+
+
+--'sales_bestsellers_aggregated_daily',
+--'sales_bestsellers_aggregated_monthly',
+--'sales_bestsellers_aggregated_yearly',
+--'sales_billing_agreement',
+--'sales_billing_agreement_order',
+
+
+1.9
+IFNULL(main_table.base_total_invoiced, 0) - IFNULL(main_table.base_tax_invoiced, 0) - IFNULL(main_table.base_shipping_invoiced, 0) - (IFNULL(main_table.base_total_refunded, 0) - IFNULL(main_table.base_tax_refunded, 0) - IFNULL(main_table.base_shipping_refunded, 0))
+
+
+1.4
+IFNULL(main_table.base_subtotal, 0) - IFNULL(main_table.base_subtotal_refunded, 0) - IFNULL(main_table.base_subtotal_canceled, 0) - IFNULL(main_table.base_discount_amount, 0) + IFNULL(main_table.base_discount_refunded, 0)
+
+
+SELECT SUM( 
+	IFNULL(main_table.base_total_invoiced, 0) - IFNULL(main_table.base_tax_invoiced, 0) - IFNULL(main_table.base_shipping_invoiced, 0) - (IFNULL(main_table.base_total_refunded, 0) - IFNULL(main_table.base_tax_refunded, 0) - IFNULL(main_table.base_shipping_refunded, 0))
+) AS `lifetime`, 
+AVG(
+	IFNULL(main_table.base_total_invoiced, 0) - IFNULL(main_table.base_tax_invoiced, 0) - IFNULL(main_table.base_shipping_invoiced, 0) - (IFNULL(main_table.base_total_refunded, 0) - IFNULL(main_table.base_tax_refunded, 0) - IFNULL(main_table.base_shipping_refunded, 0))
+) AS `average` 
+FROM `sales_flat_order` AS `main_table` 
+WHERE (main_table.status NOT IN('canceled', 'pending', 'pending_payment', 'processing', 'holded', 'complete', 'closed')) 
+AND (main_table.state NOT IN('new', 'pending_payment'))
+
+
+
+
+ tong don dat hang  - thue - phi shipping - gia lai - thue gia lai - ship gia lai
+1.9
+`base_total_invoiced` 
+`base_tax_invoiced`
+`base_shipping_invoiced` = number
+`base_total_refunded`
+`base_tax_refunded`
+`base_shipping_refunded`
+
+tong don - tong gia lai - tong canceled - tong giam gia + tong gia lai
+1.4
+base_subtotal
+base_subtotal_refunded
+base_subtotal_canceled
+base_discount_amount = 0
++base_discount_refunded = 0 null
+
+
+
+200000001-1
+duplicate 100034441
+100034438
+100034703 
+
+invoice
+old 100030882
+	100031135
+
+shipping 	100033370
+			100033677 
+
+create: 100001774
+		100001801

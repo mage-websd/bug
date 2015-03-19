@@ -1,0 +1,27 @@
+SET FOREIGN_KEY_CHECKS=0;
+TRUNCATE customer_address_entity;
+TRUNCATE customer_address_entity_datetime;
+TRUNCATE customer_address_entity_decimal;
+TRUNCATE customer_address_entity_int;
+TRUNCATE customer_address_entity_text;
+TRUNCATE customer_address_entity_varchar;
+TRUNCATE customer_entity;
+TRUNCATE customer_entity_datetime;
+TRUNCATE customer_entity_decimal;
+TRUNCATE customer_entity_int;
+TRUNCATE customer_entity_text;
+TRUNCATE customer_entity_varchar;
+SET FOREIGN_KEY_CHECKS=1;
+
+
+--migradate data
+DELETE FROM customer_entity WHERE entity_id = 7319;
+--duplacate email
+
+
+-------------dumdb ----
+mysqldump -hlocalhost -uroot -p  --no-data=true --no-create-info=false --extended-insert=false --complete-insert=true --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false farmstore14org customer_address_entity customer_address_entity_datetime customer_address_entity_decimal customer_address_entity_int customer_address_entity_text customer_address_entity_varchar customer_entity customer_entity_datetime customer_entity_decimal customer_entity_int customer_entity_text customer_entity_varchar > farm_14_customer_struct.sql
+
+
+
+ 

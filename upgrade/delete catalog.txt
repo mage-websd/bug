@@ -1,0 +1,97 @@
+SET FOREIGN_KEY_CHECKS=0;
+TRUNCATE TABLE `catalog_product_bundle_option`;
+TRUNCATE TABLE `catalog_product_bundle_option_value`;
+TRUNCATE TABLE `catalog_product_bundle_selection`;
+TRUNCATE TABLE `catalog_product_entity`;
+TRUNCATE TABLE `catalog_product_entity_datetime`;
+TRUNCATE TABLE `catalog_product_entity_decimal`;
+TRUNCATE TABLE `catalog_product_entity_gallery`;
+TRUNCATE TABLE `catalog_product_entity_int`;
+TRUNCATE TABLE `catalog_product_entity_media_gallery`;
+TRUNCATE TABLE `catalog_product_entity_media_gallery_value`;
+TRUNCATE TABLE `catalog_product_entity_text`;
+TRUNCATE TABLE `catalog_product_entity_tier_price`;
+TRUNCATE TABLE `catalog_product_entity_varchar`;
+TRUNCATE TABLE `catalog_product_link`;
+TRUNCATE TABLE `catalog_product_link_attribute_decimal`;
+TRUNCATE TABLE `catalog_product_link_attribute_int`;
+TRUNCATE TABLE `catalog_product_link_attribute_varchar`;
+TRUNCATE TABLE `catalog_product_option`;
+TRUNCATE TABLE `catalog_product_option_price`;
+TRUNCATE TABLE `catalog_product_option_title`;
+TRUNCATE TABLE `catalog_product_option_type_price`;
+TRUNCATE TABLE `catalog_product_option_type_title`;
+TRUNCATE TABLE `catalog_product_option_type_value`;
+TRUNCATE TABLE `catalog_product_super_attribute`;
+TRUNCATE TABLE `catalog_product_super_attribute_label`;
+TRUNCATE TABLE `catalog_product_super_attribute_pricing`;
+TRUNCATE TABLE `catalog_product_super_link`;
+TRUNCATE TABLE `catalog_product_enabled_index`;
+TRUNCATE TABLE `catalog_product_website`;
+SET FOREIGN_KEY_CHECKS=1;
+
+
+--- migrade data = change struct
+
+--ALTER TABLE `catalog_product_index_website` CHANGE `date` `website_date` date DEFAULT NULL COMMENT 'Website Date'
+
+
+
+
+--category--
+SET FOREIGN_KEY_CHECKS=0;
+TRUNCATE TABLE `catalog_category_entity`;
+TRUNCATE TABLE `catalog_category_entity_datetime`;
+TRUNCATE TABLE `catalog_category_entity_decimal`;
+TRUNCATE TABLE `catalog_category_entity_int`;
+TRUNCATE TABLE `catalog_category_entity_text`;
+TRUNCATE TABLE `catalog_category_entity_varchar`;
+TRUNCATE TABLE `catalog_category_product`;
+TRUNCATE TABLE `catalog_category_product_index`;
+SET FOREIGN_KEY_CHECKS=1;
+
+
+--migrade data
+ALTER TABLE `catalog_category_flat_store_1` DROP`custom_design_apply`;
+ALTER TABLE `catalog_category_flat_store_2` DROP`custom_design_apply`;
+
+
+-----dubdb --------  --no-data=false --no-create-info
+
+mysqldump -hlocalhost -uroot -p  --no-data=true --no-create-info=false --extended-insert=false --complete-insert=true --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --set-charset=false --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false farmstore14org catalog_product_bundle_option catalog_product_bundle_option_value catalog_product_bundle_selection catalog_product_entity catalog_product_entity_datetime catalog_product_entity_decimal catalog_product_entity_gallery catalog_product_entity_int catalog_product_entity_media_gallery catalog_product_entity_media_gallery_value catalog_product_entity_text catalog_product_entity_tier_price catalog_product_entity_varchar catalog_product_link catalog_product_link_attribute_decimal catalog_product_link_attribute_int catalog_product_link_attribute_varchar catalog_product_option catalog_product_option_price catalog_product_option_title catalog_product_option_type_price catalog_product_option_type_title catalog_product_option_type_value catalog_product_super_attribute catalog_product_super_attribute_label catalog_product_super_attribute_pricing catalog_product_super_link catalog_product_enabled_index catalog_product_website  > farm_14_product_struct.sql
+
+-------------------array--
+
+'catalog_product_bundle_option' => array(
+),
+'catalog_product_bundle_option_value'
+'catalog_product_bundle_selection'
+'catalog_product_entity'
+'catalog_product_entity_datetime'
+'catalog_product_entity_decimal'
+'catalog_product_entity_gallery'
+'catalog_product_entity_int'
+'catalog_product_entity_media_gallery'
+'catalog_product_entity_media_gallery_value'
+'catalog_product_entity_text'
+'catalog_product_entity_tier_price'
+'catalog_product_entity_varchar'
+'catalog_product_link'
+'catalog_product_link_attribute_decimal'
+'catalog_product_link_attribute_int'
+'catalog_product_link_attribute_varchar'
+'catalog_product_option'
+'catalog_product_option_price'
+'catalog_product_option_title'
+'catalog_product_option_type_price'
+'catalog_product_option_type_title'
+'catalog_product_option_type_value'
+'catalog_product_super_attribute'
+'catalog_product_super_attribute_label'
+'catalog_product_super_attribute_pricing'
+'catalog_product_super_link'
+'catalog_product_enabled_index'
+'catalog_product_website'
+
+
+????catalog_product_relation???/

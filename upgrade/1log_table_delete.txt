@@ -1,0 +1,18 @@
+/*Data for the table `catalog_category_entity_bak` */
+/*Data for the table `catalog_category_entity_varchar_bak` */
+/*Data for the table `catalog_category_flat_store_2` */
+/*Data for the table `catalog_category_product_backup` */
+/*Data for the table `catalog_product_entity_varchar_bak` */
+/*Data for the table `catalog_product_flat_2` */
+delete all m2e
+
+
+
+DROP TABLE IF EXISTS `catalog_category_entity_bak`;
+DROP TABLE IF EXISTS `catalog_category_entity_varchar_bak`;
+DROP TABLE IF EXISTS `catalog_category_flat_store_2`;
+DROP TABLE IF EXISTS `catalog_category_product_backup`;
+DROP TABLE IF EXISTS `catalog_product_entity_varchar_bak`;
+DROP TABLE IF EXISTS `catalog_product_flat_2`;
+DROP TABLE IF EXISTS `m2e`, `m2epricetemplates`;
+DROP TABLE IF EXISTS `m2etemplates`, `m2e_account`, `m2e_account_list`, `m2e_api_versions`, `m2e_calculated_shipping`, `m2e_category_version`, `m2e_currency`, `m2e_ebay_categories_0`, `m2e_ebay_categories_2`, `m2e_ebay_categories_3`, `m2e_ebay_categories_15`, `m2e_ebay_categories_77`, `m2e_feedbacks`, `m2e_feedbacks_settings`, `m2e_feedbacks_templates`, `m2e_items`, `m2e_item_specifics`, `m2e_listings`, `m2e_listing_item_shipping`, `m2e_log`, `m2e_logcleaning_settings`, `m2e_marketplace`, `m2e_product_to_project`, `m2e_p_to_p`, `m2e_shedule_task_settings`, `m2e_store_management`, `m2e_synchronization_log`, `m2e_templates_descriptions`, `m2e_transactions_events`, `m2e_transactions_in_order`;

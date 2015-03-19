@@ -1,0 +1,25 @@
+1. Automatic Related Products:
+	1.4: lấy random theo curent category hoặc store (configuration admin)
+		Frontend: không hiện "add to cart" ở block related product
+
+	1.9: Lấy random. Có nhiều rule để lọc nhưng không lọc theo curent category
+		Frontend: hiển thị "add to cart"
+
+		Hơn so với 1.4: 
+			Quản lý nhiều block related ở page: shopping, category, product
+
+
+1. Kẻ thù lớn nhất của developer là tester.
+2. Ngu dốt lớn nhất của developer là lập trình Hello world bị lỗi.
+3. Thất bại lớn nhất của developer là được thăng chức quản lý.
+4. Bi ai lớn nhất của developer là PC bị hỏng.
+5. Sai lầm lớn nhất của developer là tin rằng chương trình của mình không có lỗi.
+6. Tội lỗi lớn nhất của developer là lập phần mềm quản lý tài chính cho vợ.
+7. Đáng thương lớn nhất của developer là lấy phải tester.
+8. Đáng khâm phục nhất trong đời developer là tự nhận phần mềm mình có lỗi.
+9. Phá sản lớn nhất của developer là bán mất cái PC duy nhất.
+10. Tài sản lớn nhất của developer là Google.
+11. Món nợ lớn nhất của developer là deadline.
+12. Lễ vật lớn nhất của developer là laptop.
+13. Khiếm khuyết lớn nhất của developer là không biết unit test.
+14. An ủi lớn nhất của developer là chương trình làm xong không bị lỗi biên dịch.

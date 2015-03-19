@@ -1,0 +1,97 @@
+xxx/*Data for the table `api_rule` */
+Error Code: 1054 - Unknown column 'privileges' in 'field list'
+xxx/*Data for the table `catalog_category_flat_store_1` */
+Error Code: 1054 - Unknown column 'custom_design_apply' in 'field list'
+xxx/*Data for the table `catalog_product_flat_1` */
+Error Code: 1054 - Unknown column 'enable_googlecheckout' in 'field list'
+'giftcard_description'
+'gift_amount_desc' in 'field list'
+
+xxx/*Data for the table `cataloginventory_stock_item` */
+Error Code: 1054 - Unknown column 'stock_status_changed_automatically' in 'field list'
+xxx/*Data for the table `sales_flat_creditmemo` */
+Error Code: 1054 - Unknown column 'cybersource_token' in 'field list'
+xxx/*Data for the table `sales_flat_creditmemo_item` */
+Error Code: 1054 - Unknown column 'base_weee_tax_applied_row_amount' in 'field list'
+xxx/*Data for the table `sales_flat_invoice` */
+Error Code: 1054 - Unknown column 'cybersource_token' in 'field list'
+xxx/*Data for the table `sales_flat_invoice_item` */
+Error Code: 1054 - Unknown column 'base_weee_tax_applied_row_amount' in 'field list'
+xxx/*Data for the table `sales_flat_order` */
+Error Code: 1054 - Unknown column 'forced_do_shipment_with_invoice' in 'field list'
+xxx/*Data for the table `sales_flat_order_item` */
+Error Code: 1054 - Unknown column 'base_weee_tax_applied_row_amount' in 'field list'
+xxx/*Data for the table `sales_flat_order_payment` */
+Error Code: 1054 - Unknown column 'ideal_transaction_checked' in 'field list'
+xxx/*Data for the table `sales_flat_quote_address` */
+Error Code: 1054 - Unknown column 'base_shipping_hidden_tax_amount' in 'field list'
+xxx/*Data for the table `sales_flat_quote_item` */
+Error Code: 1054 - Unknown column 'base_weee_tax_applied_row_amount' in 'field list'
+xxx/*Data for the table `sales_flat_quote_payment` */
+Error Code: 1054 - Unknown column 'cybersource_token' in 'field list'
+xxx/*Data for the table `sales_flat_shipment_track` */
+Error Code: 1054 - Unknown column 'number' in 'field list'
+xxx/*Data for the table `salesrule` */
+Error Code: 1054 - Unknown column 'customer_group_ids' in 'field list'
+------------------------------------------------------------------------------------------------------------------------
+
+ALTER TABLE `api_rule` CHANGE `privileges` `api_privileges` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'Privileges';
+ALTER TABLE `api_rule` CHANGE `permission` `api_permission` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'Permission';
+
+ALTER TABLE `catalog_category_flat_store_1` DROP `custom_design_apply`;
+ALTER TABLE `catalog_category_flat_store_2` DROP `custom_design_apply`;
+
+ALTER TABLE `catalog_product_flat_1` DROP `enable_googlecheckout`;
+ALTER TABLE `catalog_product_flat_1` DROP `remoteimageurl`;
+ALTER TABLE `catalog_product_flat_1` DROP `shipping_qty`;
+ALTER TABLE `catalog_product_flat_1` DROP `show_gift_amount_desc`;
+ALTER TABLE `catalog_product_flat_1` DROP `size_value`;
+ALTER TABLE `catalog_product_flat_1` DROP `size`;
+ALTER TABLE `catalog_product_flat_1` DROP `giftcard_description`;
+ALTER TABLE `catalog_product_flat_1` DROP `gift_amount`;
+ALTER TABLE `catalog_product_flat_1` DROP `gift_amount_desc`;
+ALTER TABLE `catalog_product_flat_1` DROP `package_id`;
+ALTER TABLE `catalog_product_flat_1` DROP `package_id_value`;
+ALTER TABLE `catalog_product_flat_1` DROP `volume_weight`;
+
+ALTER TABLE `cataloginventory_stock_item` CHANGE `stock_status_changed_automatically` `stock_status_changed_auto` SMALLINT(5) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'Stock Status Changed Automatically', CHANGE `use_config_enable_qty_increments` `use_config_enable_qty_inc` SMALLINT(5) UNSIGNED NOT NULL DEFAULT '1' COMMENT 'Use Config Enable Qty Increments';
+
+ALTER TABLE `sales_flat_creditmemo` DROP `cybersource_token`;
+ALTER TABLE `sales_flat_creditmemo` CHANGE `base_shipping_hidden_tax_amount` `base_shipping_hidden_tax_amnt` DECIMAL(12,4) NULL DEFAULT NULL COMMENT 'Base Shipping Hidden Tax Amount';
+
+ALTER TABLE `sales_flat_creditmemo_item` CHANGE `base_weee_tax_applied_row_amount` `base_weee_tax_applied_row_amnt` DECIMAL(12,4) NULL DEFAULT NULL COMMENT 'Base Weee Tax Applied Row Amnt';
+
+ALTER TABLE `sales_flat_invoice` DROP `cybersource_token`;
+
+ALTER TABLE `sales_flat_invoice` CHANGE `base_shipping_hidden_tax_amount` `base_shipping_hidden_tax_amnt` DECIMAL(12,4) NULL DEFAULT NULL COMMENT 'Base Shipping Hidden Tax Amount';
+
+ALTER TABLE `sales_flat_invoice_item` CHANGE `base_weee_tax_applied_row_amount` `base_weee_tax_applied_row_amnt` DECIMAL(12,4) NULL DEFAULT NULL COMMENT 'Base Weee Tax Applied Row Amnt';
+
+ALTER TABLE `sales_flat_order` CHANGE `forced_do_shipment_with_invoice` `forced_shipment_with_invoice` SMALLINT(5) UNSIGNED NULL DEFAULT NULL COMMENT 'Forced Do Shipment With Invoice', CHANGE `payment_authorization_expiration` `payment_auth_expiration` INT(11) NULL DEFAULT NULL COMMENT 'Payment Authorization Expiration', CHANGE `base_shipping_hidden_tax_amount` `base_shipping_hidden_tax_amnt` DECIMAL(12,4) NULL DEFAULT NULL COMMENT 'Base Shipping Hidden Tax Amount';
+
+ALTER TABLE `sales_flat_order_item` CHANGE `base_weee_tax_applied_row_amount` `base_weee_tax_applied_row_amnt` DECIMAL(12,4) NULL DEFAULT NULL COMMENT 'Base Weee Tax Applied Row Amnt';
+
+ALTER TABLE `sales_flat_order_payment` DROP `ideal_transaction_checked`;
+ALTER TABLE `sales_flat_order_payment` DROP `cybersource_token`;
+ALTER TABLE `sales_flat_order_payment` DROP `ideal_issuer_title`;
+ALTER TABLE `sales_flat_order_payment` DROP `paybox_question_number`;
+ALTER TABLE `sales_flat_order_payment` DROP `ideal_issuer_id`;
+ALTER TABLE `sales_flat_order_payment` DROP `flo2cash_account_id`;
+
+ALTER TABLE `sales_flat_quote_item` CHANGE `base_weee_tax_applied_row_amount` `base_weee_tax_applied_row_amnt` DECIMAL(12,4) NULL DEFAULT NULL COMMENT 'Base Weee Tax Applied Row Amnt';
+
+ALTER TABLE `sales_flat_quote_address` CHANGE `base_shipping_hidden_tax_amount` `base_shipping_hidden_tax_amnt` DECIMAL(12,5) NULL DEFAULT NULL COMMENT 'Base Shipping Hidden Tax Amount';
+
+ALTER TABLE `sales_flat_quote_payment` DROP `cybersource_token`;
+
+ALTER TABLE `sales_flat_shipment_track` CHANGE `number` `track_number` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'Number';
+
+
+ALTER TABLE `salesrule` DROP `website_ids`;
+ALTER TABLE `salesrule` DROP `customer_group_ids`;
+
+delete from `sales_flat_order_grid` where entity_id = '12395'; -- 100012307-1
+delete from `sales_flat_order_grid` where entity_id = '19764'; --100018983-1
+
+delete from `sales_flat_order` where entity_id = '12395'; --increment_id = 100012307-1
+delete from `sales_flat_order` where entity_id = '19764'; --100018983-1

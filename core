@@ -18,6 +18,109 @@ Call to undefined method Varien_Db_Adapter_Pdo_Mysql::isTableExists()
 reindex web by cmd: php -f ./index.php
 
 -------------------------
+Hien error: Mage::setIsDeveloperMode(true);
+
+1. load admin - setstore
+SET FOREIGN_KEY_CHECKS=0;
+UPDATE `core_store` SET store_id = 0, website_id=0,group_id=0 WHERE code='admin';
+
+UPDATE `core_store_group` SET group_id = 0 WHERE name='Default';
+
+UPDATE `core_website` SET website_id = 0 WHERE code='admin';
+
+UPDATE `customer_group` SET customer_group_id = 0 WHERE customer_group_code='NOT LOGGED IN';
+
+SET FOREIGN_KEY_CHECKS=1;
+
+2. Grid Admin
+    Collection - dung cac cot trong add column
+      error filter: prepareCollection:
+            'filter_index' => 'main_table.grand_total',
+            or 'filter_condition_callback' => array($this,'_filterNames'),
+                  protected function _filterNames($collection, $column)
+                {
+                    $value = $column->getFilter()->getValue();
+                    if($value) {
+                        $collection->getSelect()->where("`sales/order_item`.`name` LIKE '%$value%'");
+                    }
+                    return $this;
+                }
+3. Khai bao admin trong config moi dung duoc menu moi
+
+4. script khong an update value: Mage::app()->setUpdateMode(false);
+
+4. delete log: php -f log.php clean , php -f log.php status
+            'dataflow_batch_export',
+            'dataflow_batch_import',
+            'log_customer',
+            'log_quote',
+            'log_summary',
+            'log_summary_type',
+            'log_url',
+            'log_url_info',
+            'log_visitor',
+            'log_visitor_info',
+            'log_visitor_online',
+            'index_event',
+            'report_event',
+            'report_viewed_product_index',
+            'report_compared_product_index',
+            'catalog_compare_item',
+            'catalogindex_aggregation',
+            'catalogindex_aggregation_tag',
+            'catalogindex_aggregation_to_tag'
+
+            TRUNCATE TABLE dataflow_batch_export;
+TRUNCATE TABLE dataflow_batch_import;
+TRUNCATE TABLE log_customer;
+TRUNCATE TABLE log_quote;
+TRUNCATE TABLE log_summary;
+TRUNCATE TABLE log_summary_type;
+TRUNCATE TABLE log_url;
+TRUNCATE TABLE log_url_info;
+TRUNCATE TABLE log_visitor;
+TRUNCATE TABLE log_visitor_info;
+TRUNCATE TABLE log_visitor_online;
+TRUNCATE TABLE index_event;
+TRUNCATE TABLE report_event;
+TRUNCATE TABLE report_viewed_product_index;
+TRUNCATE TABLE report_compared_product_index;
+TRUNCATE TABLE catalog_compare_item;
+TRUNCATE TABLE catalogindex_aggregation;
+TRUNCATE TABLE catalogindex_aggregation_tag;
+TRUNCATE TABLE catalogindex_aggregation_to_tag;
+
+
+            
+5. fix bug
+    - view log
+    - Change theme default
+    - so sanh core, base
+    - disable extension
+      - Dat log
+6. dat log index.php
+Mage::log('-----------Url ---------------', null, 'giang_url_info.log');
+Mage::log('url: ' . $_SERVER['REQUEST_URI'], null, 'giang_url_info.log');
+Mage::log('-----------Post info-----------', null, 'giang_url_info.log');
+Mage::log(print_r($_POST, true), null, 'giang_url_info.log');
+Mage::log('-----------Get info-----------', null, 'giang_url_info.log');
+Mage::log(print_r($_GET, true), null, 'giang_url_info.log');
+
+7. last_increment_id
+eav_entity_store, eav_entity_type
+
+8. redirect - cache
+      etc/module/local.xml remove cache mem
+9. magento 1910: not order sent success
+      queue sales/order->checkout/type_onepage
+10. formkey: layout/core.xml
+11. list product: Catalog_Model_layer, Catalog_Block_Layer_view,
+12. duplicate save product UNQ_CATALOGINVENTORY_STOCK_ITEM_PRODUCT_ID_STOCK_ID:
+    max_id_product_status of table cataloginventory_stock_status
+    max_id_product_item of cataloginventory_stock_item
+    max_id_product_item > max_id_product_status : delete all record of cataloginventory_stock_item have product id > max_id_product_status.
+13.
+------------------------
 4. Mage::getSingleton('core/session')->getMessages()->count() : dem so messages (success, notice, warning, error)
 
 5. customer_form_attribute: tu 1.9, cac form dung bang nay de lay attribute

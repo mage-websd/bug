@@ -1,0 +1,113 @@
+1. local\SM\CreateStaticBlock\sql\sm_createstaticblock_setup\mysql4-install-0.1.0.php" - SQLSTATE[42S22]: Column not found: 1054 Unknown column 'cms_block.idenfitier' : identifier - fix code
+
+2. local\SM\Setup\sql\sm_setup_setup\mysql4-install-0.1.0.php" - SQLSTATE[42S02]: Base table or view not found: 1146 Table 'farmstore_fresh.shipping_premiumrate' doesn't exist : run after reindex core_resource
+
+3. extension OrganicInternet\SimpleConfigurableProducts: ko reinex
+file: app\code\community\OrganicInternet\SimpleConfigurableProducts\Catalog\Model\Resource\Eav\Mysql4\Product\Indexer\Price\Price.php
+Bo comment o 'group_price' va 'base_group_price' (2x2 o dong 131 132 87 88)
+
+4. 1.4 => 1.9: dashboard sales lifetime calculator
+app/code/core/Mage/Report/Model/Resource/Order/Collection
+function calculateSales()
+	1.9
+			/*$this->setMainTable('sales/order');
+            $this->removeAllFieldsFromSelect();
+
+            $expr = $this->_getSalesAmountExpression();
+
+            if ($isFilter == 0) {
+                $expr = '(' . $expr . ') * main_table.base_to_global_rate';
+            }
+
+            $this->getSelect()
+                ->columns(array(
+                    'lifetime' => "SUM({$expr})",
+                    'average'  => "AVG({$expr})"
+                ))
+                ->where('main_table.status NOT IN(?)', $statuses)
+                ->where('main_table.state NOT IN(?)', array(
+                    Mage_Sales_Model_Order::STATE_NEW,
+                    Mage_Sales_Model_Order::STATE_PENDING_PAYMENT)
+                );*/
+
+	1.4
+            $this->setMainTable('sales/order');
+            $this->removeAllFieldsFromSelect();
+            $expr = 'IFNULL(main_table.base_subtotal, 0) - IFNULL(main_table.base_subtotal_refunded, 0)'
+                . ' - IFNULL(main_table.base_subtotal_canceled, 0) - IFNULL(main_table.base_discount_amount, 0)'
+                . ' + IFNULL(main_table.base_discount_refunded, 0)';
+
+            $this->getSelect()->columns(array(
+                'lifetime' => "SUM({$expr})",
+                'average'  => "AVG({$expr})"
+            ));
+            $this->getSelect()->where('main_table.status NOT IN(?)', $statuses)
+                ->where('main_table.state NOT IN(?)', array(Mage_Sales_Model_Order::STATE_NEW, Mage_Sales_Model_Order::STATE_PENDING_PAYMENT));
+
+
+5. theme: 
+	checkout.xml: not show process checkout
+	code base process checkout onepage: 1.4
+	add <default>
+	<reference name="head">
+            <block type="core/template" name="optional_zip_countries" as="optional_zip_countries"
+                   template="directory/js/optional_zip_countries.phtml"/>
+        </reference>
+
+
+6. update cart
+    thêm <?php echo $this->getBlockHtml('formkey'); ?> vào template/checkout/cart.phtml sau form (dong 47)
+
+7. so sanh core
+    Mage_googleAnalytics
+
+    
+8. product detail - theme default
+public function displayProductStockStatus()
+    {
+        $statusInfo = new Varien_Object(array('display_status' => true));
+        Mage::dispatchEvent('catalog_block_product_status_display', array('status' => $statusInfo));
+        return (boolean)$statusInfo->getDisplayStatus();
+    }    
+9. auto related
+<?php echo $this->getChildHtml('awautorelated2');?> add cuoi file template/catalog/product/view.phtml
+catalog.xml, catalog_product_view, comment block related-extension in product.info content
+
+10. inchoo_facebook: error model tag thay the getModel, getsingleton ('facebook/') boi inchoo_facebook
+        model/client.php, thay the setParameterPost => setRawData
+    facebook_uid: 548
+
+11. amasty cart
+    Override Mage in local
+    change layout: catalog.xml: catalog_type
+    amasty/amcart.xml: <default> cho block content len head
+add cart in category: change theme
+    size *: template base: catalog/product/view/type/option/configruable.phtml
+    avaliable: template base: catalog/product/view/type/configruable.phtml
+
+12. Backend
+    tbt_enhancedgrid.xml chuyen vao custom theme
+
+
+--1 : create account : configuration -> customer -> config : save
+--2. table customer_form_attribute not empty
+--3. checkout cart: configuration -> general -> station option -> yes
+
+
+1.import db
+4. config paypal
+
+
+disable:
+Fooman_GoogleAnalyticsPlus -> khong phu hop voi 19
+
+
+enable: enable all module in admin
+wl_cacalog: ko phải upgrade, module dev, product detail
+Cm_RedisSession: module
+Inchoo_Facebook: extension github
+Phoenix_Moneybookers: core magento
+AW_Productquestions: product detail
+Amasty_Cart: ajax add cart slow
+
+
