@@ -36,8 +36,8 @@
 	a2enmod rewrite
 	sudo apt-get purge openjdk*
     sudo add-apt-repository ppa:webupd8team/java
-    sudo apt-get install oracle-java7-installer
-    sudo apt-get install oracle-java7-set-default
+    sudo apt-get install oracle-java8-installer
+    sudo apt-get install oracle-java8-set-default
     sudo a2ensite mysite
     
 
@@ -60,3 +60,7 @@
     	$transport = new Zend_Mail_Transport_Smtp('smtp.gmail.com', $config);
     	$mail->send($transport);
 	    truoc khi send
+12. delete file
+	delete folder ngoai tru file: find . ! -name u.txt ! -name p.txt -maxdepth 1 -type f -delete
+		u.txt, p.txt: ngoai tru 2 file nay, ko delete
+		! phu dinh

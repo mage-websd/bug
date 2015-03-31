@@ -28,3 +28,34 @@ jQuery(document).ready(function($) {
     });
 
 ----------------------- --------------------------
+
+dbclick
+
+<script>
+    jQuery(document).ready(function($) {
+        var clickedOnce = false;
+        var timer;
+
+        $("body").bind("click", function(){
+            if (clickedOnce) {
+                run_on_double_click();
+            } else {
+                timer = setTimeout(function() {
+                    run_on_simple_click();
+                }, 150);
+                clickedOnce = true;
+            }
+        });
+
+        function run_on_simple_click() {
+            alert("simpleclick");
+            clickedOnce = false;
+        }
+
+        function run_on_double_click() {
+            clickedOnce = false;
+            clearTimeout(timer);
+            alert("doubleclick");
+        }
+    });
+</script>

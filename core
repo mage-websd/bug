@@ -379,3 +379,7 @@ if($store->getStoreId()) {
 Mage::register('isSecureArea', 1);
 Mage::app()->setUpdateMode(false);
 $baseUrl = Mage::app()->getStore(Mage::app()->getStore()->getStoreId())->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
+
+16: catalog
+    Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($productCollection);
+        filter product can show;
