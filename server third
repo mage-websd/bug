@@ -29,3 +29,4 @@ window.fbAsyncInit = function() {
 	git push -f: push len sau khi reset commit
 	git clean -dxf ./ : don thu muc file ko o trong git
 	git merge name_branch: gop cac nhanh, commit o nhanh nay, chuyen sang commit o nhom hien tai
+	

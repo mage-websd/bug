@@ -11,6 +11,8 @@
 	giai nen gz: gunzip file.gz or gzip -d file.gz
 	giai nen tar.gz:  tar zxvf file.tar.gz
 
+	.7z: 7za x name.7z
+
 	nen bo qua folder con: them option vao cuoi: --exclude folder1  --exclude folder2...
 4. mount phan vung sang folder
 	sudo mount /dev/sda5 /media/giangnt/newfolder
@@ -40,6 +42,23 @@
     sudo apt-get install oracle-java8-set-default
     sudo a2ensite mysite
     
+    ssl:
+    	key: openssl genrsa -des3 -out www.thegeekstuff.com.key 1024
+    	request: openssl req -new -key www.thegeekstuff.com.key -out www.thegeekstuff.com.csr
+    	singed: openssl x509 -req -days 365 -in www.thegeekstuff.com.csr -signkey www.thegeekstuff.com.key -out www.thegeekstuff.com.crt
+    	a2enmod ssl
+    	cp key, csr, crt to etc/ssl/
+    	<VirtualHost *:443>
+	    	ServerAdmin js.local
+	    	ServerName js.local
+	    	ServerAlias www.js.local
+	    	DocumentRoot /media/server/htdocs/js
+	    	SSLEngine on
+		    SSLOptions +StrictRequire
+		    SSLCertificateFile /etc/ssl/www.thegeekstuff.com.crt
+		    SSLCertificateKeyFile /etc/ssl/www.thegeekstuff.com.key
+		</VirtualHost>
+
 
     sudo add-apt-repository ppa:tualatrix/ppa
     sudo apt-get install ubuntu-tweak
@@ -61,6 +80,10 @@
     	$mail->send($transport);
 	    truoc khi send
 12. delete file
-	delete folder ngoai tru file: find . ! -name u.txt ! -name p.txt -maxdepth 1 -type f -delete
+	delete folder ngoai tru file: find . ! -name '*.sql' ! -name '*.gz' ! -name '*.bz2' -maxdepth 1 -type f -delete
 		u.txt, p.txt: ngoai tru 2 file nay, ko delete
 		! phu dinh
+
+13. cp
+	sync -av --progress sourcefolder /destinationfolder --exclude thefoldertoexclude : cp exclude folder
+	mv /path/subfolder/{.,}* /path/  : mv hidden file

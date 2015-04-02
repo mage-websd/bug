@@ -1,0 +1,40 @@
+1. permission user
+	CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
+			%: host another
+	FLUSH PRIVILEGES;
+	GRANT [type of permission] ON [database name].[table name] TO ‘[username]’@'localhost’; : them quuyen
+		type: ALL PRIVILEGES, CREATE, DROP, DELETE, INSERT, SELECT, UPDATE, GRANT OPTION
+		db name, table name: *
+
+	REVOKE [type of permission] ON [database name].[table name] FROM ‘[username]’@‘localhost’; :  xoa quyen
+	DROP USER ‘demo’@‘localhost’; : xoa user
+
+2. dum import
+mysqldump -h10.0.1.200 -uc6sea -psea2013 --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false c6farm | gzip > 311214_farm_dev_old.sql.gz
+
+mysql -u root -p --default-character-set=utf8 jurgen_live_080115 < file.sql
+
+
+option
+--where="colum > 1"
+--no-create-info : only data
+--no-data : only struct
+--extended-insert=true : gop cac cau lenh insert vao lam 1
+--complete-insert: add column in insert
+--skip-tz-utc : ignore time zone set
+--set-charset=false
+--ignore-table=database.table1
+
+
+Change password mysql:
+ mysqladmin -u root password NEWPASSWORD
+OR
+	update user set password=PASSWORD("NEWPASSWORD") where User='root';
+	flush privileges;
+
+GRANT CREATE ON c37v4lau_migrate.* TO 'c37v4l'@'%';
+GRANT DROP ON c37v4lau_migrate.* TO 'c37v4l'@'%';
+GRANT DELETE ON c37v4lau_migrate.* TO 'c37v4l'@'%';
+GRANT INSERT ON c37v4lau_migrate.* TO 'c37v4l'@'%';
+GRANT SELECT ON c37v4lau_migrate.* TO 'c37v4l'@'%';
+GRANT UPDATE ON c37v4lau_migrate.* TO 'c37v4l'@'%';
