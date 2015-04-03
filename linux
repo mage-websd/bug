@@ -33,6 +33,9 @@
 11. install ububutu
 	apt-get update
 
+	sudo apt-get install apache2
+	sudo apt-get install mysql-server
+	sudo apt-get install php5 libapache2-mod-php5
 	sudo apt-get install sendmail
 	php5-curl php5-mcrypt php5-gd
 	a2enmod rewrite
@@ -79,6 +82,8 @@
     	$transport = new Zend_Mail_Transport_Smtp('smtp.gmail.com', $config);
     	$mail->send($transport);
 	    truoc khi send
+
+	indicator: sudo apt-get install dconf-tools => config: com -> canonical -> indicator -> appmenu -> messages => add 'skype' in application
 12. delete file
 	delete folder ngoai tru file: find . ! -name '*.sql' ! -name '*.gz' ! -name '*.bz2' -maxdepth 1 -type f -delete
 		u.txt, p.txt: ngoai tru 2 file nay, ko delete
@@ -87,3 +92,7 @@
 13. cp
 	sync -av --progress sourcefolder /destinationfolder --exclude thefoldertoexclude : cp exclude folder
 	mv /path/subfolder/{.,}* /path/  : mv hidden file
+14. grub
+	grub-install --force /dev/sdb3
+	grub-install --force --recheck /dev/sdb3
+	update-grub

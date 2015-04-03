@@ -17,8 +17,8 @@ if (!isset($_POST['created_at'])) {
 
     $host = '127.0.0.1';
     $user = 'root';
-    $password = 'giang';
-    $db = 'farm_14_org_281114';
+    $password = '';
+    $db = 'db_name';
 
 
     mysql_connect($host, $user, $password);
