@@ -72,4 +72,5 @@ if(!isRunning($pid)) {
 else
     echo "Running, waiting";
 
-6.
+6. javascript
+    header("X-XSS-Protection: 0"); them vao dau file neu javascript boi php ko chay duoc

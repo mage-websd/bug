@@ -46,6 +46,39 @@ SET FOREIGN_KEY_CHECKS=1;
                     return $this;
                 }
 3. Khai bao admin trong config moi dung duoc menu moi
+    adminhtml:
+        <config>
+            <menu>
+                <giangnt translate="title" module="giangnt_exportcsv">
+                    <title>GiangNT</title>
+                    <sort_order>999</sort_order>
+                    <children>
+                        <exportcsv translate="title" module="giangnt_exportcsv">
+                            <title>Export CSV</title>
+                            <sort_order>1</sort_order>
+                            <action>adminhtml/exportcsv/index</action>
+                        </exportcsv>
+                    </children>
+                </giangnt>
+            </menu>
+            <acl>
+                <resources>
+                    <admin>
+                        <children>
+                            <giangnt translate="title" module="giangnt_exportcsv">
+                                <title>GiangNT</title>
+                                <sort_order>999</sort_order>
+                                <children>
+                                    <exportcsv translate="title" module="giangnt_exportcsv">
+                                        <title>Export CSV</title>
+                                    </exportcsv>
+                                </children>
+                            </giangnt>
+                        </children>
+                    </admin>
+                </resources>
+            </acl>
+        </config>
 
 4. script khong an update value: Mage::app()->setUpdateMode(false);
 
@@ -384,3 +417,18 @@ $baseUrl = Mage::app()->getStore(Mage::app()->getStore()->getStoreId())->getBase
     Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($productCollection);
         filter product can show;
     $this->helper('catalog/image')->init($_product, 'image')->resize(500, 1030): get image size
+
+    public function getUrlPath($category=null) : get path product
+    public function getUrlInStore($params = array()) : get url product store, have url category, param: array('_ignore_category' => true) => not have url category
+    public function getProductUrl($useSid = null) : get url product
+17: form
+    date input
+        $fieldset->addField('date', 'date', array(
+    'name'               => 'date'
+    'label'              => Mage::helper('your_module_name')->__('Date'),
+    'after_element_html' => '<small>Comments</small>',
+    'tabindex'           => 1,
+    'image'              => $this->getSkinUrl('images/grid-cal.gif'),
+    'format'             => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT) ,
+    'value'              => date( Mage::app()->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
+                                  strtotime('next weekday') )

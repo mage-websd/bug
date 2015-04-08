@@ -44,7 +44,7 @@
     sudo apt-get install oracle-java8-installer
     sudo apt-get install oracle-java8-set-default
     sudo a2ensite mysite
-    
+    mysql, file config: bind-address 127.0.0.1: chi cho truy cap tu localhost, comment => another host
     ssl:
     	key: openssl genrsa -des3 -out www.thegeekstuff.com.key 1024
     	request: openssl req -new -key www.thegeekstuff.com.key -out www.thegeekstuff.com.csr
@@ -62,9 +62,17 @@
 		    SSLCertificateKeyFile /etc/ssl/www.thegeekstuff.com.key
 		</VirtualHost>
 
+		Memcache: php5-memcache
+			sudo apt-get install memcached
+			sudo apt-get install php-pear : stores memcache
+			sudo pecl install memcache: lib php
 
     sudo add-apt-repository ppa:tualatrix/ppa
     sudo apt-get install ubuntu-tweak
+
+    malnua file: error grub:
+    	grub-set-default Ubuntu
+    	grub-set-default 0
 
     sudo umount /dev/sda3
 	mkdir /media/DriveD
@@ -96,3 +104,13 @@
 	grub-install --force /dev/sdb3
 	grub-install --force --recheck /dev/sdb3
 	update-grub
+15. kill
+	kill pid
+	top: list all process
+	pgrep name_process: list pid process
+	killall name_process: kill process
+16. install theme mouse cursor
+	sudo ln -fs /usr/share/icons/Red-Devil/cursor.theme /etc/alternatives/x-cursor-theme: active
+	~/.Xresources file: Xcursor.theme: Red-Devil 
+						Xcursor.size: 64
+	ubuntu tweak => choose mouse => restart
