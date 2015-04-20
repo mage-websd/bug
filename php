@@ -74,3 +74,49 @@ else
 
 6. javascript
     header("X-XSS-Protection: 0"); them vao dau file neu javascript boi php ko chay duoc
+
+7. gzip web
+    add .htaccess : 
+    <IfModule mod_deflate.c>
+        SetOutputFilter DEFLATE
+        AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/x-javascript application/x-httpd-php
+        BrowserMatch ^Mozilla/4 gzip-only-text/html
+        BrowserMatch ^Mozilla/4\.0[678] no-gzip
+        BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+        BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
+        SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip
+        Header append Vary User-Agent env=!dont-vary
+    </IfModule>
+
+    # Expires Headers - 2678400s = 31 days
+    <ifmodule mod_expires.c>
+        ExpiresActive On
+        ExpiresDefault "access plus 1 seconds"
+        ExpiresByType text/html "access plus 7200 seconds"
+        ExpiresByType image/gif "access plus 2678400 seconds"
+        ExpiresByType image/jpeg "access plus 2678400 seconds"
+        ExpiresByType image/png "access plus 2678400 seconds"
+        ExpiresByType text/css "access plus 518400 seconds"
+        ExpiresByType text/javascript "access plus 2678400 seconds"
+        ExpiresByType application/x-javascript "access plus 2678400 seconds"
+    </ifmodule>
+
+    # Cache Headers
+    <ifmodule mod_headers.c>
+        # Cache specified files for 31 days
+        <filesmatch "\.(ico|flv|jpg|jpeg|png|gif|css|swf)$">
+            Header set Cache-Control "max-age=2678400, public"
+        </filesmatch>
+        # Cache HTML files for a couple hours
+        <filesmatch "\.(html|htm)$">
+            Header set Cache-Control "max-age=7200, private, must-revalidate"
+        </filesmatch>
+        # Cache PDFs for a day
+        <filesmatch "\.(pdf)$">
+            Header set Cache-Control "max-age=86400, public"
+        </filesmatch>
+        # Cache Javascripts for 31 days
+        <filesmatch "\.(js)$">
+            Header set Cache-Control "max-age=2678400, private"
+        </filesmatch>
+    </ifmodule>

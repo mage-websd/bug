@@ -19,7 +19,7 @@
 5. xem dung luong folder size
 	du -ch /folder | grep total
 6. git
-	clean -f : don rac
+	clean -dxf : don rac
 
 7. vmware
 	sudo su -c "apt-get install open-vm-tools open-vm-tools-dev open-vm-dkms open-vm-toolbox gcc build-essential"
@@ -114,3 +114,43 @@
 	~/.Xresources file: Xcursor.theme: Red-Devil 
 						Xcursor.size: 64
 	ubuntu tweak => choose mouse => restart
+17. network
+	cat /etc/sysconfig/network
+		NETWORKING=yes
+		HOSTNAME=soda-vm
+		GATEWAY=192.168.1.254
+	cat /etc/sysconfig/network-scripts/ifcfg-eth0
+		DEVICE=eth0
+		BOOTPROTO=static
+		DHCPCLASS=
+		HWADDR=00:30:48:56:A6:2E
+		IPADDR=192.168.1.56
+		NETMASK=255.255.255.0
+		ONBOOT=yes
+	cat /etc/resolv.conf
+		nameserver 192.168.1.254
+		nameserver 8.8.8.8
+		nameserver 8.8.4.4
+	service network restart
+18. centos
+	http://www.servermom.org/complete-newbie-guide-to-build-centos-server-to-host-websites/
+	https://www.mojowill.com/geek/howto-install-php-5-4-5-5-or-5-6-on-centos-6-and-centos-7/
+
+	yum update
+	yum remove pakage
+
+	ssh:
+		/etc/ssh/sshd_config
+			AllowUsers newuser
+	ip link set card_name down (or up) : disable card networking
+	service iptables stop : tat tuong lua de truy cap web tu ngoai
+	G, 4G: go to bottom file, line 4 file in vi
+	Create vhost: 
+		httpd.conf: add Include site-enabled/*.conf
+		mkdir /etc/httpd/site-enabled/
+		add file conf
+
+		yum install php-gd --enablerepo=remi,remi-php55
+		ip link set eth1 up
+		/etc/init.d/network restart
+19.
