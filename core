@@ -138,7 +138,11 @@ Mage::log('-----------Post info-----------', null, 'giang_url_info.log');
 Mage::log(print_r($_POST, true), null, 'giang_url_info.log');
 Mage::log('-----------Get info-----------', null, 'giang_url_info.log');
 Mage::log(print_r($_GET, true), null, 'giang_url_info.log');
-
+Zendlog: 
+    $logger = new Zend_Log();
+    $writer = new Zend_Log_Writer_Stream(Mage::getBaseDir('var').'/log/giang.log');
+    $logger->addWriter($writer);
+    $logger->info(print_r($this->getTotal()));
 7. last_increment_id
 eav_entity_store, eav_entity_type
 
@@ -432,3 +436,8 @@ $baseUrl = Mage::app()->getStore(Mage::app()->getStore()->getStoreId())->getBase
     'format'             => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT) ,
     'value'              => date( Mage::app()->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
                                   strtotime('next weekday') )
+18. Magento update index “Invalid backend model specified: catalogproduct_attribute_backend_startdate_specialprice” - 
+SELECT * FROM `magentodbname`.`eav_attribute` WHERE `backend_model` = 'catalog/product_attribute_backend_startdate_specialprice' - chon record
+thay backend model boi catalog/product_attribute_backend_startdate
+19. paypal
+    payment/paypal_wps_express/active: tim truong dang nhu nay trong core_config_data de show cac paypal trong admin

@@ -29,4 +29,7 @@ window.fbAsyncInit = function() {
 	git push -f: push len sau khi reset commit
 	git clean -dxf ./ : don thu muc file ko o trong git
 	git merge name_branch: gop cac nhanh, commit o nhanh nay, chuyen sang commit o nhom hien tai
-	
+	git push remote2 remote1/branch_source:branch2 : push code tu nhanh branch_source cua remote 1 toi branch2 cua remote 2
+    git push origin --delete branch_name : delete branch remote
+    git branch -d branch_name: delete branch local
+    git config core.fileMode false: ignore chmod permission

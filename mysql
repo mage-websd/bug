@@ -1,18 +1,20 @@
 1. permission user
-	CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
+	CREATE USER 'user1'@'%' IDENTIFIED BY 'giang';
 			%: host another
+	INSERT INTO user (Host,User,Password) VALUES ('%','user2',PASSWORD('giang'));
 	FLUSH PRIVILEGES;
 	GRANT [type of permission] ON [database name].[table name] TO ‘[username]’@'localhost’; : them quuyen
 		type: ALL PRIVILEGES, CREATE, DROP, DELETE, INSERT, SELECT, UPDATE, GRANT OPTION
 		db name, table name: *
+	GRANT CREATE, DROP, DELETE, INSERT, SELECT, UPDATE,GRANT OPTION, ALTER, CREATE TEMPORARY TABLES ON dbname.* TO 'username'@'%'
 
 	REVOKE [type of permission] ON [database name].[table name] FROM ‘[username]’@‘localhost’; :  xoa quyen
 	DROP USER ‘demo’@‘localhost’; : xoa user
 
 2. dum import
-mysqldump -h10.0.1.200 -uc6sea -psea2013 --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false c6farm | gzip > 311214_farm_dev_old.sql.gz
+mysqldump -h host -u username -p  --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false dbname | gzip > file.sql.gz
 
-mysql -u root -p --default-character-set=utf8 jurgen_live_080115 < file.sql
+mysql -u root -p --default-character-set=utf8 dbname < file.sql
 
 
 option
@@ -32,9 +34,11 @@ OR
 	update user set password=PASSWORD("NEWPASSWORD") where User='root';
 	flush privileges;
 
-GRANT CREATE ON c37v4lau_migrate.* TO 'c37v4l'@'%';
-GRANT DROP ON c37v4lau_migrate.* TO 'c37v4l'@'%';
-GRANT DELETE ON c37v4lau_migrate.* TO 'c37v4l'@'%';
-GRANT INSERT ON c37v4lau_migrate.* TO 'c37v4l'@'%';
-GRANT SELECT ON c37v4lau_migrate.* TO 'c37v4l'@'%';
-GRANT UPDATE ON c37v4lau_migrate.* TO 'c37v4l'@'%';
+GRANT CREATE ON magento_1910.* TO 'user2'@'%';
+GRANT DROP ON magento_1910.* TO 'c37v4l'@'%';
+GRANT DELETE ON magento_1910.* TO 'c37v4l'@'%';
+GRANT INSERT ON magento_1910.* TO 'c37v4l'@'%';
+GRANT SELECT ON magento_1910.* TO 'c37v4l'@'%';
+GRANT UPDATE ON magento_1910.* TO 'c37v4l'@'%';
+
+3. create database magento_1910 CHARACTER SET utf8 COLLATE utf8_unicode_ci;

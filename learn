@@ -11,4 +11,4 @@
  	AuthName "Basic authentication"
  	Require valid-user
 
-	htpasswd -c .htpasswd giangsoda
+	htpasswd -c .htpasswd c17sleepingduck
