@@ -6,7 +6,8 @@
 	GRANT [type of permission] ON [database name].[table name] TO ‘[username]’@'localhost’; : them quuyen
 		type: ALL PRIVILEGES, CREATE, DROP, DELETE, INSERT, SELECT, UPDATE, GRANT OPTION
 		db name, table name: *
-	GRANT CREATE, DROP, DELETE, INSERT, SELECT, UPDATE,GRANT OPTION, ALTER, CREATE TEMPORARY TABLES ON dbname.* TO 'username'@'%'
+		
+	GRANT CREATE VIEW,INDEX,LOCK TABLES,REFERENCES, CREATE,DROP, DELETE, INSERT, SELECT, UPDATE, ALTER, CREATE TEMPORARY TABLES ON dbname.* TO 'username'@'%'
 
 	REVOKE [type of permission] ON [database name].[table name] FROM ‘[username]’@‘localhost’; :  xoa quyen
 	DROP USER ‘demo’@‘localhost’; : xoa user
