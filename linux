@@ -91,7 +91,7 @@
     	$mail->send($transport);
 	    truoc khi send
 
-	indicator: sudo apt-get install dconf-tools => config: com -> canonical -> indicator -> appmenu -> messages => add 'skype' in application
+	indicator: sudo apt-get install dconf-tools => config: com -> canonical -> indicator -> appmenu -> messages => add 'skype' in application | sudo apt-get install sni-qt:i386
 12. delete file
 	delete folder ngoai tru file: find . ! -name '*.sql' ! -name '*.gz' ! -name '*.bz2' -maxdepth 1 -type f -delete
 		u.txt, p.txt: ngoai tru 2 file nay, ko delete
