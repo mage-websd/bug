@@ -455,3 +455,19 @@ SELECT * FROM `magentodbname`.`eav_attribute` WHERE `backend_model` = 'catalog/p
 thay backend model boi catalog/product_attribute_backend_startdate
 19. paypal
     payment/paypal_wps_express/active: tim truong dang nhu nay trong core_config_data de show cac paypal trong admin
+20. Get url product with category
+$productId = 406;
+$categoryId=5;
+$product = Mage::getModel('catalog/product')->load($productId);
+$storeId = Mage::app()->getStore()->getStoreId();
+$coreUrl = Mage::getModel('core/url_rewrite');
+$idPath = sprintf('product/%d', $productId);
+if ($categoryId) {
+    $idPath = sprintf('%s/%d', $idPath, $categoryId);
+}
+$coreUrl->setStoreId($storeId);
+$coreUrl->loadByIdPath($idPath);
+
+if ($coreUrl->getId()) {
+    echo  $coreUrl->getRequestPath();
+}

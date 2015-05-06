@@ -46,9 +46,9 @@
     sudo a2ensite mysite
     mysql, file config: bind-address 127.0.0.1: chi cho truy cap tu localhost, comment => another host
     ssl:
-    	key: openssl genrsa -des3 -out giangssl.key 1024
-    	request: openssl req -new -key giangssl.key -out giangssl.csr
-    	singed: openssl x509 -req -days 365 -in giangssl.csr -signkey giangssl.key -out giangssl.crt
+    	key: openssl genrsa -des3 -out www.thegeekstuff.com.key 1024
+    	request: openssl req -new -key www.thegeekstuff.com.key -out www.thegeekstuff.com.csr
+    	singed: openssl x509 -req -days 365 -in www.thegeekstuff.com.csr -signkey www.thegeekstuff.com.key -out www.thegeekstuff.com.crt
     	a2enmod ssl
     	cp key, csr, crt to etc/ssl/
     	<VirtualHost *:443>
