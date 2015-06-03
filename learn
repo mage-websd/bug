@@ -1,11 +1,4 @@
-1. duplicate order => shipping, eav_entity_type table find column shipment, order, invoice, memore -> id, insert id increment max in table eav_entity_sotre
-
-2. confugation: id input => path in core_config_data table
-	use model Mage_Core_Model_Config to set/get
-
-3. source_model yes/no: adminhtml/system_config_source_yesno
-
-4. Author:
+1. Author:
 	AuthUserFile /var/www/clients/client22/web48/web/.htpasswd
  	AuthType Basic
  	AuthName "Basic authentication"

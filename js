@@ -59,3 +59,25 @@ dbclick
         }
     });
 </script>
+-------------------------------------
+remove hover menu magento
+/js/varien/menu.js
+remove line: list.onmouseover = function(){
+                    main.fireNavEvent(this,true);
+                };
+                list.onmouseout = function(){
+                    main.fireNavEvent(this,false);
+                };
+
+--------------------------------------------------------------------------
+outsite dom click find
+$(document).mouseup(function (e)
+{
+    var container = $("YOUR CONTAINER SELECTOR");
+
+    if (!container.is(e.target) // if the target of the click isn't the container...
+        && container.has(e.target).length === 0) // ... nor a descendant of the container
+    {
+        container.hide();
+    }
+});

@@ -45,6 +45,9 @@
     sudo apt-get install oracle-java8-set-default
     sudo a2ensite mysite
     mysql, file config: bind-address 127.0.0.1: chi cho truy cap tu localhost, comment => another host
+    sudo update-rc.d -f  apache2 remove: disabel start apache
+    sudo update-rc.d apache2 disable
+    echo "manual" >> /etc/init/mysql.override : disable start mysql
     ssl:
     	key: openssl genrsa -des3 -out giangssl.key 1024
     	request: openssl req -new -key giangssl.key -out giangssl.csr

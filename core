@@ -1,3 +1,11 @@
+1. duplicate order => shipping, eav_entity_type table find column shipment, order, invoice, memore -> id, insert id increment max in table eav_entity_sotre
+
+2. confugation: id input => path in core_config_data table
+    use model Mage_Core_Model_Config to set/get
+
+3. source_model yes/no: adminhtml/system_config_source_yesno
+
+
 1. mage_core_model_design_package: 
 
 2. Block: 
@@ -471,3 +479,15 @@ $coreUrl->loadByIdPath($idPath);
 if ($coreUrl->getId()) {
     echo  $coreUrl->getRequestPath();
 }
+21. translate text variable
+    $processor = Mage::getSingleton('core/email_template_filter');
+    echo $processor->filter($textTranslate);
+22. Column not save
+    xoa thu muc var, tat may...
+23. Name block
+    $this->getNameInLayout();
+    subtotal_total_renderer
+    discount_total_renderer
+    shipping_total_renderer
+    tax_total_renderer
+    grand_total_total_renderer : name of block totals

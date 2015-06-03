@@ -14,13 +14,13 @@ Sau moi activerecode, goi load() de tra ve du lieu
 					gteq>= , lteq , (from=>value, to=>value)
 6. addFieldToSelect(string): them cot trong select
 7. getSelect()->cac lenh sql co ban, sau cac lenh tren
-	-columns(string): select?
+	-columns(string): select column
 	- where(string)
 	- join(table, cond) - table = $thismodel->getTable(module/table)
 	- order(string)
 	-limit(limit, start)
 	- group
-
+	$select->reset(Zend_Db_Select::COLUMNS); : reset all column select
 	$select = clone $collection->getSelect();
 	$select->columns()->where()..;
 	$result = $collection->getConnect()->fetchAll($select);
