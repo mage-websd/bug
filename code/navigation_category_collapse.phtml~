@@ -1,0 +1,163 @@
+<?php 
+$_helper  = $this->helper('catalog/output');
+$_cHelper = $this->helper('icategory');
+if ($c = Mage::registry('current_category')){
+    $path = $c->getPath();
+    $ids = explode('/', $path);
+    if(isset($ids[2])) {
+        $children = $_cHelper->getCategoryCollection($ids[2]);
+        $parent = Mage::getModel('catalog/category')->load($ids[2]);
+    }
+    else {
+        $parent = $_cHelper->getParentCategory($c);
+        $children = $_cHelper->getCategoryCollection($parent->getId());
+    }
+    if (count($children) > 0) {
+?>
+        <div class="block block-layered-nav block-navigation">
+            <div class="block-title collapse-title has-collapse-child">
+                <strong><span><?php echo $parent->getName() ?></span></strong>
+            </div>
+            <div class="block-content collapse-content">
+                <dl id="narrow-by-list2">
+                <?php foreach($children as $_child) : ?>
+                    <?php if ($_child->getIsActive()) : ?>
+                        <?php $_name = $_child->formatUrlKey($_child->getName()) ?>
+                        <?php $_cChildren = $_cHelper->getCategoryCollection($_child->getId()) ?>
+                        <dt class="collapse-title <?php if (count($_cChildren) > 0) echo 'has-collapse-child'; ?> <?php if($c->getId() == $_child->getId()) echo ' active'; ?> expand">
+                                <a href="<?php echo $_child->getUrl() ?>"><?php echo $this->htmlEscape($_child->getName()) ?></a>
+                        </dt>
+                        <?php if (count($_cChildren) > 0) : ?>
+                            <dd class="collapse-content">
+                                <ol>
+                                    <?php foreach($_cChildren as $_cChild) : ?>
+                                        <?php if ($_cChild->getIsActive()) : ?>
+                                        <li class="<?php if($c->getId() == $_cChild->getId()) echo ' active'; ?>">
+                                            <a href="<?php echo $_cChild->getUrl() ?>"><?php echo $this->htmlEscape($_cChild->getName()) ?></a>
+                                        </li>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </ol>
+                            </dd>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                </dl>
+                <script type="text/javascript">
+                //<![CDATA[
+                jQuery(document).ready(function($) {
+                    function collapseClickActivity(dom) {
+                        if(dom.next('.collapse-content').length) {
+                            if(dom.hasClass('expand')) {
+                                dom.removeClass('expand');
+                                dom.next('.collapse-content').slideUp();
+                                dom.next('.collapse-content').removeClass('open');
+                            }
+                            else {
+                                dom.addClass('expand');
+                                dom.next('.collapse-content').slideDown();
+                                dom.next('.collapse-content').addClass('open');
+                            }
+                        }
+                    }
+                    function collapseStartActivity(dom) {
+                        /*var htmlClick = '<a href="#" class="collapse-expand-link expand">+</a>';*/
+                        $.each(dom, function(i,k) {
+                            if($(this).next('.collapse-content').length) {
+                                /*$(this).append(htmlClick);
+                                widthExpand = $(this).width() - $(this).children().first().width() - 5;
+                                $(this).children('.collapse-expand-link').css('display','inline-block').css('width',widthExpand+'px');*/
+                                if(dom.hasClass('expand')) {
+                                    dom.next('.collapse-content').slideDown();
+                                    dom.next('.collapse-content').addClass('open');
+                                }
+                                else {
+                                    dom.next('.collapse-content').slideUp();
+                                    dom.next('.collapse-content').removeClass('open');
+                                }
+                            }
+                        });
+                    }
+                    collapseStartActivity($('.collapse-title'));
+                    /*$(document).on('click','.collapse-title > .collapse-expand-link',function() {
+                        collapseClickActivity($(this));
+                        return false;
+                    });*/
+                    $(document).on('click','.collapse-title',function() {
+                        collapseClickActivity($(this));
+                    });
+                });
+                //]]>
+
+                /*tab*/
+                jQuery(document).ready(function($) {
+                    $(window).load(function(){
+                        $('.tabs').each(function(){
+                            idTab = $(this).children('.active').attr('id');
+                            $(this).next('.padder').children().hide();
+                            $(this).next('.padder').children('#'+idTab+'_contents').show();
+                        });
+                    });
+
+                    $(window).resize(function() {
+                        setTimeout(function() {
+                            $('.tabs').each(function(){
+                                idTab = $(this).children('.active').attr('id');
+                                $(this).next('.padder').children().hide();
+                                $(this).next('.padder').children('#'+idTab+'_contents').show();
+                            });
+                        },500);
+                    });
+
+                    $(document).on('click','.tabs > li',function() {
+                        $(this).siblings().removeClass('active');
+                        $(this).addClass('active');
+                        idTab = $(this).attr('id');
+                        $(this).parent().next('.padder').children().hide();
+                        $(this).parent().next('.padder').children('#'+idTab+'_contents').show();
+                        return false;
+                    });
+                });
+
+/*navi chuan*/
+jQuery(document).ready(function($) {
+    function collapseClickActivity(dom) {
+        if(dom.next('.collapse-content').length) {
+            if(dom.hasClass('expand')) {
+                dom.removeClass('expand');
+                dom.next('.collapse-content').slideUp();
+                dom.next('.collapse-content').removeClass('open');
+            }
+            else {
+                dom.addClass('expand');
+                dom.next('.collapse-content').slideDown();
+                dom.next('.collapse-content').addClass('open');
+            }
+        }
+    }
+    function collapseStartActivity(dom) {
+        $.each(dom, function(i,k) {
+            if($(this).next('.collapse-content').length) {
+                if($(this).hasClass('expand')) {
+                    $(this).next('.collapse-content').slideDown();
+                    $(this).next('.collapse-content').addClass('open');
+                }
+                else {
+                    $(this).next('.collapse-content').slideUp();
+                    $(this).next('.collapse-content').removeClass('open');
+                }
+            }
+        });
+    }
+    collapseStartActivity($('.collapse-title'));
+    $(document).on('click','.collapse-title',function() {
+        collapseClickActivity($(this));
+    });
+});
+                </script>
+            </div>
+        </div>
+<?php 
+    }//endif check count child
+}//endif check current category
+?>

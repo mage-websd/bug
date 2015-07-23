@@ -1,0 +1,4 @@
+<div class="compare-link">
+            <a class="compare-view" href="#" onclick="popWin('<?php echo $_helper->getListUrl() ?>','compare','top:0,left:0,width=820,height=600,resizable=yes,scrollbars=yes')"><?php echo $this->__('Product Compare'); ?> [<?php echo $_helper->getItemCount() ?>]</a>
+            <a class="compare-remove" href="<?php echo $_helper->getClearListUrl() ?>" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove all products from your comparison?') ?>');"><?php echo $this->__('Clear All') ?></a>
+        </div>

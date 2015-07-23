@@ -120,3 +120,4 @@ else
             Header set Cache-Control "max-age=2678400, private"
         </filesmatch>
     </ifmodule>
+7. textarea break line: nl2br(string)

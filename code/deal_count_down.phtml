@@ -1,0 +1,78 @@
+<?php 
+function getTimestampUtil($_product)
+{
+	if(!is_object($_product)) {
+		$_product = Mage::getModel('catalog/product')->load($_product);
+	}
+	$dateTimeCurrent = Mage::getModel('core/date')->date('Y-m-d H:i:s');
+	$dateTimeStart = $_product->getData('special_from_date');
+	$dateTimeEnd = $_product->getData('special_to_date');
+	if(!$dateTimeEnd) {
+		return null;
+	}
+	$timestampCurrent = strtotime($dateTimeCurrent);
+	$timestampStart = strtotime($dateTimeStart);
+	$timestampEnd = strtotime($dateTimeEnd);
+	if($timestampCurrent <= $timestampStart || $timestampCurrent >= $timestampEnd) {
+		return null;
+	}
+	$timestampUtil = $timestampEnd - $timestampCurrent;
+	return $timestampUtil;
+}
+$timestampUtil = getTimestampUtil($_product);
+?>
+
+<div class="ps-countdown time-countdown" data-timeutil="<?php echo $timestampUtil; ?>">
+</div>
+
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		function getCountdownHtml(day,hours,minutes,seconds)
+		{
+			var html = '' +
+				'<span class="cd-day">'+
+					'<span class="cd-number">'+day+'</span>'+
+					'<span class="cd-text">days</span>'+
+				'</span>'+
+				'<span>:</span>'+
+				'<span class="cd-hour">'+
+					'<span class="cd-number">'+hours+'</span>'+
+					'<span class="cd-text">hrs</span>'+
+				'</span>'+
+				'<span>:</span>'+
+				'<span class="cd-min">'+
+					'<span class="cd-number">'+minutes+'</span>'+
+					'<span class="cd-text">mins</span>'+
+				'</span>'+
+				'<span>:</span>'+
+				'<span class="cd-sec">'+
+					'<span class="cd-number">'+seconds+'</span>'+
+					'<span class="cd-text">secs</span>'+
+				'</span>';
+			return html;
+		}
+		function actionCountDown(domClass)
+		{
+			var timestampUtil = $(domClass).data('timeutil');
+			var timeUtil = '';
+			var intervalCountdown = setInterval(function() {
+				--timestampUtil;
+				if(timestampUtil < 0) {
+					//$(domClass).remove();
+					clearInterval(intervalCountdown);
+				}
+				else {
+					timeUtil = timestampUtil;
+					day = Math.floor(timeUtil/60/60/24);
+					hoursUtil = timeUtil - day*24*60*60;
+					hours = Math.floor(hoursUtil/60/60);
+					minutesUtil = hoursUtil - hours*60*60;
+					minutes = Math.floor(minutesUtil/60);
+					seconds = minutesUtil - minutes * 60;
+					$(domClass).html(getCountdownHtml(day,hours,minutes,seconds));
+				}
+			},1000);
+		}
+		actionCountDown('.time-countdown.ps-countdown');
+	});
+</script>

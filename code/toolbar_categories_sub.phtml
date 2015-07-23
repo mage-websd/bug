@@ -1,0 +1,31 @@
+<?php if (!Mage::registry('current_category')) return; ?>
+<?php $_helper  = $this->helper('catalog/output'); ?>
+<?php $_cHelper = $this->helper('icategory'); ?>
+<?php $c = Mage::registry('current_category') ;
+<?php $children = $_cHelper->getCategoryCollection($c->getId()) ?>
+<?php if (count($children) == 0) : ?>
+    <?php $children = $_cHelper->getCategoryCollection($c->getParentId()) ?>
+<?php endif; ?>
+<?php if (count($children) > 0) : ?>
+    <div class="toolbar-categories-sub">
+        <select name="categories-sub" class="multi-select categoris-sub" onchange="setLocation(this.value)" >
+            <?php if($c->getLevel() == 2) : ?>
+                <optgroup label="<?php echo $this->__('Categories Sub'); ?>"></optgroup>
+            <?php endif; ?>
+            <?php foreach($children as $_child) : ?>
+                <?php if ($_child->getIsActive()) : ?>
+                    <?php $_name = $_child->formatUrlKey($_child->getName()) ?>
+                    <?php $_cChildren = $_cHelper->getCategoryCollection($_child->getId()) ?>
+                    <option value="<?php echo $_child->getUrl(); ?>" <?php if ($this->isCategoryActive($_child)){echo ' selected';} ?>><?php echo $this->escapeHtml($_child->getName()); ?></option>
+                    <?php if (count($_cChildren) > 0) : ?>
+                        <?php foreach($_cChildren as $_cChild) : ?>
+                            <?php if ($_cChild->getIsActive()) : ?>
+                                <option value="<?php echo $_cChild->getUrl(); ?>" <?php if ($this->isCategoryActive($_cChild)){echo ' selected';} ?>><?php echo $this->escapeHtml($_cChild->getName()); ?></option>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </select>
+    </div>
+<?php endif; ?>

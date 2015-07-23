@@ -1,0 +1,130 @@
+<?php if($this->getCollection()->getSize()): ?>
+<div class="toolbar">
+    <?php if( $this->isExpanded() ): ?>
+    <?php $_helper = $this->helper('catalog/product_compare'); ?>
+    <div class="tb-left">
+        <?php if( $this->isEnabledViewSwitcher() ): ?>
+            <div class="view-mode">
+                <?php $_modes = $this->getModes(); ?>
+                <?php if($_modes && count($_modes)>1): ?>
+                    <?php foreach ($this->getModes() as $_code=>$_label): ?>
+                        <?php if(!$this->isModeActive($_code)): ?>
+                            <a href="<?php echo $this->getModeUrl($_code) ?>" title="<?php echo $_label ?>" class="<?php echo strtolower($_code); ?>">
+                        <?php endif; ?>
+                        <span title="<?php echo $_label ?>" class="<?php echo strtolower($_code); ?> mode-view" ><?php echo $_label ?></span>
+                        <?php if(!$this->isModeActive($_code)): ?>
+                            </a>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+
+        <div class="compare-link">
+            <a class="compare-view" href="#" onclick="popWin('<?php echo $_helper->getListUrl() ?>','compare','top:0,left:0,width=820,height=600,resizable=yes,scrollbars=yes')"><?php echo $this->__('Product Compare'); ?> [<?php echo $_helper->getItemCount() ?>]</a>
+            <a class="compare-remove" href="<?php echo $_helper->getClearListUrl() ?>" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove all products from your comparison?') ?>');"><?php echo $this->__('Clear All') ?></a>
+        </div>
+    </div>
+
+    <div class="tb-right">
+        <div class="sort-by">
+            <label><?php echo $this->__('Sort By') ?></label>
+            <select onchange="setLocation(this.value)" class="multi-select sort-by">
+            <?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
+                <?php /*<option value="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if($this->isOrderCurrent($_key)): ?> selected="selected"<?php endif; ?> class="<?php echo $_key; ?>">
+                    <?php echo $this->__($_order) ?>
+                </option> */?>
+                <?php 
+                $html = '';
+                if($_key == 'entity_id'){
+                    $html .= '
+                        <option value="'.$this->getOrderUrl($_key, 'asc').'"';
+                    if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'asc') {
+                        $html .= ' selected';
+                    }
+                    $html .= '>'.'Oldest'.'</option>';
+                    $html .= '
+                        <option value="'.$this->getOrderUrl($_key, 'desc').'"';
+                    if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'desc') {
+                        $html .= ' selected';
+                    }
+                    $html .= '>'.'Newest'.'</option>';
+                }
+                elseif($_key == 'name') {
+                        $html .= '
+                            <option value="'.$this->getOrderUrl($_key, 'asc').'"';
+                                        if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'asc') {
+                                            $html .= ' selected';
+                                        }
+                            $html .= '>'.$_order.' (A-Z)'.'</option>';
+                                        $html .= '
+                            <option value="'.$this->getOrderUrl($_key, 'desc').'"';
+                                        if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'desc') {
+                                            $html .= ' selected';
+                                        }
+                            $html .= '>'.$_order.' (Z-A)'.'</option>';
+                                    }elseif($_key == 'price') {
+                                        $html .= '
+                            <option value="'.$this->getOrderUrl($_key, 'asc').'"';
+                                        if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'asc') {
+                                            $html .= ' selected';
+                                        }
+                            $html .= '>'.$_order.' (Low - Hight)'.'</option>';
+                                        $html .= '
+                            <option value="'.$this->getOrderUrl($_key, 'desc').'"';
+                                        if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'desc') {
+                                            $html .= ' selected';
+                                        }
+                            $html .= '>'.$_order.' (Hight-Low)'.'</option>';
+                                    }elseif($_key == 'position') {
+                                        $html .= '
+                            <option value="'.$this->getOrderUrl($_key, 'asc').'"';
+                                        if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'asc') {
+                                            $html .= ' selected';
+                                        }
+                            $html .= '>'.$_order.' (Low - Hight)'.'</option>';
+                                        $html .= '
+                            <option value="'.$this->getOrderUrl($_key, 'desc').'"';
+                                        if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'desc') {
+                                            $html .= ' selected';
+                                        }
+                            $html .= '>'.$_order.' (Hight-Low)'.'</option>';
+                                    }else{
+                                        $html .= '
+                            <option value="'.$this->getOrderUrl($_key, 'asc').'"';
+                                        if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'asc') {
+                                            $html .= ' selected';
+                                        }
+                            $html .= '>'.$_order.' (Low - Hight)'.'</option>';
+                                        $html .= '
+                            <option value="'.$this->getOrderUrl($_key, 'desc').'"';
+                                        if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'desc') {
+                                            $html .= ' selected';
+                                        }
+                            $html .= '>'.$_order.' (Hight-Low)'.'</option>';
+                    }
+                echo $html;
+    ?>
+            <?php endforeach; ?>
+            </select>
+            <?php /*if($this->getCurrentDirection() == 'desc'): ?>
+                <a href="<?php echo $this->getOrderUrl(null, 'asc') ?>" title="<?php echo $this->__('Set Ascending Direction') ?>"><img src="<?php echo $this->getSkinUrl('images/i_desc_arrow.gif') ?>" alt="<?php echo $this->__('Set Ascending Direction') ?>" class="v-middle" /></a>
+            <?php else: ?>
+                <a href="<?php echo $this->getOrderUrl(null, 'desc') ?>" title="<?php echo $this->__('Set Descending Direction') ?>"><img src="<?php echo $this->getSkinUrl('images/i_asc_arrow.gif') ?>" alt="<?php echo $this->__('Set Descending Direction') ?>" class="v-middle" /></a>
+            <?php endif; */?>
+        </div>
+
+        <div class="limiter">
+            <label><?php echo $this->__('Show') ?></label>
+            <select onchange="setLocation(this.value)" class="multi-select limiter">
+            <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
+                <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
+                    <?php echo $_limit ?>
+                </option>
+            <?php endforeach; ?>
+            </select>
+        </div>
+    </div>
+    <?php endif; ?>
+</div>
+<?php endif ?>

@@ -479,9 +479,6 @@ $coreUrl->loadByIdPath($idPath);
 if ($coreUrl->getId()) {
     echo  $coreUrl->getRequestPath();
 }
-21. translate text variable
-    $processor = Mage::getSingleton('core/email_template_filter');
-    echo $processor->filter($textTranslate);
 22. Column not save
     xoa thu muc var, tat may...
 23. Name block

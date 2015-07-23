@@ -1,0 +1,15 @@
+<?php
+    public function getAttributeSetIdFromName()
+    {
+        $attributeSetName = 'Default';
+        if($this->isRentProduct()) {
+            $attributeSetName = $this->helper('emosys_custom')->getRentName(); 
+        }
+        $attributeSet = Mage::getModel("eav/entity_attribute_set")
+            ->getCollection()
+            ->addFieldToFilter("attribute_set_name", $attributeSetName)
+            ->addFieldToFilter('entity_type_id',4)
+            ->getFirstItem();
+        return $attributeSet->getAttributeSetId();
+    }
+
