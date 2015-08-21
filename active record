@@ -24,7 +24,9 @@ Sau moi activerecode, goi load() de tra ve du lieu
 	$select = clone $collection->getSelect();
 	$select->columns()->where()..;
 	$result = $collection->getConnect()->fetchAll($select);
-
+	order random
+	$collection->getSelect()->order(new Zend_Db_Expr('RAND()'));
+    $collection->load();
 	Dung core_resource de lay ket qua
 
 8. EAV: sau cau lenh khong can goi load()

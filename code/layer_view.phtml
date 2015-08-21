@@ -1,0 +1,64 @@
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php $_cHelper = $this->helper('icategory'); ?>
+
+<div class="product-list-filter-block">
+    <div class="product-categories">
+        <?php if ($c = Mage::registry('current_category')) : ?>
+            <?php $children = $_cHelper->getCategoryCollection($c->getId()) ?>
+            <?php if (count($children) == 0) : ?>
+                <?php $children = $_cHelper->getCategoryCollection($c->getParentId()) ?>
+            <?php endif ?>
+            <?php if (count($children) > 0) : ?>
+                <h3 class="block-title filter-title icon-arrow-bottom collapse-title"><?php echo $this->__('Product Categories'); ?></h3>
+                <dl class="collapse-content">
+                    <?php foreach($children as $_child) : ?>
+                        <?php if ($_child->getIsActive()) : ?>
+                            <?php $_name = $_child->formatUrlKey($_child->getName()) ?>
+                            <?php $_cChildren = $_cHelper->getCategoryCollection($_child->getId()) ?>
+                            <dt<?php if($_child->getId() == $c->getId()) {echo ' class="active"';} ?>>
+                                <a href="<?php echo $_child->getUrl(); ?>"><?php echo $this->htmlEscape($_child->getName()) ?></a>
+                            </dt>
+                            <?php if (count($_cChildren) > 0) : ?>
+                                <span class="collapse-title">+</span>
+                                <dd class="collapse-content">
+                                    <ol>
+                                        <?php foreach($_cChildren as $_cChild) : ?>
+                                            <?php if ($_cChild->getIsActive()) : ?>
+                                            <li<?php if($_cChild->getId() == $c->getId()) {echo ' class="active"';} ?>>
+                                                <a href="<?php echo $_cChild->getUrl() ?>"><?php echo $this->htmlEscape($_cChild->getName()) ?></a>
+                                            </li>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </ol>
+                                </dd>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </dl>
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
+    <?php if($this->canShowBlock()): ?>
+    <div class="block block-layered-nav">
+        <h3 class="block-title filter-title icon-arrow-bottom collapse-title"><?php echo $this->__('Shop By') ?></h3>
+        <div class="block-content collapse-content">
+            <?php echo $this->getStateHtml() ?>
+            <?php if ($this->getLayer()->getState()->getFilters()): ?>
+                <div class="actions"><a href="<?php echo $this->getClearUrl() ?>"><?php echo $this->__('Clear All') ?></a></div>
+            <?php endif; ?>
+            <?php if($this->canShowOptions()): ?>
+                <dl id="narrow-by-list">
+                    <?php $_filters = $this->getFilters() ?>
+                    <?php foreach ($_filters as $_filter): ?>
+                        <?php if($_filter->getItemsCount()): ?>
+                            <dt class="collapse-title"><?php echo $this->__($_filter->getName()) ?></dt>
+                            <dd class="collapse-content"><?php echo $_filter->getHtml() ?></dd>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </dl>
+                <script type="text/javascript">decorateDataList('narrow-by-list')</script>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>
+</div>

@@ -1,0 +1,48 @@
+<form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form_<?php echo $_product->getId(); ?>">
+	<input type="button" class="btn btn-qty-number btn-minus" value="-" />
+incart	<input type="text" name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty validated-number" / ?>
+inproduct	<input type="text" name="qty" value="1" title="<?php echo $this->__('Qty') ?>" class="input-text qty validated-number" / ?>
+	<input type="button" class="btn btn-qty-number btn-plus" value="+" />
+
+	<button type="button" title="<?php echo $this->__('Buy') ?>" class="button btn-cart" onclick="productAddToCartForm<?php echo $_product->getId(); ?>.submit(this)"><span><span><?php echo $this->__('Buy') ?></span></span></button>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+	var productAddToCartForm<?php echo $_product->getId(); ?> = new VarienForm('product_addtocart_form_<?php echo $_product->getId(); ?>');
+//]]>
+</script>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $(document).on('click','.btn-qty-number',function() {
+        var domQty = $(this).siblings('.qty');
+        var valueQty = domQty.val();
+        if(isNaN(valueQty)) {
+            return false;
+        }
+        if($(this).hasClass('btn-minus')) {
+            if(valueQty < 2) {
+                $(this).addClass('disable');
+                $(this).attr('disable');
+                return false;
+            }
+            valueQty--;
+            domQty.val(valueQty);
+            if(valueQty < 2) {
+                $(this).addClass('disable');
+                $(this).attr('disable');
+                return false;
+            }
+        }
+        else {
+            valueQty++;
+            domQty.val(valueQty);
+            if(valueQty > 1) {
+                $(this).removeClass('disable');
+                $(this).removeAttr('disable');
+                return false;
+            }
+        }
+        return false;
+    });
+});
+</script>

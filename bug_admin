@@ -83,3 +83,8 @@ if(!Mage::registry('current_category')) {
             $_category = Mage::getModel('catalog/category')->load($_category);
             Mage::register('current_category',$_category);
         }
+8. Order email
+    {{htmlescape var=$order.getCustomerFirstname()}}
+    {{htmlescape var=$billing.getFirstname()}}
+    {{htmlescape var=$order.getCustomerName()}}
+    {{htmlescape var=$order.getCustomerEmail()}}
