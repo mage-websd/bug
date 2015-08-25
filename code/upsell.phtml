@@ -40,13 +40,16 @@
                 </div>
             <?php endif; ?>
             <div class="product-list-upsell grid-column-<?php echo $_columnCount; ?>">
-                <ul class="bxslider bxslider-<?php echo $suffix; ?>">
+                <ul class="bxslider bxslider-<?php echo $suffix; ?> products-grid-slider">
                     <?php foreach ($this->getItemCollection()->getItems() as $_product): ?>
                         <?php $_product = Mage::getModel('catalog/product')->setStoreId($_storeId)->load($_product->getId()); ?>
                         <?php $_size = $_cHelper->getSize($_product, 291, 301); ?>
                         <li class="item">
                             <div class="product-image-outer"><div class="product-image-inner"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_size->getWidth(), $_size->getHeight()) ?>" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" /></a></div></div>
                             <h3 class="product-name"><?php echo $_product->getName(); ?></h3>
+                            <div class="product-rating-list">
+                                <?php echo $this->getReviewsSummaryHtml($_product,'short'); ?>
+                            </div>
                             <div class="product-description">
                                 <?php if ($s = $_product->getShortDescription()):?>
                                     <?php echo $_helper->productAttribute($_product, $s, 'short_description') ?>

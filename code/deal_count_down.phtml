@@ -1,8 +1,11 @@
-<?php 
+<?php
 function getTimestampUtil($_product)
 {
 	if(!is_object($_product)) {
 		$_product = Mage::getModel('catalog/product')->load($_product);
+	}
+	if(!$_product->getSpecialPrice()) {
+		return 0;
 	}
 	$dateTimeCurrent = Mage::getModel('core/date')->date('Y-m-d H:i:s');
 	$dateTimeStart = $_product->getData('special_from_date');

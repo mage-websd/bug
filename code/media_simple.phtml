@@ -1,0 +1,140 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product media data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+?>
+<?php
+    $_product = $this->getProduct();
+    $_helper = $this->helper('catalog/output');
+    $_iHelper = $this->helper('catalog/image');
+    $_zHelper = $this->helper('izoom');
+    $suffix = md5(microtime() . mt_rand());
+    $m = $_zHelper->getImageSizeByProduct($_product->getId(), 'image', 'width');
+    $galleryImage = $this->getGalleryImages();
+?>
+<div class="product-image">
+    <?php if (count($galleryImage) > 1) : ?>
+        <div class="bx-container-controller">
+            <span class="bx-prev bx-prev-<?php echo $suffix; ?>"></span>
+            <span class="bx-next bx-next-<?php echo $suffix; ?>"></span>
+        </div>
+    <?php endif; ?>
+    <ul class="bxslider bxslider-<?php echo $suffix; ?>">
+        <?php foreach ($galleryImage as $_image): ?>
+            <?php if (file_exists($_image->getPath())) : ?>
+                <li class="item">
+                    <?php if ($_zHelper->enableDialog()) : ?>
+                        <a href="<?php echo $_iHelper->init($this->getProduct(), 'small_image', $_image->getFile()); ?>" class="product-image-popup">
+                    <?php endif; ?>
+                        <img src="<?php echo $_iHelper->init($this->getProduct(), 'small_image', $_image->getFile())->resize($m->getWidth(), $m->getHeight()); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>"/>
+                    <?php if ($_zHelper->enableDialog()) : ?>
+                        </a>
+                    <?php endif; ?>
+                </li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </ul>
+</div>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        jQuery(function($) {
+            slider_<?php echo $suffix ?> = $('.bxslider-<?php echo $suffix; ?>').bxSlider({
+                mode: '<?php echo $_zHelper->getSliderConfig('mode') ?>',
+                speed: <?php echo (int) $_zHelper->getSliderConfig('speed') ?>,
+                infiniteLoop: <?php echo $_zHelper->getSliderConfig('infinite_loop') ?>,
+                auto: <?php echo $_zHelper->getSliderConfig('auto') ?>,
+                pause: <?php echo (int) $_zHelper->getSliderConfig('pause') ?>,
+                moveSlides: <?php echo (int) $_zHelper->getSliderConfig('move_slides') ?>,
+                slideMargin: <?php echo (int) $_zHelper->getSliderConfig('slide_margin') ?>,
+                slideWidth: <?php echo (int) $_zHelper->getSliderConfig('width_default') ?>,
+                minSlides: 1,
+                maxSlides: <?php echo (int) $_zHelper->getSliderConfig('number_default') ?>,
+                nextSelector: '.bx-next-<?php echo $suffix; ?>',
+                prevSelector: '.bx-prev-<?php echo $suffix; ?>',
+                pager: false
+            });
+        });
+        jQuery(window).resize(function(e) {
+            e.preventDefault();
+            slider_<?php echo $suffix ?>.reloadSlider({
+                mode: '<?php echo $_zHelper->getSliderConfig('mode') ?>',
+                speed: <?php echo (int) $_zHelper->getSliderConfig('speed') ?>,
+                infiniteLoop: <?php echo $_zHelper->getSliderConfig('infinite_loop') ?>,
+                auto: <?php echo $_zHelper->getSliderConfig('auto') ?>,
+                pause: <?php echo (int) $_zHelper->getSliderConfig('pause') ?>,
+                moveSlides: <?php echo (int) $_zHelper->getSliderConfig('move_slides') ?>,
+                slideMargin: <?php echo (int) $_zHelper->getSliderConfig('slide_margin') ?>,
+                slideWidth: <?php echo (int) $_zHelper->getSliderConfig('width_default') ?>,
+                minSlides: 1,
+                maxSlides: <?php echo (int) $_zHelper->getSliderConfig('number_default') ?>,
+                nextSelector: '.bx-next-<?php echo $suffix; ?>',
+                prevSelector: '.bx-prev-<?php echo $suffix; ?>',
+                pager: false
+            });
+        });
+        //]]>
+        </script>
+
+<?php if ($_zHelper->enableDialog()) : ?>
+<script type="text/javascript">
+//<![CDATA[
+jQuery(function($j) {
+    <?php $width    = $_zHelper->getDialogConfig('width') ?>
+    <?php $maxWidth = $_zHelper->getDialogConfig('max_width') ?>
+    <?php $height    = $_zHelper->getDialogConfig('height') ?>
+    <?php $maxHeight = $_zHelper->getDialogConfig('max_height') ?>
+    $j(".product-image-popup").colorbox({
+        rel: 'color-box',
+        opacity: 0.5,
+        speed: <?php echo (int) $_zHelper->getDialogConfig('speed') ?>,
+        current: '{current} / {total}',
+
+        <?php if (strpos($width, 'false') === false) : ?>
+        width: '<?php echo $width ?>',
+        <?php endif; ?>
+        <?php if (strpos($maxWidth, 'false') === false) : ?>
+        maxWidth: '<?php echo $maxWidth ?>',
+        <?php endif; ?>
+
+        <?php if (strpos($height, 'false') === false) : ?>
+        height: '<?php echo $height ?>',
+        <?php endif; ?>
+        <?php if (strpos($maxHeight, 'false') === false) : ?>
+        maxHeight: '<?php echo $maxHeight ?>',
+        <?php endif; ?>
+
+        fixed: <?php echo $_zHelper->getDialogConfig('fixed') ?>,
+		className: 'colorbox-product-image'
+    });
+});
+//]]>
+</script>
+<?php endif; ?>

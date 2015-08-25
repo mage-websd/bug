@@ -1,0 +1,88 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Category left navigation
+ *
+ * @see Mage_Catalog_Block_Navigation
+ */
+?>
+<?php $_cHelper = $this->helper('icategory'); ?>
+<?php $_helper    = $this->helper('catalog/output'); ?>
+<?php $_columnCount = $this->getColumnCount() ? $this->getColumnCount() : 3; ?>
+<?php $categoryId = $this->getCategory();
+if(!$categoryId) {
+    return;
+}
+$suffix = md5(microtime() . mt_rand());
+?>
+<?php $children = $_cHelper->getCategoryCollection($categoryId); ?>
+<?php if (count($children) > 0) : ?>
+    <div class="block block-category-children">
+        <div class="bx-container-controller">
+            <span class="bx-prev bx-prev-<?php echo $suffix; ?>"></span>
+            <span class="bx-next bx-next-<?php echo $suffix; ?>"></span>
+        </div>
+        <ul class="categories-grid bxslider bxslider-<?php echo $suffix; ?>">
+            <?php $i=0; ?>
+            <?php foreach($children as $_child) : ?>
+                <?php if ($_child->getIsActive()) : $i++; ?>
+                    <li class="item<?php if($i%$_columnCount==1) {echo ' first';} elseif($i % $_columnCount == 0) {echo ' last';} ?>">
+                        <div class="category-child-image">
+                            <?php if ($_imgUrl = $_child->getImageUrl()): ?>
+                                <img src="<?php echo $_imgUrl; ?>" />
+                            <?php endif; ?>
+                        </div>
+                        <div class="category-child-name">
+                            <a href="<?php echo $_child->getUrl() ?>"><?php echo $this->escapeHtml($_child->getName()) ?></a>
+                        </div>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach ?>
+        </ul>
+    </div>
+    <script type="text/javascript">
+            //<![CDATA[
+            jQuery(function($) {
+                $('.bxslider-<?php echo $suffix; ?>').bxSlider({
+                    mode: 'horizontal',
+                    speed: 500,
+                    infiniteLoop: true,
+                    auto: false,
+                    pause: 4000,
+                    moveSlides: 1,
+                    slideMargin: 20,
+                    slideWidth: 500,
+                    minSlides: 1,
+                    maxSlides: <?php echo $_columnCount; ?>,
+                    nextSelector: '.bx-next-<?php echo $suffix; ?>',
+                    prevSelector: '.bx-prev-<?php echo $suffix; ?>',
+                    pager: false
+                });
+            });
+            //]]>
+            </script>
+<?php endif; ?>
