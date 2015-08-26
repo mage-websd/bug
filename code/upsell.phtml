@@ -25,15 +25,21 @@
  */
 ?>
 <?php if(count($this->getItemCollection()->getItems())): ?>
-    <?php $suffix = md5(microtime() . mt_rand()) ?>
-    <?php $_cHelper = $this->helper('icategory'); ?>
-    <?php $_storeId = Mage::app()->getStore()->getId(); ?>
-    <?php $_columnCount = $this->getColumnCount() ? $this->getColumnCount() : 3; ?>
-    <?php $_helper = $this->helper('catalog/output'); ?>
+    <?php
+        $_productCollection = $this->getItemCollection()->getItems();
+        $_helper = $this->helper('catalog/output');
+        $_cHelper = $this->helper('icategory');
+        $_width = 180;
+        $_height = 180;
+        $suffix = md5(microtime() . mt_rand());
+        $_storeId = Mage::app()->getStore()->getId();
+        $_columnCount = $this->getColumnCount() ? $this->getColumnCount() : 3;
+        $_countCollection = $_productCollection->count();
+    ?>
     <div class="box-collateral box-up-sell">
         <h3 class="upsell-title"><?php echo $this->__('You might also be in interested') ?></h3>
         <div class="upsell-container">
-            <?php if (count($this->getItemCollection()->getItems()) > $_columnCount) : ?>
+            <?php if ( $_countCollection > $_columnCount) : ?>
                 <div class="bx-container-controller">
                     <span class="bx-prev bx-prev-<?php echo $suffix; ?>"></span>
                     <span class="bx-next bx-next-<?php echo $suffix; ?>"></span>
@@ -41,11 +47,27 @@
             <?php endif; ?>
             <div class="product-list-upsell grid-column-<?php echo $_columnCount; ?>">
                 <ul class="bxslider bxslider-<?php echo $suffix; ?> products-grid-slider">
-                    <?php foreach ($this->getItemCollection()->getItems() as $_product): ?>
+                    <?php foreach ($_productCollection as $_product): ?>
                         <?php $_product = Mage::getModel('catalog/product')->setStoreId($_storeId)->load($_product->getId()); ?>
-                        <?php $_size = $_cHelper->getSize($_product, 291, 301); ?>
+                        <?php $_size = $_cHelper->getSize($_product, $_width, $_height); ?>
                         <li class="item">
-                            <div class="product-image-outer"><div class="product-image-inner"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_size->getWidth(), $_size->getHeight()) ?>" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" /></a></div></div>
+                            <div class="product-image-outer"><div class="product-image-inner">
+                                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>" class="product-image">
+                                    <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_size->getWidth(), $_size->getHeight()) ?>" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" />
+                                </a>
+                                <?php if ($_product->isSaleable()) : ?>
+                                    <?php if ($_cHelper->isSale($_product)): ?>
+                                        <p class="product-label is-sale">
+                                            <span><?php echo $this->__('Sale') ?></span>
+                                            <span><?php echo $this->helper('emosys_custom')->getPercentSale($_product); ?>%</span>
+                                        </p>
+                                    <?php elseif ($_cHelper->isNew($_product)): ?>
+                                        <p class="product-label is-new"><span><?php echo $this->__('New') ?></span></p>
+                                    <?php endif; ?>
+                                <?php else : ?>
+                                    <p class="product-label out-of-stock"><span><?php echo $this->__('Sold Out') ?></span></p>
+                                <?php endif; ?>
+                            </div></div>
                             <h3 class="product-name"><?php echo $_product->getName(); ?></h3>
                             <div class="product-rating-list">
                                 <?php echo $this->getReviewsSummaryHtml($_product,'short'); ?>
@@ -59,6 +81,14 @@
                                 <?php echo $this->getPriceHtml($_product, true) ?>
                                 <div class="actions">
                                     <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                                    <ul class="add-to-links">
+                                        <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                                            <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                                        <?php endif; ?>
+                                        <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+                                        <li><a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
+                                    <?php endif; ?>
+                                    </ul>
                                 </div>
                             </div>
                         </li>
@@ -67,8 +97,8 @@
             </div>
             <script type="text/javascript">
             //<![CDATA[
-            jQuery(function($) {
-                $('.bxslider-<?php echo $suffix; ?>').bxSlider({
+            jQuery(document).ready(function($) {
+                var bxslider_<?php echo $suffix; ?> = $('.bxslider-<?php echo $suffix; ?>').bxSlider({
                     mode: 'horizontal',
                     speed: 500,
                     infiniteLoop: true,
@@ -76,12 +106,31 @@
                     pause: 4000,
                     moveSlides: 1,
                     slideMargin: 20,
-                    slideWidth: 291,
+                    slideWidth: <?php echo $_width; ?>,
                     minSlides: 1,
                     maxSlides: <?php echo $_columnCount; ?>,
                     nextSelector: '.bx-next-<?php echo $suffix; ?>',
                     prevSelector: '.bx-prev-<?php echo $suffix; ?>',
                     pager: false
+                });
+
+                $(window).resize(function(e) {
+                    e.preventDefault();
+                    bxslider_<?php echo $suffix; ?>.reloadSlider({
+                        mode: 'horizontal',
+                        speed: 500,
+                        infiniteLoop: true,
+                        auto: false,
+                        pause: 4000,
+                        moveSlides: 1,
+                        slideMargin: 20,
+                        slideWidth: <?php echo $_width; ?>,
+                        minSlides: 1,
+                        maxSlides: <?php echo $_columnCount; ?>,
+                        nextSelector: '.bx-next-<?php echo $suffix; ?>',
+                        prevSelector: '.bx-prev-<?php echo $suffix; ?>',
+                        pager: false
+                    });
                 });
             });
             //]]>
