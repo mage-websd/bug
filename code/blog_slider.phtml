@@ -1,0 +1,75 @@
+<?php
+    $posts = $this->getPosts();
+    $_countCollection = $posts->count();
+    if(!$_countCollection) {
+        return;
+    }
+    $suffix = md5(microtime() . mt_rand());
+    $_columnCount = $this->getColumnCount() ? $this->getColumnCount() : 3;
+    $_width = 300;
+?>
+<div class="post-list-slider">
+    <?php if ($_countCollection > $_columnCount) : ?>
+        <div class="bx-container-controller">
+            <span class="bx-prev bx-prev-<?php echo $suffix; ?>"></span>
+            <span class="bx-next bx-next-<?php echo $suffix; ?>"></span>
+        </div>
+    <?php endif; ?>
+    <div class="post-list-inner grid-column-<?php echo $_columnCount; ?>">
+        <ul class="bxslider bxslider-<?php echo $suffix; ?> post-grid-slider">
+            <?php foreach ($posts as $post): ?>
+                <li class="item">
+                    <?php if ($post->getThumbnail() || $post->getImage()) : ?>
+                        <div class="post-image">
+                            <a href="<?php echo $post->getAddress(); ?>">
+                                <?php if ($post->getThumbnail()) : ?>
+                                    <img src="<?php echo $this->helper('blog')->getImageUrl($post->getThumbnail()); ?>" />
+                                <?php elseif ($post->getImage()) : ?>
+                                    <img src="<?php echo $this->helper('blog')->getImageUrl($post->getImage()); ?>" />
+                                <?php endif ?>
+                            </a>
+                        </div>
+                    <?php endif ?>
+                    <h2 class="post-title">
+                        <a href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getTitle(); ?></a>
+                    </h2>
+                    <div class="created">
+                        <span class="user"><?php echo $this->__('by'); ?> <?php echo $post->getUser(); ?></span>,
+                        <span class="by-date"><?php
+                            $date = date_create($post->getCreatedTime());
+                            echo date_format($date, 'd M Y');
+                        ?></span>
+                    </div>
+                    <div class="post-short-content"><?php echo substr($post->getShortContent(),0,50); ?>...</div>
+                    <div class="post-read-more">
+                        <a href="<?php $post->getAddress(); ?>">
+                            <span><?php echo $this->__('Read more'); ?></span>
+                        </a>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    jQuery(document).ready(function($) {
+        var bxslider_<?php echo $suffix; ?> = $('.bxslider-<?php echo $suffix; ?>').bxSlider({
+            mode: 'horizontal',
+            speed: 500,
+            infiniteLoop: true,
+            auto: false,
+            pause: 4000,
+            moveSlides: 1,
+            slideMargin: 20,
+            slideWidth: <?php echo $_width; ?>,
+            minSlides: 1,
+            maxSlides: <?php echo $_columnCount; ?>,
+            nextSelector: '.bx-next-<?php echo $suffix; ?>',
+            prevSelector: '.bx-prev-<?php echo $suffix; ?>',
+            pager: false
+        });
+    });
+    //]]>
+    </script>
