@@ -43,3 +43,6 @@ GRANT SELECT ON magento_1910.* TO 'c37v4l'@'%';
 GRANT UPDATE ON magento_1910.* TO 'c37v4l'@'%';
 
 3. create database magento_1910 CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+4. Dung chung data ubuntu windows folder khac nhau
+mount --bind /path/to/mysql/data/of/windows /var/lib/mysql

@@ -1,0 +1,129 @@
+mysqldump -uroot -p --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false dbname | gzip > dbname.sql.gz
+
+mysql -u root -p --default-character-set=utf8 dbname < filedb.sql
+
+-------------------
+Top3-Dev-GN
+http://198.13.96.106/repos/top3_
+
+http://technicalsupport.com.sg/
+
+http://emosys.no-ip.org/phpmyadmin/
+emosys/0VIVY4b2
+
+admin/kelterintl1@3
+
+recapcha
+pub: 6LccqQYTAAAAANgKMmFvhcDztpywqDRv0m53Pjxn
+pri: 6LccqQYTAAAAALJ3yKTNVCbbM-4oug7iczmHi9h6
+
+app\design\frontend\default\default\
+
+part inifite
+unika
+chee fat
+forest_of_francie
+zapatos -- redirect shopping
+ecs
+bridal
+
+<p>Folding Retractable</p>
+<p>Auto-Load Knife</p>
+
+
+
+http://198.13.96.106/phpmyadmin
+nguyendt_admin/0VIVY4b2
+[15:02:57] Emo.Theodore Doan: =============
+UPDATE `catalog_product_entity_media_gallery` SET `value` = '/s/a/sample-product.png' WHERE `entity_id` < 167;
+UPDATE `catalog_product_entity_varchar` SET `value` = '/s/a/sample-product.png' WHERE `entity_id` < 167 AND `attribute_id`
+IN (106, 109, 493);
+
+tp=1&code=magento
+is_debug=1
+=============
+covatorg / 3WeC14wkg5
+binhdev@trainghiem.com.vn
+deohieugiluon
+
+
+khoản: covatorg
+Mật khẩu: 3WeC14wkg5
+binhdev@trainghiem.com.vn / deohieugiluon
+
+------------------------------------------------------------------------------------------
+blackdotholdings
+FTP Username: design@blackdotholdings.com
+FTP Password: n90@@V{Z[!*1
+FTP Server: ftp.blackdotholdings.com
+FTP & explicit FTPS port: 21
+Skin folder
+FTP Username: skin@blackdotholdings.com
+FTP Password: n90@@V{Z[!*1
+FTP Server: ftp.blackdotholdings.com
+FTP & explicit FTPS port: 21
+------------------------------------------------------------------------------------------
+artist
+FTP Username: design@linxiaonan.com
+FTP Password: B7v@]r~klpbG
+FTP Server: ftp.linxiaonan.com
+FTP & explicit FTPS port: 21
+------------------------------------------------------------------------------------------
+moisesshoes
+FTP Username: design@moisesshoes.com
+FTP Password: Ky]G4VF}MLh$
+FTP Server: ftp.moisesshoes.com
+FTP & explicit FTPS port: 21
+
+FTP Username: skin@moisesshoes.com
+FTP Password: Ky]G4VF}MLh$
+FTP Server: ftp.moisesshoes.com
+FTP & explicit FTPS port: 21
+------------------------------------------------------------------------------------------
+beads_actually
+FTP Username: design@beadsactually.com
+FTP Password: ,uu~4_52US_%
+FTP Server: ftp.beadsactually.com
+FTP & explicit FTPS port: 21
+
+FTP Username: skin@beadsactually.com
+FTP Password: ,uu~4_52US_%
+FTP Server: ftp.beadsactually.com
+FTP & explicit FTPS port: 21
+------------------------------------------------------------------------------------------
+viimart
+FTP Username: design@viimart.com
+FTP Password: &Q;XlCi$J*ie
+FTP Server: ftp.viimart.com
+FTP & explicit FTPS port: 21
+
+FTP Username: skin@viimart.com
+FTP Password: &Q;XlCi$J*ie
+FTP Server: ftp.viimart.com
+FTP & explicit FTPS port: 21
+
+
+sort_attribute="news_from_date" sort_direction="ASC"
+kavya@top3.com.sg
+----------
+project information
+emosys:
+	blog - post of 1 category, home recent, 
+--------------------------------------------------------------
+t2t-tech.com/admin tài khoản admin pass 123456@123
+
+Tuyen dung: http://www.lazada.vn/career-opportunity/
+Trang báo chí http://cafestyle.yes24.vn/
+Trang đối tác http://deca.vn/danh-sach-thuong-hieu.html
+
+
+
+magento setup:install --base-url=http://magento.2x.local/ --db-host=localhost --db-name=magento_2 --db-user=root --db-password=giang --admin-firstname=admin --admin-lastname=admin --admin-email=admin@example.com --admin-user=admin --admin-password=admin123 --language=en_US --currency=USD --timezone=America/Chicago --use-sample-data --use-rewrites=1
+
+
+php -d xdebug.max_nesting_level=500 -f bin/magento setup:install --base-url=http://magento.2.local/ --backend-frontname=admin --db-host=127.0.0.1 --db-name=magento_2 --db-user=root --db-password=giang --admin-firstname=Local --admin-lastname=Admin --admin-email=admin@example.com --admin-user=admin --admin-password=admin123 --language=en_US --currency=USD --use-rewrites=1 --timezone=America/Chicago
+
+If you are paying via bank transfer, please transfer the specified amount within 24h hours to:
+BCA Account 0044202014 under the name of Tjong Fanny
+
+Failure to complete your payment may result in cancelation of your purchase.
