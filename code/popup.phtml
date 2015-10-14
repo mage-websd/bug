@@ -1,0 +1,25 @@
+<div class="popup-wrapper popup-video" style="display: none;">
+    <div class="popup-container">
+        <div class="popup-close-btn">
+            <a href="#">Close</a>
+        </div>
+        <div class="popup-outer">
+            <div class="popup-inner">
+                <?php echo $_video; ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $(document).on('click','.link-popup',function(event) {
+            event.preventDefault();
+            $(this).siblings('.popup-wrapper').fadeIn(500);
+        });
+        $(document).on('click','.popup-close-btn a',function(event) {
+            event.preventDefault();
+            $('.popup-wrapper').fadeOut(500);
+        });
+    });
+</script>

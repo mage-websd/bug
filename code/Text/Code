@@ -1,24 +1,8 @@
 tp=1&code=magento: bat hint
-2. hover image zoom
-	<div class="hover-grid">
-                        <div class="front">
-                            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_size->getWidth(), $_size->getHeight()); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
-                        </div>
-                        <div class="back">
-                            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image_over')->resize($_size->getWidth(), $_size->getHeight()); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
-                        </div>
-                    </div>
-                    <?php endif; ?>
-    ++
-    jQuery(function($) {
-	    if ($('.hover-grid').length) {
-	        $('.hover-grid').flip({
-	          trigger: 'hover'
-	        });
-	    }
-	});
 3. i-cycle:
-	{{block type="icycle/bannerx" banner_id="t1"}}
+	{{block type="icycle/bannerx" banner_id="home"}}
+4. Web form
+    {{widget type="webforms/form" webform_id="2" template="webforms/default.phtml"}}
 4. get count product of category <?php echo $_category->getProductCount() ?>
 5. Get block list product folow category 
     {{block type="catalog/product_list_filter" name="best_sellers" category_id="41" column_count="4" product_limit="20" template="catalog/product/list/slider.phtml"}}
@@ -98,7 +82,8 @@ http://vkontakte.ru/share.php?url=URL&title=TITLE&description=DESCRIPTON
         </div>
 16. date format blog:
     $date = date_create($post->getCreatedTime());
-                    echo date_format($date, 'd M Y'); ?>
+    echo date_format($date, 'd M Y');
+    
     get Url post blog
     $_bHelper = $this->helper('blog');
     $_blogRoute = $_bHelper->getRoute();
@@ -193,12 +178,26 @@ Mage::helper('icategory')->getQty($_product); ?>
 26: insert customer form attribute
     <?php
 $resource = Mage::getModel('core/resource');
-$attributeCodes = array(
-    'mobile',
-);
 $write = $resource->getConnection('core_write');
 $read = $resource->getConnection('core_read');
 $table = $resource->getTableName('customer/form_attribute');
+$attributeCodes = array(
+    race,
+    mobile,
+    occupation,
+    business,
+    hobbies,
+    pregnant,
+    married,
+    outdoor,
+    is_vendor,
+    dream_event,
+    special_item,
+    avatar,
+    website,
+    facebook,
+    instagram,
+);
 foreach($attributeCodes as $attributeCode) {
     $attribute = Mage::getSingleton('customer/customer')->getResource()->getAttribute($attributeCode);
     $attributeId = $attribute->getData('attribute_id');
@@ -237,3 +236,6 @@ $read = $resource->getConnection('core_read');
         window.location.href = '<?php echo $this->getUrl('checkout/cart'); ?>';
     });
     }); 
+
+30. split break line new line
+    preg_split("/\r\n|\n|\r/",$_selectTime)

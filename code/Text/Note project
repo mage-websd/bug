@@ -17,18 +17,14 @@ recapcha
 pub: 6LccqQYTAAAAANgKMmFvhcDztpywqDRv0m53Pjxn
 pri: 6LccqQYTAAAAALJ3yKTNVCbbM-4oug7iczmHi9h6
 
-app\design\frontend\default\default\
+paypal
+id: giang_busin@gmail.com
+username: giang_busin_api1.gmail.com
+pass: 467UFHEW8FKCLT32
+sign: AFcWxV21C7fd0v3bYYYRCpSSRl31At0mIYbYVN4MZ76XUQjeT-QMs5i5
 
-part inifite
-unika
-chee fat
-forest_of_francie
-zapatos -- redirect shopping
-ecs
-bridal
+giang_per@gmail.com
 
-<p>Folding Retractable</p>
-<p>Auto-Load Knife</p>
 
 
 
@@ -42,79 +38,43 @@ IN (106, 109, 493);
 tp=1&code=magento
 is_debug=1
 =============
-covatorg / 3WeC14wkg5
-binhdev@trainghiem.com.vn
-deohieugiluon
+www.secretsfinefood.com.sg
+
+Here are the login and the password:
+
+User : secretssg
+Password : 6dg7gdfl7gtzla2
 
 
-khoản: covatorg
-Mật khẩu: 3WeC14wkg5
-binhdev@trainghiem.com.vn / deohieugiluon
-
-------------------------------------------------------------------------------------------
-blackdotholdings
-FTP Username: design@blackdotholdings.com
-FTP Password: n90@@V{Z[!*1
-FTP Server: ftp.blackdotholdings.com
-FTP & explicit FTPS port: 21
-Skin folder
-FTP Username: skin@blackdotholdings.com
-FTP Password: n90@@V{Z[!*1
-FTP Server: ftp.blackdotholdings.com
-FTP & explicit FTPS port: 21
-------------------------------------------------------------------------------------------
-artist
-FTP Username: design@linxiaonan.com
-FTP Password: B7v@]r~klpbG
-FTP Server: ftp.linxiaonan.com
-FTP & explicit FTPS port: 21
-------------------------------------------------------------------------------------------
-moisesshoes
-FTP Username: design@moisesshoes.com
-FTP Password: Ky]G4VF}MLh$
-FTP Server: ftp.moisesshoes.com
-FTP & explicit FTPS port: 21
-
-FTP Username: skin@moisesshoes.com
-FTP Password: Ky]G4VF}MLh$
-FTP Server: ftp.moisesshoes.com
-FTP & explicit FTPS port: 21
-------------------------------------------------------------------------------------------
-beads_actually
-FTP Username: design@beadsactually.com
-FTP Password: ,uu~4_52US_%
-FTP Server: ftp.beadsactually.com
-FTP & explicit FTPS port: 21
-
-FTP Username: skin@beadsactually.com
-FTP Password: ,uu~4_52US_%
-FTP Server: ftp.beadsactually.com
-FTP & explicit FTPS port: 21
-------------------------------------------------------------------------------------------
-viimart
-FTP Username: design@viimart.com
-FTP Password: &Q;XlCi$J*ie
-FTP Server: ftp.viimart.com
-FTP & explicit FTPS port: 21
-
-FTP Username: skin@viimart.com
-FTP Password: &Q;XlCi$J*ie
-FTP Server: ftp.viimart.com
-FTP & explicit FTPS port: 21
+http://www.secretsfinefood.com.sg/secure_admin/ [^]
+secret/admin123
+secret/7hdYfalFiagv
 
 
-sort_attribute="news_from_date" sort_direction="ASC"
-kavya@top3.com.sg
-----------
-project information
-emosys:
-	blog - post of 1 category, home recent, 
---------------------------------------------------------------
-t2t-tech.com/admin tài khoản admin pass 123456@123
+Here is the phpmyadmin access :
 
-Tuyen dung: http://www.lazada.vn/career-opportunity/
-Trang báo chí http://cafestyle.yes24.vn/
-Trang đối tác http://deca.vn/danh-sach-thuong-hieu.html
+http://dbadmin.preprod2.aceituna.fr/ [^]
+
+HTTP access
+Login : dbadmin
+Password : yeivo1SieshooVi8
+
+Mysql access
+User : secretssg
+Password : saufeoyee8Oozoo8
+Login/password : secret/admin123
+
+
+
+========
+
+itwise
+admin/ITwise789
+
+====
+color select change image: rednine
+bundle checkbox: secret
+
 
 
 
@@ -123,7 +83,39 @@ magento setup:install --base-url=http://magento.2x.local/ --db-host=localhost --
 
 php -d xdebug.max_nesting_level=500 -f bin/magento setup:install --base-url=http://magento.2.local/ --backend-frontname=admin --db-host=127.0.0.1 --db-name=magento_2 --db-user=root --db-password=giang --admin-firstname=Local --admin-lastname=Admin --admin-email=admin@example.com --admin-user=admin --admin-password=admin123 --language=en_US --currency=USD --use-rewrites=1 --timezone=America/Chicago
 
-If you are paying via bank transfer, please transfer the specified amount within 24h hours to:
-BCA Account 0044202014 under the name of Tjong Fanny
 
-Failure to complete your payment may result in cancelation of your purchase.
+colorSelected('attribute92','24','http://emosys.no-ip.org/2015_09_rednine_fashion/media/catalog/product/cache/1/image/530x676/9df78eab33525d08d6e5fb8d27136e95/i/t/item_1b-2_1.jpg','Beige','http://emosys.no-ip.org/2015_09_rednine_fashion/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/i/t/item_1b-2_1.jpg')
+
+
+Hi admin,
+
+1- Frontend: Click a sub category of services, redirect to a page, then get link url. ex: services/5th-service-pending.html with category "5th service pending" https://goo.gl/Q3Mvoy
+* admin
+2- menu / Catalog / Manage Products.
+3- Choose product you want show when click sub categories. ex: product "5th service pending" have id="21" https://goo.gl/b0TPmQ
+4- menu / Catalog / URL Rewrite Management
+5- Search "services/5th-service-pending.html" (word found step 1) in field Request Path, edit object found https://goo.gl/i3Z50O
+6- Fill "catalog/product/view/id/21" in field "Target Path Custom" with 21 is id found in step 3. https://goo.gl/QwaoLx
+7- save.
+
+Hi admin,
+
+I change config, to config:
+- Edit product, ex Precise Portions https://goo.gl/p8zeJp
+- Choose tab extra, then fill number max cart into field "Max cart" https://goo.gl/ScjTSf
+
+
+Hi admin,
+
+This task was done, please check.
+
+Config: 
+* Admin paypal account:
+- Register account paypal.
+- System / Configuration / Payment Methods / Choose any paypal method you want, then fill information your paypal account. https://goo.gl/jyUDOl
+- Save
+* Coupon
+- Promotions / Shopping Cart Price Rules / Add new or edit rule. I created a new rule "Checkout Discout" https://goo.gl/bJpTnJ
+- Tab "Information", change coupon code that you want https://goo.gl/IvrZhw
+- Tab "Conditions", change rules that you want https://goo.gl/cjqEIQ
+- Tab "Action", change amount discount https://goo.gl/ZeKtS7

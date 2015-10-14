@@ -44,7 +44,7 @@
             <?php $i=0; ?>
             <?php foreach($children as $_child) : ?>
                 <?php if ($_child->getIsActive()) : $i++; ?>
-                    <li class="item<?php if($i%$_columnCount==1) {echo ' first';} elseif($i % $_columnCount == 0) {echo ' last';} ?>">
+                    <li class="item<?php if($i%$_columnCount==1) {echo ' first';} elseif($i % $_columnCount == 0) {echo ' last';} ?> <?php if($i%2==0) echo 'even'; else echo 'odd' ?>">
                         <div class="category-child-image">
                             <?php if ($_imgUrl = $_child->getImageUrl()): ?>
                                 <img src="<?php echo $_imgUrl; ?>" />

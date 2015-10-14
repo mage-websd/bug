@@ -19,6 +19,8 @@ console.log(CurX);
 console.log(CurY);
 }
 
+please clear, provide image have red circled that you deem difference
+
 Hi admin,
 
 To config, please follow:
@@ -194,3 +196,82 @@ Hi admin,
 - admin panel / Cms / Pages. Choose "Home page" Object https://www.diigo.com/item/image/5cvf2/cri5
 - Choose tab "content"
 - In SUPPER HOT DEAL content, edit product id https://www.diigo.com/item/image/5cvf2/8sd2
+
+
+Hi admin,
+
+I was confing it.
+
++ add "I-Cycle Manager" - Create 3 banner have different code https://www.diigo.com/item/image/5cvf2/9k6b
++ Add static block: add 3 block have same identifier "home_banner", different store https://www.diigo.com/item/image/5cvf2/owpk . Iontent, change "banner_id" is same I-Cycle banner that created recently https://www.diigo.com/item/image/5cvf2/4vgb
+
+
+Hi admin,
+
+This task was done, please check.
+
+1. Home page
+    Change link to product detail: 
+        - Cms => Page => Choose object Asisa Farm Home page https://www.diigo.com/item/image/5cvf2/rotb
+        - Tab Content, change link of product that you want in string "store url=???" https://www.diigo.com/item/image/5cvf2/428e
+2. Product page:
+    To add more option for menu left of product page (https://www.diigo.com/item/image/5cvf2/cb0y)
+        - Catalog -> Attribute -> Manager Attribute. Search corresponding object. Ex "Dessert" https://www.diigo.com/item/image/5cvf2/wxy7
+        - Tab manage Label / Option, change/add/remove option that you want https://www.diigo.com/item/image/5cvf2/3orq
+3. Services - Career page
+    To add thumnail image - popup
+        - Catalog -> Manage Categories -> Choose category Services (Career). In Description, change something you want https://www.diigo.com/item/image/5cvf2/9asn
+
+Hi admin,
+If so, in my opinion, you should have added one select box filter by year next to the "sort by". https://www.diigo.com/item/image/5cvf2/k28a
+Do you agree? feedback if you have any question?
+
+
+Hi admin
+
+- Click Wysiwyg Editor button https://www.diigo.com/item/image/5cvf2/k4rx
+- Click Show/hide editor to show Editor Tool. Click Media Button in Editor https://www.diigo.com/item/image/5cvf2/brc0
+- Click Upload/insert button to upload video https://www.diigo.com/item/image/5cvf2/3jmi
+- Fill/Choose another information for video from tab "General","Advanced","Source".
+- Click "Insert Video"
+
+
+Hi admin,
+
+Browser support run video mp4, you only upload and use video mp4.
+To product to video, you add/edit product have attribute set "video" https://www.diigo.com/item/image/5cvf2/tr27
+
+
+Hi admin,
+
+- Admin menu => Catalog / Manage Categories / Choose "Meals" category and add sub for this category 
+- In tab General, fill in field information as name, image, is Active https://www.diigo.com/item/image/5cvf2/e0rn
+- In tab Custom Design, choose page layout "2 column right", fill Custom Layout Update https://www.diigo.com/item/image/5cvf2/5dh6. 
+
+You can reference from another sub category of "Meals", like "Palate Pleasers" category.
+
+Hi admin,
+
+You can assign each customer to group customer, then you permission group customer to access into category (gallery)
+- permission category: 
+    amin menu => Catalog => Manage Categories => Choose category object (Ex: Pri 1 - sub of Private) -> Choose group type can access to this category https://www.diigo.com/item/image/5cvf2/y4bm
+
+Hi admin,
+
+To config:
+- admin menu / Catalog / Manage Categories
+- Choose "Designer" category you want config, ex: "Designer A"
+- In field Gallery, fill id gallery page of "Designer A", ex gallery id is 28.
+- The similar to another designer, created each gallery category.
+
+https://www.diigo.com/item/image/5cvf2/r125
+
+
+Hi admin,
+
+This task was done,please check.
+
+To config:
+- Edit all(or a) product in "Palate Pleasers"  (or another meal that you want).
+- Fill number in field "Max Cart"
+https://www.diigo.com/item/image/5cvf2/an8m
