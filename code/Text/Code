@@ -3,6 +3,8 @@ tp=1&code=magento: bat hint
 	{{block type="icycle/bannerx" banner_id="home"}}
 4. Web form
     {{widget type="webforms/form" webform_id="2" template="webforms/default.phtml"}}
+4. Subscribe
+    {{block type="newsletter/subscribe" name="ft.newsletter" template="newsletter/subscribe.phtml"}}
 4. get count product of category <?php echo $_category->getProductCount() ?>
 5. Get block list product folow category 
     {{block type="catalog/product_list_filter" name="best_sellers" category_id="41" column_count="4" product_limit="20" template="catalog/product/list/slider.phtml"}}

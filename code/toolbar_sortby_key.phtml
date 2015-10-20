@@ -86,3 +86,64 @@
     <?php endif; ?>
 </div>
 <?php endif ?>
+
+
+
+
+
+
+
+<?php 
+                $html = '';
+                if($_key == 'entity_id'){
+                    $html .= '
+                        <option value="'.$this->getOrderUrl($_key, 'desc').'"';
+                    if($this->isOrderCurrent($_key)) {
+                        $html .= ' selected';
+                    }
+                    $html .= '>'.'New Arrivals'.'</option>';
+                }
+                elseif($_key == 'name') {
+                    $html .= '
+                        <option value="'.$this->getOrderUrl($_key, 'asc').'"';
+                        if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'asc') {
+                            $html .= ' selected';
+                        }
+                        $html .= '>'.$_order.' (A to Z)'.'</option>';
+                        $html .= '
+                            <option value="'.$this->getOrderUrl($_key, 'desc').'"';
+                        if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'desc') {
+                            $html .= ' selected';
+                        }
+                    $html .= '>'.$_order.' (Z to A)'.'</option>';
+                }
+                elseif($_key == 'price') {
+                    $html .= '
+                    <option value="'.$this->getOrderUrl($_key, 'desc').'"';
+                    if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'desc') {
+                        $html .= ' selected';
+                    }
+                    $html .= '>'.$_order.' (Highest to Lowest)'.'</option>';
+                    $html .= '
+                        <option value="'.$this->getOrderUrl($_key, 'asc').'"';
+                    if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'asc') {
+                        $html .= ' selected';
+                    }
+                    $html .= '>'.$_order.' (Lowest to Highest)'.'</option>';
+                }
+                else{
+                    $html .= '
+                        <option value="'.$this->getOrderUrl($_key, 'asc').'"';
+                        if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'asc') {
+                            $html .= ' selected';
+                        }
+                    $html .= '>'.$_order.' (Low - Hight)'.'</option>';
+                    $html .= '
+                        <option value="'.$this->getOrderUrl($_key, 'desc').'"';
+                    if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'desc') {
+                        $html .= ' selected';
+                    }
+                    $html .= '>'.$_order.' (Hight-Low)'.'</option>';
+                }
+                echo $html;
+                ?>

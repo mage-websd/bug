@@ -1,3 +1,46 @@
+<script type="text/javascript">
+!function(e){function t(e){return 180*e/Math.PI}function i(e){return-1!=e.indexOf("deg")?parseInt(e,10)*(2*Math.PI/360):-1!=e.indexOf("grad")?parseInt(e,10)*(Math.PI/200):parseFloat(e)}var a=document.createElement("div"),r=a.style,n=e.support;n.transform=""===r.MozTransform?"MozTransform":""===r.MsTransform?"MsTransform":""===r.WebkitTransform?"WebkitTransform":""===r.OTransform?"OTransform":!1,n.matrixFilter=!n.transform&&""===r.filter,a=null,e.cssNumber.rotate=!0,e.cssHooks.rotate={set:function(t,a){var r,o,s,l=n,d=l.transform;"string"==typeof a&&(a=i(a)),e.data(t,"transform",{rotate:a}),d?t.style[d]="rotate("+a+"rad)":l.matrixFilter&&(r=Math.cos(a),o=Math.sin(a),t.style.filter=["progid:DXImageTransform.Microsoft.Matrix(","M11="+r+",","M12="+-o+",","M21="+o+",","M22="+r+",","SizingMethod='auto expand'",")"].join(""),(s=e.rotate.centerOrigin)&&(t.style["margin"==s?"marginLeft":"left"]=-(t.offsetWidth/2)+t.clientWidth/2+"px",t.style["margin"==s?"marginTop":"top"]=-(t.offsetHeight/2)+t.clientHeight/2+"px"))},get:function(t){var i=e.data(t,"transform");return i&&i.rotate?i.rotate:0}},e.fx.step.rotate=function(t){e.cssHooks.rotate.set(t.elem,t.now+t.unit)},e.rotate={centerOrigin:"margin",radToDeg:t}}(jQuery),function(e){e.fn.rotationSlider=function(t){void 0==t&&(t={});var a=e(this),r=a.children(),n=r.length;if(void 0==t.width&&(t.width=1e3),void 0==t.height&&(t.height=300),void 0==t.rotate&&(t.rotate=90),void 0==t.controller&&(t.controller=!0),t.controller&&(void 0==t.prev&&(t.prev=".rotation-prev"),void 0==t.next&&(t.next=".rotation-next")),void 0==t.pager&&(t.pager=!0),void 0==t.auto&&(t.auto=0),t.pager&&(void 0==t.pagerDom&&(t.pagerDom="rotation-slider-pager"),flagDomPager="rotation-pager"),slideItemActive=a.children(".active"),1!=slideItemActive.length&&(slideItemActive=r.first()),slideItemActive.addClass("active"),slideItemActive.siblings().removeClass("active").hide(),slideItemActive.show(),e.support.transform?(r.css("rotate",function(e){return-t.rotate*e+"deg"}),a.bind("rotateJump",function(i,o,s){indexActive=slideItemActive.index(),null==o&&(o="next"==s?indexActive+1:indexActive-1),o!=indexActive&&(o>=n?o=0:0>o&&(o=n-1),t.pager&&(e("."+flagDomPager+" a").removeClass("active"),e("."+flagDomPager+" a").eq(o).addClass("active")),a.animate({width:t.width,height:t.height},"fast",function(){slideItemActive.removeClass("active"),slideItemActive.fadeOut("slow",function(){slideItemActiveNew=r.eq(o),slideItemActiveNew.fadeIn("slow"),slideItemActive=slideItemActiveNew,slideItemActive.addClass("active")}),rotate=o>indexActive?t.rotate:-t.rotate,a.animate({rotate:Math.round(e.rotate.radToDeg(a.css("rotate"))+rotate)+"deg"},"slow").animate({width:t.width,height:t.height},"fast")}))})):a.bind("rotateJump",function(i,a,o){indexActive=slideItemActive.index(),null==a&&(a="next"==o?indexActive+1:indexActive-1),a!=indexActive&&(a>=n?a=0:0>a&&(a=n-1),t.pager&&(e("."+flagDomPager+" a").removeClass("active"),e("."+flagDomPager+" a").eq(a).addClass("active")),slideItemActive.removeClass("active"),slideItemActive.fadeOut("slow",function(){slideItemActiveNew=r.eq(a),slideItemActiveNew.fadeIn("slow"),slideItemActive=slideItemActiveNew,slideItemActive.addClass("active")}),rotate=a>indexActive?t.rotate:-t.rotate)}),t.pager){for(pagerHtml="",pagerHtml+='<ul class="'+flagDomPager+'">',indexActive=slideItemActive.index(),i=0;n>i;i++)pagerHtml+="<li>",pagerHtml+='<a href="#"',i==indexActive&&(pagerHtml+=' class="active"'),pagerHtml+=">",pagerHtml+="",pagerHtml+="</a>",pagerHtml+="</li>";pagerHtml+="</ul>",e(t.pagerDom).html(pagerHtml)}e(document).on("click",t.prev,function(e){return e.preventDefault(),a.is(":animated")?!1:void a.trigger("rotateJump",[null,"prev"])}),e(document).on("click",t.next,function(e){return e.preventDefault(),a.is(":animated")?!1:void a.trigger("rotateJump",[null,"next"])}),t.pager&&e(document).on("click","."+flagDomPager+" a",function(t){return t.preventDefault(),a.is(":animated")?!1:(indexActive=e(this).parent().index(),void a.trigger("rotateJump",indexActive))}),t.auto>0&&setInterval(function(){a.is(":animated")||a.trigger("rotateJump",[null,"next"])},t.auto)}}(jQuery);
+</script>
+<style>
+.rotation-slider-container{
+    position:relative;
+}
+.rotation-slider{
+    position:absolute;
+    z-index:100;
+}
+.rotation-slider .rotation-item{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}
+.rotation-pager{
+    margin-top: 100px;
+    position: absolute;
+}
+.rotation-pager a{
+    width: 12px;
+    height: 12px;
+    display: block;
+    outline: none;
+    border: none;
+    position: relative;
+    z-index: 2;
+    background: #aaa;
+    box-shadow: inset 0 1px 1px 0px rgba(0, 0, 0, 0.6), 0px 1px 1px 0px white;
+    -moz-box-shadow: inset 0 1px 1px 0px rgba(0, 0, 0, 0.6), 0px 1px 1px 0px white;
+    -webkit-box-shadow: inset 0 1px 1px 0px rgba(0, 0, 0, 0.6), 0px 1px 1px 0px white;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+.rotation-pager a.active{
+    background: #777;
+}
+</style>
+
 <?php $item = $this->getBanner(); ?>
 <?php if (is_object($item)) : ?>
     <?php $_helper = $this->helper('icycle'); ?>
@@ -6,276 +49,47 @@
     <?php $_imageList = $item->getImageListForFrontend(); ?>
     <?php if (is_array($_imageList) and sizeof($_imageList) > 0) : ?>
         <?php
-            $width = $item->getWidth() ? $item->getWidth() : 1366;
-            $height = $item->getHeight() ? $item->getHeight() : 318;
+            $width = $item->getWidth() ? $item->getWidth() : 960;
+            $height = $item->getHeight() ? $item->getHeight() : 474;
         ?>
 
-<div id="slideShowContainer" class="rotating-slider-container" style="width: <?php echo $width; ?>px; height: <?php echo $height; ?>px;">
-    <div id="slideShow" class="rotating-slider rotating-slider-<?php echo $suffix; ?>" style="width: <?php echo $width; ?>px; height: <?php echo $height; ?>px;">
-    	<ul>
-            <?php foreach ($_imageList as &$_item): ?>
-                <?php if ( $size = $_helper->getThumbSize($_item['file'], $width, $height) ) : ?>
-                    <?php $thumb = $_iHelper->init($_item['file'])->resize($size->getWidth(), $size->getHeight()); ?>
-                    <li>
-                        <img src="<?php echo $thumb; ?>" width="100%"/>
-                        <?php if (isset($_item['description'][0])) : ?>
-                            <div class="icycle-description"><?php echo $_helper->parseText($_item['description']); ?></div>
-                        <?php endif; ?>
-                    </li>
-                <?php endif; ?>
-            <?php endforeach; ?>        	
-        </ul>
-    </div>
-    <div class="slider-rotating-controller">
+<div class="rotation-slider-container">
+    <div class="slider-rotation-controller">
         <div class="controller-inner">
-            <a class="rotating-prev rotating-prev-<?php echo $suffix; ?>" href="#"><span>Prev</span></a>
-            <a class="rotating-next rotating-next-<?php echo $suffix; ?>" href="#"><span>Next</span></a>
+            <a class="rotation-prev rotation-prev-<?php echo $suffix; ?>" href="#"><span>Prev</span></a>
+            <a class="rotation-next rotation-next-<?php echo $suffix; ?>" href="#"><span>Next</span></a>
         </div>
     </div>
+    <ul class="rotation-slider rotation-slider-<?php echo $suffix; ?>">
+        <?php foreach ($_imageList as &$_item): ?>
+            <?php if ( $size = $_helper->getThumbSize($_item['file'], $width, $height) ) : ?>
+                <?php $thumb = $_iHelper->init($_item['file'])->resize($size->getWidth(), $size->getHeight()); ?>
+                <li class="rotation-item">
+                    <img src="<?php echo $thumb; ?>" />
+                    <?php if (isset($_item['description'][0])) : ?>
+                        <div class="icycle-description">
+                            <div class="id-inner"><?php echo $_helper->parseText($_item['description']); ?></div>
+                        </div>
+                    <?php endif; ?>
+                </li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </ul>
+    <div class="rotation-slider-pager"></div>
 </div>
 <script type="text/javascript">
     jQuery(document).ready(function($) {
-        $('.rotating-slider-<?php echo $suffix; ?>').rotatingSlider({
+        $('.rotating-slider-<?php echo $suffix; ?>').rotationSlider({
             width: <?php echo $width; ?>,
             height: <?php echo $height; ?>,
-            marginLeft: 10,
-            marginTop: 10,
             rotate: 360,
-            prev: '.rotating-prev-<?php echo $suffix; ?>',
-            next: '.rotating-next-<?php echo $suffix; ?>'
+            auto: <?php echo $item->getExtraOption('time') ?>,
+            prev: '.rotation-prev-<?php echo $suffix; ?>',
+            next: '.rotation-next-<?php echo $suffix; ?>',
+            pager: true, //default
+            pagerDom: '.rotation-slider-pager'//default
         });
     });
 </script>
 <?php endif; ?>
 <?php endif; ?>
-
-<script type="text/javascript">
-    /*
- * rotate: A jQuery cssHooks adding a cross browser 'rotate' property to $.fn.css() and $.fn.animate()
- *
- * Copyright (c) 2010 Louis-Rémi Babé
- * Licensed under the MIT license.
- * 
- * This saved you an hour of work? 
- * Send me music http://www.amazon.fr/wishlist/HNTU0468LQON
- *
- */
-(function($) {
-  
-var div = document.createElement('div'),
-  divStyle = div.style,
-  support = $.support;
-
-support.transform = 
-  divStyle.MozTransform === ''? 'MozTransform' :
-  (divStyle.MsTransform === ''? 'MsTransform' :
-  (divStyle.WebkitTransform === ''? 'WebkitTransform' : 
-  (divStyle.OTransform === ''? 'OTransform' :
-  false)));
-support.matrixFilter = !support.transform && divStyle.filter === '';
-div = null;
-
-$.cssNumber.rotate = true;
-$.cssHooks.rotate = {
-  set: function( elem, value ) {
-    var _support = support,
-      supportTransform = _support.transform,
-      cos, sin,
-      centerOrigin;
-    
-    if (typeof value === 'string') {
-      value = toRadian(value);
-    }
-    
-    $.data( elem, 'transform', {
-      rotate: value
-    });
-    
-    if (supportTransform) {
-      elem.style[supportTransform] = 'rotate('+ value +'rad)';
-      
-    } else if (_support.matrixFilter) {
-      cos = Math.cos(value);
-      sin = Math.sin(value);
-      elem.style.filter = [
-        "progid:DXImageTransform.Microsoft.Matrix(",
-          "M11="+cos+",",
-          "M12="+(-sin)+",",
-          "M21="+sin+",",
-          "M22="+cos+",",
-          "SizingMethod='auto expand'",
-        ")"
-      ].join('');
-      
-      // From pbakaus's Transformie http://github.com/pbakaus/transformie
-      if(centerOrigin = $.rotate.centerOrigin) {
-        elem.style[centerOrigin == 'margin' ? 'marginLeft' : 'left'] = -(elem.offsetWidth/2) + (elem.clientWidth/2) + "px";
-        elem.style[centerOrigin == 'margin' ? 'marginTop' : 'top'] = -(elem.offsetHeight/2) + (elem.clientHeight/2) + "px";
-      }
-    }
-  },
-  get: function( elem, computed ) {
-    var transform = $.data( elem, 'transform' );
-    return transform && transform.rotate? transform.rotate : 0;
-  }
-};
-$.fx.step.rotate = function( fx ) {
-  $.cssHooks.rotate.set( fx.elem, fx.now+fx.unit );
-};
-
-function radToDeg( rad ) {
-  return rad * 180 / Math.PI;
-}
-function toRadian(value) {
-  if(value.indexOf("deg") != -1) {
-    return parseInt(value,10) * (Math.PI * 2 / 360);
-  } else if (value.indexOf("grad") != -1) {
-    return parseInt(value,10) * (Math.PI/200);
-  }
-  return parseFloat(value);
-}
-
-$.rotate = {
-  centerOrigin: 'margin',
-  radToDeg: radToDeg
-};
-  
-})(jQuery);
-    (function($){
-    $.fn.rotatingSlider = function(object) {
-        if(object == undefined) {
-            object = {};
-        }
-        var slideShow = $(this),
-        ul = slideShow.find('ul'),
-        li = ul.find('li'),
-        cnt = li.length;
-        if(object.width == undefined) {
-            object.width = 1366;
-        }
-        if(object.height == undefined) {
-            object.height = 318;
-        }
-        if(object.marginTop == undefined) {
-            object.marginTop = 10;
-        }
-        if(object.marginLeft == undefined) {
-            object.marginLeft = 10;
-        }
-        if(object.prev == undefined) {
-            object.prev = '.rotating-prev';
-        }
-        if(object.next == undefined) {
-            object.next = '.rotating-next';
-        }
-        if(object.rotate == undefined) {
-            object.rotate = 90;
-        }
-        // As the images are positioned absolutely, the last image will be shown on top.
-        // This is why we force them in the correct order by assigning z-indexes:
-        // This function updates the z-index properties.
-        function updateZindex(){
-            // The CSS method can take a function as its second argument.
-            // i is the zero-based index of the element.
-            ul.find('li').css('z-index',function(i){
-                return cnt-i;
-            });
-        }
-        updateZindex();
-        if($.support.transform){        
-            // Modern browsers with support for css3 transformations        
-            li.find('img').css('rotate',function(i){
-                // Rotating the images counterclockwise
-                return (-object.rotate*i) + 'deg';
-            });     
-            // Binding a custom event. the direction and degrees parameters
-            // are passed when the event is triggered later on in the code.     
-            slideShow.bind('rotateContainer',function(e,direction,degrees){             
-                // Enlarging the slideshow and photo:               
-                slideShow.animate({
-                    width       : object.width,
-                    height      : object.height,
-                    marginTop   : 0,
-                    marginLeft  : 0
-                },'fast',function(){
-                    if(direction == 'next'){
-                        // Moving the topmost image containing Li at
-                        // the bottom after a fadeOut animation
-                        ul.find('li').first().fadeOut('slow',function(){
-                            $(this).remove().appendTo(ul);
-                            updateZindex();
-                            ul.find('li').first().fadeIn('slow');
-                        });
-                    }
-                    else {
-                        // Showing the bottomost Li element on top 
-                        // with a fade in animation. Notice that we are
-                        // updating the z-indexes.
-                        ul.find('li').last().fadeOut('slow',function(){
-                            $(this).remove().prependTo(ul);
-                            updateZindex();
-                            ul.find('li').first().fadeIn('slow');
-                        });
-
-                        /*var liLast = li.last().hide().remove().prependTo(ul);
-                        updateZindex();
-                        liLast.fadeIn('slow');*/
-                    }
-                    
-                    // Rotating the slideShow. css('rotate') gives us the
-                    // current rotation in radians. We are converting it to
-                    // degress so we can add 90 or -90 to rotate it to its new value.
-                    
-                    slideShow.animate({             
-                        rotate:Math.round($.rotate.radToDeg(slideShow.css('rotate'))+degrees) + 'deg'
-                    },'slow').animate({
-                        width       : object.width,
-                        height      : object.height,
-                        marginTop   : object.marginTop,
-                        marginLeft  : object.marginLeft
-                    },'fast');
-                });
-            });
-            // By triggering the custom events below, we can 
-            // show the previous / next images in the slideshow.
-            slideShow.bind('showNext',function(){
-                slideShow.trigger('rotateContainer',['next',object.rotate]);
-            });
-            slideShow.bind('showPrevious',function(){
-                slideShow.trigger('rotateContainer',['previous',-object.rotate]);
-            });
-        }
-        else{ //ie
-            // Fallback for Internet Explorer and older browsers
-            slideShow.bind('showNext',function(){
-                ul.find('li').first().fadeOut('slow',function(){
-                    $(this).remove().appendTo(ul).show();
-                    updateZindex();
-                });
-            });
-            slideShow.bind('showPrevious',function(){
-                var liLast = ul.find('li').last().hide().remove().prependTo(ul);
-                updateZindex();
-                liLast.fadeIn('slow');
-            });
-        }
-        // Listening for clicks on the arrows, and
-        // triggering the appropriate event.
-        $(document).on('click',object.prev,function(){
-            if(slideShow.is(':animated')){
-                return false;
-            }
-            slideShow.trigger('showPrevious');
-            return false;
-        });
-        
-        $(document).on('click',object.next,function(){
-            if(slideShow.is(':animated')){
-                return false;
-            }
-            slideShow.trigger('showNext');
-            return false;
-        });
-    };
-})(jQuery);
-</script>

@@ -1,0 +1,48 @@
+<reference name="head">
+            <action method="addItem"><type>skin_css</type><name>webforms/form.css</name><params/><if/></action>
+            <action method="addCss">
+            	<file>webforms/form.css</file>
+            </action>
+            <action method="addJs">
+            	<file>prototype/window.js</file>
+            </action>
+            <action method="addItem">
+            	<type>js_css</type>
+            	<file>prototype/windows/themes/default.css</file>
+            </action>
+            <action method="addItem">
+            	<type>js_css</type>
+            	<file>prototype/windows/themes/alphacube.css</file>
+            </action>
+            <action method="addJs">
+            	<file>webforms/logic.js</file>
+            </action>
+            <action method="addJs">
+            	<file>webforms/multistep.js</file>
+            </action>
+            <action method="addJs">
+            	<file>webforms/stars.js</file>
+            </action>
+            <action method="addCss">
+            	<file>webforms/stars.css</file>
+            </action>
+            <action method="addJs">
+            	<file>webforms/HelpBalloon.js</file>
+            </action>
+            <action method="addCss">
+            	<file>webforms/helpballoon.css</file>
+            </action>
+            <action method="addJs">
+            	<file>tiny_mce/tiny_mce.js</file>
+            </action>
+            <action method="addJs">
+            	<file>calendar/calendar.js</file>
+            </action>
+            <action method="addJs">
+            	<file>calendar/calendar-setup.js</file>
+            </action>
+            <action method="addItem">
+            	<type>js_css</type>
+            	<file>calendar/calendar-blue.css</file>
+            </action>
+        </reference>

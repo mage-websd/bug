@@ -47,6 +47,7 @@
                     slideWidth: <?php echo $width; ?>,
                     minSlides: 1,
                     maxSlides: 1,
+                    controls: <?php echo $item->getExtraOption('navigation') ?>,
                     nextSelector: '.bx-next-<?php echo $suffix; ?>',
                     prevSelector: '.bx-prev-<?php echo $suffix; ?>',
                     pager: <?php echo $item->getExtraOption('pagination') ?>
@@ -64,6 +65,7 @@
                         slideWidth: <?php echo $width; ?>,
                         minSlides: 1,
                         maxSlides: 1,
+                        controls: <?php echo $item->getExtraOption('navigation') ?>,
                         nextSelector: '.bx-next-<?php echo $suffix; ?>',
                         prevSelector: '.bx-prev-<?php echo $suffix; ?>',
                         pager: <?php echo $item->getExtraOption('pagination') ?>,

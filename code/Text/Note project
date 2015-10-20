@@ -83,39 +83,3 @@ magento setup:install --base-url=http://magento.2x.local/ --db-host=localhost --
 
 php -d xdebug.max_nesting_level=500 -f bin/magento setup:install --base-url=http://magento.2.local/ --backend-frontname=admin --db-host=127.0.0.1 --db-name=magento_2 --db-user=root --db-password=giang --admin-firstname=Local --admin-lastname=Admin --admin-email=admin@example.com --admin-user=admin --admin-password=admin123 --language=en_US --currency=USD --use-rewrites=1 --timezone=America/Chicago
 
-
-colorSelected('attribute92','24','http://emosys.no-ip.org/2015_09_rednine_fashion/media/catalog/product/cache/1/image/530x676/9df78eab33525d08d6e5fb8d27136e95/i/t/item_1b-2_1.jpg','Beige','http://emosys.no-ip.org/2015_09_rednine_fashion/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/i/t/item_1b-2_1.jpg')
-
-
-Hi admin,
-
-1- Frontend: Click a sub category of services, redirect to a page, then get link url. ex: services/5th-service-pending.html with category "5th service pending" https://goo.gl/Q3Mvoy
-* admin
-2- menu / Catalog / Manage Products.
-3- Choose product you want show when click sub categories. ex: product "5th service pending" have id="21" https://goo.gl/b0TPmQ
-4- menu / Catalog / URL Rewrite Management
-5- Search "services/5th-service-pending.html" (word found step 1) in field Request Path, edit object found https://goo.gl/i3Z50O
-6- Fill "catalog/product/view/id/21" in field "Target Path Custom" with 21 is id found in step 3. https://goo.gl/QwaoLx
-7- save.
-
-Hi admin,
-
-I change config, to config:
-- Edit product, ex Precise Portions https://goo.gl/p8zeJp
-- Choose tab extra, then fill number max cart into field "Max cart" https://goo.gl/ScjTSf
-
-
-Hi admin,
-
-This task was done, please check.
-
-Config: 
-* Admin paypal account:
-- Register account paypal.
-- System / Configuration / Payment Methods / Choose any paypal method you want, then fill information your paypal account. https://goo.gl/jyUDOl
-- Save
-* Coupon
-- Promotions / Shopping Cart Price Rules / Add new or edit rule. I created a new rule "Checkout Discout" https://goo.gl/bJpTnJ
-- Tab "Information", change coupon code that you want https://goo.gl/IvrZhw
-- Tab "Conditions", change rules that you want https://goo.gl/cjqEIQ
-- Tab "Action", change amount discount https://goo.gl/ZeKtS7
