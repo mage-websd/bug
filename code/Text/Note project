@@ -5,10 +5,10 @@ mysql -u root -p --default-character-set=utf8 dbname < filedb.sql
 -------------------
 Top3-Dev-GN
 http://198.13.96.106/repos/top3_
-
 http://technicalsupport.com.sg/
 
-http://emosys.no-ip.org/phpmyadmin/
+http://emosys.dynns.com/
+http://emosys.dynns.com/phpmyadmin/
 emosys/0VIVY4b2
 
 admin/kelterintl1@3
@@ -47,9 +47,9 @@ Password : 6dg7gdfl7gtzla2
 
 
 http://www.secretsfinefood.com.sg/secure_admin/ [^]
-secret/admin123
 secret/7hdYfalFiagv
 
+secret/admin123
 
 Here is the phpmyadmin access :
 
@@ -65,6 +65,23 @@ Password : saufeoyee8Oozoo8
 Login/password : secret/admin123
 
 
+.com:
+	create category
+		ARTISAN: {{block type="core/template" name="custom_menu_brand" template="webandpeople/custommenu/brand.phtml"}}
+		hamber
+	create product hamber
+
+	<a href="{{store url="hamber-custom.html"}}">
+	    <img src="{{skin url="images/menu.png"}}" alt="" />
+	</a>
+	<p><a href="{{store url="hamber-custom.html"}}">Create your own HAMPER</a></p>
+
+	
+	custommenu block - hamber - create category
+		navagation.php - emosys
+	copy template bundle/
+		catalog/product/view/scpoptions.phtml
+		
 
 ========
 
@@ -74,7 +91,7 @@ admin/ITwise789
 ====
 color select change image: rednine
 bundle checkbox: secret
-
+decimal number price: daily
 
 
 
@@ -82,4 +99,10 @@ magento setup:install --base-url=http://magento.2x.local/ --db-host=localhost --
 
 
 php -d xdebug.max_nesting_level=500 -f bin/magento setup:install --base-url=http://magento.2.local/ --backend-frontname=admin --db-host=127.0.0.1 --db-name=magento_2 --db-user=root --db-password=giang --admin-firstname=Local --admin-lastname=Admin --admin-email=admin@example.com --admin-user=admin --admin-password=admin123 --language=en_US --currency=USD --use-rewrites=1 --timezone=America/Chicago
+
+
+UPDATE `core_config_data` SET `value`='hdpmwkMrXNd+Pa4vIWKIVtruWdk0+RlGFNNUM1vi2aQ=' WHERE `path`='icycle/license/key' OR `path`='izoom/license/key';
+
+
+
 
