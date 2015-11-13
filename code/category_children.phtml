@@ -30,15 +30,19 @@
  * @see Mage_Catalog_Block_Navigation
  */
 ?>
-<?php $_cHelper = $this->helper('icategory'); ?>
-<?php $_helper    = $this->helper('catalog/output'); ?>
-<?php $_columnCount = $this->getColumnCount() ? $this->getColumnCount() : 3; ?>
-<?php if ($category = Mage::registry('current_category')) : ?>
-    <?php $children = $_cHelper->getCategoryCollection($category->getId()) ?>
-    <?php /*if (count($children) == 0) : ?>
-        <?php $children = $_cHelper->getCategoryCollection($category->getParentId()) ?>
-    <?php endif*/ ?>
-    <?php if (count($children) > 0) : ?>
+<?php 
+$_cHelper = $this->helper('icategory');
+$_helper    = $this->helper('catalog/output');
+$category = Mage::registry('current_category');
+if(!$category) {
+    return;
+}
+$children = $_cHelper->getCategoryCollection($category->getId());
+if (!count($children)) {
+    return;
+}
+$_columnCount = $this->getColumnCount() ? $this->getColumnCount() : 3;
+?>
     <div class="block block-category-children">
         <ul class="categories-grid">
             <?php $i=0; ?>
@@ -81,4 +85,3 @@
         </div>
     </div>
     <?php endif; ?>
-<?php endif; ?>

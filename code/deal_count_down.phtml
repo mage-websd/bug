@@ -1,28 +1,71 @@
 <?php
-function getTimestampUtil($_product)
-{
-	if(!is_object($_product)) {
-		$_product = Mage::getModel('catalog/product')->load($_product);
-	}
-	if(!$_product->getSpecialPrice()) {
-		return 0;
-	}
-	$dateTimeCurrent = Mage::getModel('core/date')->date('Y-m-d H:i:s');
-	$dateTimeStart = $_product->getData('special_from_date');
-	$dateTimeEnd = $_product->getData('special_to_date');
-	if(!$dateTimeEnd) {
-		return null;
-	}
-	$timestampCurrent = strtotime($dateTimeCurrent);
-	$timestampStart = strtotime($dateTimeStart);
-	$timestampEnd = strtotime($dateTimeEnd);
-	if($timestampCurrent <= $timestampStart || $timestampCurrent >= $timestampEnd) {
-		return null;
-	}
-	$timestampUtil = $timestampEnd - $timestampCurrent;
-	return $timestampUtil;
-}
-$timestampUtil = getTimestampUtil($_product);
+    function getSale($productIdFilter = null) {
+        $storeId = Mage::app()->getStore()->getId();
+        $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
+        $custGroup = Mage::getSingleton('customer/session')->getCustomerGroupId();
+        $product = Mage::getModel('catalog/product');
+        $todayDate = $product->getResource()->formatDate(time(), false);
+        $rulePriceWhere = "({{table}}.rule_date is null) or " . "({{table}}.rule_date='$todayDate' and " . "{{table}}.website_id='$websiteId' and " . "{{table}}.customer_group_id='$custGroup')";
+        $specials = $product->setStoreId($storeId)->getResourceCollection()->addAttributeToFilter('special_price', array('gt' => 0), 'left')->addAttributeToFilter('special_from_date', array('date' => true, 'to' => $todayDate), 'left')->addAttributeToFilter(array(array('attribute' => 'special_to_date', 'date' => true, 'from' => $todayDate), array('attribute' => 'special_to_date', 'is' => new Zend_Db_Expr('null'))), '', 'left')->addAttributeToSort('special_from_date', 'desc')->joinTable('catalogrule/rule_product_price', 'product_id=entity_id', array('rule_price' => 'rule_price', 'rule_start_date' => 'latest_start_date', 'rule_date' => 'rule_date', 'rule_end_date' => 'earliest_end_date'), $rulePriceWhere, 'left');
+        if ($productIdFilter) {
+            $specials = $specials->addAttributeToFilter('entity_id', $productIdFilter);
+        }
+        $rulePriceCollection = Mage::getResourceModel('catalogrule/rule_product_price_collection')->addFieldToFilter('website_id', $websiteId)->addFieldToFilter('customer_group_id', $custGroup)->addFieldToFilter('rule_date', $todayDate);
+        $productIds = $rulePriceCollection->getProductIds();
+        if (!empty($productIds)) {
+            $specials->getSelect()->orWhere('e.entity_id in (' . implode(',', $productIds) . ')');
+        }
+        $specials->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+        ->addMinimalPrice()->addFinalPrice()->addTaxPercents();
+
+        //->addUrlRewrite($this->getCurrentCategory()->getId());
+        Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($specials);
+        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($specials);
+
+        //$this->prepareProductCollection($specials);
+        if ($productIdFilter) {
+          foreach ($specials as $special) {
+            if($special->getData('entity_id') == $productIdFilter) {
+              return $special;
+            }
+          }
+          return null;
+        }
+        return $specials;
+    }
+
+    function getTimestampUtil($product)
+    {
+        if (is_object($product)) {
+            $product = $product->getId();
+        }
+        $product = getSale($product);
+        if(!$product || !$product->getId()) {
+          return null;
+        }
+        $dateTimeCurrent = Mage::getModel('core/date')->date('Y-m-d H:i:s');
+        $dateTimeStart = $product->getData('special_from_date');
+        $dateTimeEnd = $product->getData('special_to_date');
+        $dataTimeEndRule = $product->getData('rule_end_date');
+        if (!$dateTimeEnd && !$dataTimeEndRule) {
+            //return null;
+            $dateTimeEnd = Mage::getModel('core/date')->date('Y-m-d');
+            $dateTimeEnd .= ' 23:59:59';
+        }
+        $timestampCurrent = strtotime($dateTimeCurrent);
+        if($dataTimeEndRule) {
+          $timestampEnd = strtotime($dataTimeEndRule);
+        }
+        else {
+          $timestampEnd = strtotime($dateTimeEnd);
+          $timestampStart = strtotime($dateTimeStart);
+          if ($timestampCurrent <= $timestampStart || $timestampCurrent >= $timestampEnd) {
+              return null;
+          }
+        }
+        $timestampUtil = $timestampEnd - $timestampCurrent;
+        return $timestampUtil;
+    }
 ?>
 
 <div class="ps-countdown time-countdown" data-timeutil="<?php echo $timestampUtil; ?>">

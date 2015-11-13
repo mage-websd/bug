@@ -12,9 +12,11 @@ tp=1&code=magento: bat hint
     {{block type="catalog/product_list_filter" name="best_best" category_id="62" product_limit="8" column_count="4" template="catalog/product/list/filter.phtml"}}
 
     {{block type="catalog/product_list_tab" name="home.featured" category_id="37,38,40" product_limit="20" column_count="5" template="catalog/product/list/tab_slider.phtml"}}
-    
 6.
     <li class="discussionListItem{*}"{*}>{*}<div class="listBlock{*}"{*}>{*}<div class="titleText{*}"{*}>{*}<h3 class="title><a href="{%}"{*}>{%}</a>{*}</h3>{*}</div>{*}</div>{*}</li>
+6. price product
+    $cHelper = $this->helper('icategory');
+    $cHelper->getPriceHtml($product);
 7. change image product hang loat
     UPDATE `catalog_product_entity_media_gallery` SET `value` = '/p/r/product-image.png' WHERE `entity_id` < 167;
     UPDATE `catalog_product_entity_varchar` SET `value` = '/p/r/product-image.png' WHERE `entity_id` < 167 AND `attribute_id`

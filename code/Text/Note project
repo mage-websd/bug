@@ -9,7 +9,7 @@ http://technicalsupport.com.sg/
 
 http://emosys.dynns.com/
 http://emosys.dynns.com/phpmyadmin/
-emosys/0VIVY4b2
+emosys/0VIVY4b2 
 
 admin/kelterintl1@3
 
@@ -25,7 +25,13 @@ sign: AFcWxV21C7fd0v3bYYYRCpSSRl31At0mIYbYVN4MZ76XUQjeT-QMs5i5
 
 giang_per@gmail.com
 
+key icyle: hdpmwkMrXNd+Pa4vIWKIVtruWdk0+RlGFNNUM1vi2aQ=
+face: 
+pub: 737846092964903
+pri: 104b3ac82c05aa1dc1e9f843e1a91032
 
+
+map: <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1536877.1258810011!2d-98.830144171875!3d41.20622727991629!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1447142612076" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 
 
 http://198.13.96.106/phpmyadmin
@@ -89,10 +95,17 @@ itwise
 admin/ITwise789
 
 ====
+readline live
+Control Panel Login details
+Control Panel: http://rednine-fashion.com/cpanel/ [^]
+Alternate Control Panel: http://marlin.vodien.com/cpanel/ [^]
+Username: redninef
+Password: 1xl3i4YaS4
+======
 color select change image: rednine
 bundle checkbox: secret
 decimal number price: daily
-
+filter tap: leovas
 
 
 magento setup:install --base-url=http://magento.2x.local/ --db-host=localhost --db-name=magento_2 --db-user=root --db-password=giang --admin-firstname=admin --admin-lastname=admin --admin-email=admin@example.com --admin-user=admin --admin-password=admin123 --language=en_US --currency=USD --timezone=America/Chicago --use-sample-data --use-rewrites=1
@@ -104,5 +117,8 @@ php -d xdebug.max_nesting_level=500 -f bin/magento setup:install --base-url=http
 UPDATE `core_config_data` SET `value`='hdpmwkMrXNd+Pa4vIWKIVtruWdk0+RlGFNNUM1vi2aQ=' WHERE `path`='icycle/license/key' OR `path`='izoom/license/key';
 
 
+Mage::getBaseDir('code')
+Mage::getBaseDir('code') . "/local/Ebizmarts/lib
 
 
+http://emosys.dynns.com/2015_10_pawrus/customer/account/confirm/id/20/key/9b640f88a643b20ded859b98ed055b1a

@@ -42,25 +42,31 @@
 </style>
 
 <?php $item = $this->getBanner(); ?>
-<?php if (is_object($item)) : ?>
-    <?php $_helper = $this->helper('icycle'); ?>
-    <?php $_iHelper = $this->helper('icycle/image'); ?>
-    <?php $suffix = md5(microtime() . mt_rand()) ?>
-    <?php $_imageList = $item->getImageListForFrontend(); ?>
-    <?php if (is_array($_imageList) and sizeof($_imageList) > 0) : ?>
-        <?php
-            $width = $item->getWidth() ? $item->getWidth() : 960;
-            $height = $item->getHeight() ? $item->getHeight() : 474;
-        ?>
+<?php 
+    if (!is_object($item)) {
+        return;
+    }
+    $_helper = $this->helper('icycle');
+    $_iHelper = $this->helper('icycle/image');
+    $suffix = md5(microtime() . mt_rand());
+    $_imageList = $item->getImageListForFrontend();
+    if (!is_array($_imageList) || !sizeof($_imageList)) {
+        return;
+    }        
+    $width = $item->getWidth() ? $item->getWidth() : 960;
+    $height = $item->getHeight() ? $item->getHeight() : 474;
+?>
 
-<div class="rotation-slider-container">
-    <div class="slider-rotation-controller">
-        <div class="controller-inner">
-            <a class="rotation-prev rotation-prev-<?php echo $suffix; ?>" href="#"><span>Prev</span></a>
-            <a class="rotation-next rotation-next-<?php echo $suffix; ?>" href="#"><span>Next</span></a>
+<div class="rotation-slider-container" style="width: <?php echo $width; ?>px; height: <?php echo $height; ?>px;">
+    <?php if($item->getExtraOption('navigation') != 'false') : ?>
+        <div class="slider-rotation-controller">
+            <div class="controller-inner">
+                <a class="rotation-prev rotation-prev-<?php echo $suffix; ?>" href="#"><span>Prev</span></a>
+                <a class="rotation-next rotation-next-<?php echo $suffix; ?>" href="#"><span>Next</span></a>
+            </div>
         </div>
-    </div>
-    <ul class="rotation-slider rotation-slider-<?php echo $suffix; ?>">
+    <?php endif; ?>
+    <ul class="rotation-slider rotation-slider-<?php echo $suffix; ?>" style="width: <?php echo $width; ?>px; height: <?php echo $height; ?>px;">
         <?php foreach ($_imageList as &$_item): ?>
             <?php if ( $size = $_helper->getThumbSize($_item['file'], $width, $height) ) : ?>
                 <?php $thumb = $_iHelper->init($_item['file'])->resize($size->getWidth(), $size->getHeight()); ?>
@@ -79,17 +85,19 @@
 </div>
 <script type="text/javascript">
     jQuery(document).ready(function($) {
+        <?php if($item->getExtraOption('navigation') == false) : ?>
+            $('.rotation-slider-<?php echo $suffix; ?>').siblings('.slider-rotation-controller').remove();
+        <?php endif; ?>
         $('.rotation-slider-<?php echo $suffix; ?>').rotationSlider({
             width: <?php echo $width; ?>,
             height: <?php echo $height; ?>,
             rotate: 360,
-            auto: <?php echo $item->getExtraOption('time') ?>,
+            auto: <?php echo $item->getExtraOption('time'); ?>,
+            controller: <?php echo $item->getExtraOption('navigation'); ?>,
             prev: '.rotation-prev-<?php echo $suffix; ?>',
             next: '.rotation-next-<?php echo $suffix; ?>',
-            pager: true, //default
+            pager: <?php echo $item->getExtraOption('pagination'); ?>,
             pagerDom: '.rotation-slider-pager'//default
         });
     });
 </script>
-<?php endif; ?>
-<?php endif; ?>

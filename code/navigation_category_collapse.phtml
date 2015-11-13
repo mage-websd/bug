@@ -1,132 +1,124 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Category layered navigation
+ *
+ * @see Mage_Catalog_Block_Layer_View
+ */
+?>
+<?php
+function getChildCollection($id,$showLeft = 0)
+{
+    $_categoryCollection = Mage::getModel('catalog/category')->getCollection()
+    ->addAttributeToSelect(array('name','url_key'))
+    ->addAttributeToFilter('is_active',1)
+    ->addAttributeToFilter('parent_id',$id);
+    if($showLeft) {
+        $_categoryCollection->addAttributeToFilter('show_left',1);
+    }
+    return $_categoryCollection;
+}
+?>
 <?php 
-$_helper  = $this->helper('catalog/output');
+$_helper = $this->helper('catalog/output'); 
 $_cHelper = $this->helper('icategory');
-if ($c = Mage::registry('current_category')){
-    $path = $c->getPath();
-    $ids = explode('/', $path);
-    if(isset($ids[2])) {
-        $children = $_cHelper->getCategoryCollection($ids[2]);
-        $parent = Mage::getModel('catalog/category')->load($ids[2]);
-    }
-    else {
-        $parent = $_cHelper->getParentCategory($c);
-        $children = $_cHelper->getCategoryCollection($parent->getId());
-    }
-    if (count($children) > 0) {
+$_categoryRootId = Mage::app()->getStore()->getRootCategoryId();
+$_children1 = getChildCollection($_categoryRootId,1);
+$_currentCategory = Mage::registry('current_category');
+$_childrenCurrent = null;
+$_arrayCurrentCategoryIds = array();
+if($_currentCategory) {
+    $_childrenCurrent = getChildCollection($_currentCategory->getId());
+    $path = $_currentCategory->getPath();
+    $_arrayCurrentCategoryIds = explode('/', $path);
+}
 ?>
-        <div class="block block-layered-nav block-navigation">
-            <div class="block-title collapse-title has-collapse-child">
-                <strong><span><?php echo $parent->getName() ?></span></strong>
-            </div>
-            <div class="block-content collapse-content">
-                <dl id="narrow-by-list2">
-                <?php foreach($children as $_child) : ?>
-                    <?php if ($_child->getIsActive()) : ?>
-                        <?php $_name = $_child->formatUrlKey($_child->getName()) ?>
-                        <?php $_cChildren = $_cHelper->getCategoryCollection($_child->getId()) ?>
-                        <dt class="collapse-title <?php if (count($_cChildren) > 0) echo 'has-collapse-child'; ?> <?php if($c->getId() == $_child->getId()) echo ' active'; ?> expand">
-                                <a href="<?php echo $_child->getUrl() ?>"><?php echo $this->htmlEscape($_child->getName()) ?></a>
-                        </dt>
-                        <?php if (count($_cChildren) > 0) : ?>
-                            <dd class="collapse-content">
-                                <ol>
-                                    <?php foreach($_cChildren as $_cChild) : ?>
-                                        <?php if ($_cChild->getIsActive()) : ?>
-                                        <li class="<?php if($c->getId() == $_cChild->getId()) echo ' active'; ?>">
-                                            <a href="<?php echo $_cChild->getUrl() ?>"><?php echo $this->htmlEscape($_cChild->getName()) ?></a>
+
+<div class="block block-layered-nav filter-wrapper">
+    <?php if(count($_children1)): ?>
+        <div class="navigation-block">
+            <h3 class="block-title"><?php echo $this->__('Categoies'); ?></h3>
+            <dl class="navigation-categories">
+                <ul class="ul-nav-l1">
+                    <?php foreach($_children1 as $_child1): ?>
+                        <li class="li-nav-l1<?php if(in_array($_child1->getId(), $_arrayCurrentCategoryIds)) echo ' active'; ?>">
+                            <a href="<?php echo $_child1->getUrl(); ?>"><?php echo $_child1->getName(); ?></a>
+                            <?php $_children2 = getChildCollection($_child1->getId()); ?>
+                            <?php if(count($_children2)) : ?>
+                                <span class="collapse-title<?php if(in_array($_child1->getId(), $_arrayCurrentCategoryIds)) echo ' expand'; ?>">+</span>
+                                <ul class="ul-nav-l2 collapse-content">
+                                    <?php foreach($_children2 as $_child2): ?>
+                                        <li class="li-nav-l2<?php if(in_array($_child2->getId(), $_arrayCurrentCategoryIds)) echo ' active'; ?>">
+                                            <a href="<?php echo $_child2->getUrl(); ?>"><?php echo $_child2->getName(); ?></a>
+                                            <?php $_children3 = getChildCollection($_child2->getId()); ?>
+                                            <?php if(count($_children3)) : ?>
+                                                <span class="collapse-title<?php if(in_array($_child2->getId(), $_arrayCurrentCategoryIds)) echo ' expand'; ?>">+</span>
+                                                <ul class="ul-nav-l3 collapse-content">
+                                                    <?php foreach($_children3 as $_child3): ?>
+                                                        <li class="li-nav-l3<?php if(in_array($_child3->getId(), $_arrayCurrentCategoryIds)) echo ' active'; ?>">
+                                                            <a href="<?php echo $_child3->getUrl(); ?>"><?php echo $_child3->getName(); ?></a>
+                                                        </li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            <?php endif; ?>
                                         </li>
-                                        <?php endif; ?>
                                     <?php endforeach; ?>
-                                </ol>
-                            </dd>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-                </dl>
-                <script type="text/javascript">
-                //<![CDATA[
-                jQuery(document).ready(function($) {
-                    function collapseClickActivity(dom) {
-                        if(dom.next('.collapse-content').length) {
-                            if(dom.hasClass('expand')) {
-                                dom.removeClass('expand');
-                                dom.next('.collapse-content').slideUp();
-                                dom.next('.collapse-content').removeClass('open');
-                            }
-                            else {
-                                dom.addClass('expand');
-                                dom.next('.collapse-content').slideDown();
-                                dom.next('.collapse-content').addClass('open');
-                            }
-                        }
-                    }
-                    function collapseStartActivity(dom) {
-                        /*var htmlClick = '<a href="#" class="collapse-expand-link expand">+</a>';*/
-                        $.each(dom, function(i,k) {
-                            if($(this).next('.collapse-content').length) {
-                                /*$(this).append(htmlClick);
-                                widthExpand = $(this).width() - $(this).children().first().width() - 5;
-                                $(this).children('.collapse-expand-link').css('display','inline-block').css('width',widthExpand+'px');*/
-                                if(dom.hasClass('expand')) {
-                                    dom.next('.collapse-content').slideDown();
-                                    dom.next('.collapse-content').addClass('open');
-                                }
-                                else {
-                                    dom.next('.collapse-content').slideUp();
-                                    dom.next('.collapse-content').removeClass('open');
-                                }
-                            }
-                        });
-                    }
-                    collapseStartActivity($('.collapse-title'));
-                    /*$(document).on('click','.collapse-title > .collapse-expand-link',function() {
-                        collapseClickActivity($(this));
-                        return false;
-                    });*/
-                    $(document).on('click','.collapse-title',function() {
-                        collapseClickActivity($(this));
-                    });
-                });
-                //]]>
-/*navi chuan*/
-jQuery(document).ready(function($) {
-    function collapseClickActivity(dom) {
-        if(dom.next('.collapse-content').length) {
-            if(dom.hasClass('expand')) {
-                dom.removeClass('expand');
-                dom.next('.collapse-content').slideUp();
-                dom.next('.collapse-content').removeClass('open');
-            }
-            else {
-                dom.addClass('expand');
-                dom.next('.collapse-content').slideDown();
-                dom.next('.collapse-content').addClass('open');
-            }
-        }
-    }
-    function collapseStartActivity(dom) {
-        $.each(dom, function(i,k) {
-            if($(this).next('.collapse-content').length) {
-                if($(this).hasClass('expand')) {
-                    $(this).next('.collapse-content').slideDown();
-                    $(this).next('.collapse-content').addClass('open');
-                }
-                else {
-                    $(this).next('.collapse-content').slideUp();
-                    $(this).next('.collapse-content').removeClass('open');
-                }
-            }
-        });
-    }
-    collapseStartActivity($('.collapse-title'));
-    $(document).on('click','.collapse-title',function() {
-        collapseClickActivity($(this));
-    });
-});
-                </script>
-            </div>
+                                </ul>
+                            <?php endif; ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </dl>
         </div>
-<?php 
-    }//endif check count child
-}//endif check current category
-?>
+    <?php endif; ?>
+    <?php if(count($_childrenCurrent)): ?>
+        <div class="navigation-block">
+        <h3 class="block-title"><?php echo $this->__('BROWSE BY'); ?></h3>
+            <dl class="navigation-block navigation-browser">
+                <dt class="browser-title"><?php echo $this->__('Category'); ?></dt>
+                <dd>
+                    <ul>
+                        <?php foreach($_childrenCurrent as $_childCurrent): ?>
+                            <li>
+                                <a href="<?php echo $_childCurrent->getUrl(); ?>">
+                                    <span><?php echo $_childCurrent->getName(); ?></span>
+                                    <span>(<?php echo $_childCurrent->getProductCount(); ?>)</span>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    <?php endif; ?>
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('.block-layered-nav.filter-wrapper').collapse();
+    });
+</script>

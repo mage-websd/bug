@@ -1,50 +1,69 @@
-<?php $item = $this->getBanner(); ?>
-<?php if (is_object($item)) : ?>
-    <?php $_helper = $this->helper('icycle'); ?>
-    <?php $_iHelper = $this->helper('icycle/image'); ?>
-    <?php $class = md5(microtime() . mt_rand()) ?>
-    <?php $_imageList = $item->getImageListForFrontend(); ?>
-    <?php if (is_array($_imageList) and sizeof($_imageList) > 0) : ?>
-        <div class="bxslider-wrapper">
-            <div class="bxslider bxslider-<?php echo $class; ?>">
-                <?php $i=0; foreach ($_imageList as &$_item) : $i++; ?>
-                    <?php if($i%$_columnCountSlider==1) : ?>
-                        <div class="slide">
-                    <?php endif; ?>
-                    <?php 
-                    if($bannerUrl = $_helper->parseText($_item['link'])) {
-                    }
-                    else {
-                        $bannerUrl = '#';
-                    }
-                    ?>
-                    <div class="slide">
-                        <div class="product-image-inner">
-                            <a href="<?php echo $bannerUrl; ?>" class="brand-image">
-                                <img src="<?php echo $_helper->getImageUrl($_item['file']); ?>">
-                            </a>
-                            <div class="product-view-details">
-                                <a href="<?php echo $bannerUrl; ?>">
-                                    <span class="ico-product-view-details"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
+<?php 
+$item = $this->getBanner();
+if (!is_object($item)) {
+    return;
+}
+$_helper = $this->helper('icycle');
+$_iHelper = $this->helper('icycle/image');
+$suffix = md5(microtime() . mt_rand());
+$_imageList = $item->getImageListForFrontend();
+if (!is_array($_imageList) || !sizeof($_imageList)) {
+    return;
+}
+$width = $item->getWidth();
+$height = $item->getHeight();
+?>
+<div class="brand-wrapper">
+    <h3><?php echo $this->__('MANUFACTURER'); ?></h3>
+    <div class="bxslider-wrapper icycle-slider brands-grid">
+        <div class="bx-container-controller icycle-controller">
+            <span class="bx-prev bx-prev-<?php echo $suffix; ?>"></span>
+            <span class="bx-next bx-next-<?php echo $suffix; ?>"></span>
         </div>
-    <script type="text/javascript">
-        jQuery(document).ready(function($){
-            $('.bxslider-<?php echo $class; ?>').bxSlider({
-                minSlides: <?php echo $item->getExtraOption('cols'); ?>,
-                maxSlides: <?php echo $item->getExtraOption('cols'); ?>,
-                slideWidth: 170,
-                slideMargin: 20,
-                pager: <?php echo $item->getExtraOption('pagination'); ?>,
-                auto: <?php if($item->getExtraOption('time')) echo 'true'; else echo 'false'; ?>,
-                pause: <?php echo $item->getExtraOption('time'); ?>
-            });
-        });
-    </script>
-    <?php endif; ?>
-<?php endif; ?>
+        <div class="bxslider bxslider-<?php echo $class; ?>">
+            <?php $i=0; foreach ($_imageList as &$_item) : $i++; ?>
+                <?php 
+                if($bannerUrl = $_helper->parseText($_item['link'])) {
+                }
+                else {
+                    $bannerUrl = '#';
+                }
+                ?>
+                <div class="slide">
+                    <div class="item-image-outer"><div class="item-image-inner">
+                        <a href="<?php echo $bannerUrl; ?>" class="brand-image">
+                            <img src="<?php echo $_helper->getImageUrl($_item['file']); ?>">
+                        </a>
+                        <?php if (isset($_item['description'][0])) : ?>
+                            <div class="icycle-description">
+                                <div class="id-inner">
+                                    <?php echo $_helper->parseText($_item['description']); ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div></div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function($){
+    $('.bxslider-<?php echo $suffix; ?>').bxSlider({
+        mode: 'horizontal',
+        speed: 500,
+        infiniteLoop: true,
+        auto: <?php if($item->getExtraOption('time')) echo 'true'; else echo 'false'; ?>,
+        pause: <?php echo $item->getExtraOption('time') ? $item->getExtraOption('time') : 0; ?>,
+        moveSlides: 1,
+        slideWidth: <?php echo $width; ?>,
+        controls: <?php echo $item->getExtraOption('navigation') ?>,
+        nextSelector: '.bx-next-<?php echo $suffix; ?>',
+        prevSelector: '.bx-prev-<?php echo $suffix; ?>',
+        pager: <?php echo $item->getExtraOption('pagination') ?>,
+        minSlides: <?php echo $item->getExtraOption('cols'); ?>,
+        maxSlides: <?php echo $item->getExtraOption('cols'); ?>,
+        slideMargin: 20
+    });
+});
+</script>

@@ -25,7 +25,11 @@
                             <div class="item-image-outer"><div class="item-image-inner">
                                 <img src="<?php echo $thumb; ?>" />
                                 <?php if (isset($_item['description'][0])) : ?>
-                                    <div class="icycle-description"><?php echo $_helper->parseText($_item['description']); ?></div>
+                                    <div class="icycle-description">
+                                        <div class="id-inner">
+                                            <?php echo $_helper->parseText($_item['description']); ?>
+                                        </div>
+                                    </div>
                                 <?php endif; ?>
                             </div></div>
                         </li>
@@ -40,8 +44,8 @@
                     mode: 'horizontal',
                     speed: 500,
                     infiniteLoop: true,
-                    auto: false,
-                    pause: 4000,
+                    auto: <?php if($item->getExtraOption('time')) echo 'true'; else echo 'false'; ?>,
+                    pause: <?php echo $item->getExtraOption('time'); ?>,
                     moveSlides: 1,
                     slideMargin: 0,
                     slideWidth: <?php echo $width; ?>,
@@ -50,7 +54,11 @@
                     controls: <?php echo $item->getExtraOption('navigation') ?>,
                     nextSelector: '.bx-next-<?php echo $suffix; ?>',
                     prevSelector: '.bx-prev-<?php echo $suffix; ?>',
-                    pager: <?php echo $item->getExtraOption('pagination') ?>
+                    pager: <?php echo $item->getExtraOption('pagination') ?>,
+                    onSlideAfter: function(slideElement, oldIndex, newIndex){
+                        $('.bxslider-<?php echo $suffix; ?> >li').removeClass('active');
+                        $('.bxslider-<?php echo $suffix; ?> >li').eq(newIndex + 1).addClass('active');
+                    }
                 });
                 $(window).resize(function(e) {
                     e.preventDefault();
@@ -58,8 +66,8 @@
                         mode: 'horizontal',
                         speed: 500,
                         infiniteLoop: true,
-                        auto: false,
-                        pause: 4000,
+                        auto: <?php if($item->getExtraOption('time')) echo 'true'; else echo 'false'; ?>,
+                        pause: <?php echo $item->getExtraOption('time'); ?>,
                         moveSlides: 1,
                         slideMargin: 0,
                         slideWidth: <?php echo $width; ?>,
@@ -69,6 +77,10 @@
                         nextSelector: '.bx-next-<?php echo $suffix; ?>',
                         prevSelector: '.bx-prev-<?php echo $suffix; ?>',
                         pager: <?php echo $item->getExtraOption('pagination') ?>,
+                        onSlideAfter: function(slideElement, oldIndex, newIndex){
+                            $('.bxslider-<?php echo $suffix; ?> >li').removeClass('active');
+                            $('.bxslider-<?php echo $suffix; ?> >li').eq(newIndex + 1).addClass('active');
+                        }
                     });
                 });
             });
