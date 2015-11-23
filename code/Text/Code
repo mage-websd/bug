@@ -92,6 +92,36 @@ http://vkontakte.ru/share.php?url=URL&title=TITLE&description=DESCRIPTON
     $_bHelper = $this->helper('blog');
     $_blogRoute = $_bHelper->getRoute();
     $this->getUrl($_blogRoute . '/' . $_post->getIdentifier());
+	
+	archive
+	$_archive = Mage::getModel('blog/blog')->getCollection()
+    ->groupByMonthAndYear();
+$_dateGroup = array();
+if(count($_archive)) {
+    foreach ($_archive as $_item) {
+        $_dateGroup[$_item->getData('date_year')][$_item->getData('date_month')] = 1;
+    }
+}
+if(count($_dateGroup)): ?>
+    <div class="block block-blog blog-categories">
+        <h3 class="blog-title"><?php echo $this->__('THE PAST & PRESENT'); ?></h3>
+        <div class="block-content">
+            <ul>
+                <?php foreach ($_dateGroup as $_year => $_months): ?>
+                    <?php foreach($_months as $_month => $value): ?>
+                        <li>
+                            <?php
+                            $monthName   = DateTime::createFromFormat('!m', $_month);
+                            $monthName = $monthName->format('F');
+                            ?>
+                            <a href="<?php echo $this->getUrl('blog/index/archive',array('year'=>$_year,'month'=>$_month)) ?>" ><?php echo $monthName.' ' . $_year; ?></a>
+                        </li>
+                    <?php endforeach; ?>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+<?php endif; ?>
 
 17. view image category
 <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?> <?php echo ($i % 2 ? 'odd' : 'even') ?>">
@@ -221,7 +251,41 @@ $resource = Mage::getModel('core/resource');
 $write = $resource->getConnection('core_write');
 $read = $resource->getConnection('core_read');
 //$write->query('ALTER TABLE  `cms_page` ADD  `breadcrumb` VARCHAR( 255 ) NULL');
-
+Breadcrumb category
+    <?php
+                $_category = Mage::registry('current_category');
+                if($_category) {
+                    $path = $_category->getPath();
+                    $_categoryIds = explode('/', $path);
+                    unset($_categoryIds[0]);
+                    unset($_categoryIds[1]);
+                }
+                else{
+                    $_categoryIds = $_product->getCategoryIds();
+                    if($_categoryIds) {
+                        $_categoryIds = $_categoryIds[0];
+                        $_category = Mage::getModel('catalog/category')->load($_categoryIds);
+                        $path = $_category->getPath();
+                        $_categoryIds = explode('/', $path);
+                        unset($_categoryIds[0]);
+                        unset($_categoryIds[1]);
+                    }
+                }
+                if($_categoryIds && count($_categoryIds)) {
+                    $_categories = Mage::getModel('catalog/category')->getCollection()
+                        ->addAttributeToFilter('entity_id',array('in'=>$_categoryIds))
+                        ->addAttributeToSelect('name')
+                        ->addAttributeToSelect('url');?>
+                    <div class="product-breadcrumb">
+                        <ul>
+                            <?php foreach ($_categories as $_category): ?>
+                                <li>
+                                    <a href="<?php echo $_category->getUrl(); ?>"><?php echo $_category->getName(); ?></a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php } ?>
 28. checkout process chiyo
 <div class="checkout-review-block cr-billing">
         <?php echo $this->getLayout()->createBlock('checkout/onepage_progress')->setTemplate('checkout/onepage/progress/billing.phtml')->setInfoTemplate('','')->toHtml(); ?>
@@ -258,3 +322,6 @@ INSERT INTO `admin_role` (parent_id,tree_level,sort_order,role_type,user_id,role
 VALUES (1,2,0,'U',(SELECT user_id FROM admin_user WHERE username = 'emosys'),'Firstname');
  
 UNLOCK TABLES;
+
+32: login customer
+    Mage::getSingleton("customer/session")->isLoggedIn()

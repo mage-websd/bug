@@ -106,6 +106,7 @@ color select change image: rednine
 bundle checkbox: secret
 decimal number price: daily
 filter tap: leovas
+blog comment : better boy
 
 
 magento setup:install --base-url=http://magento.2x.local/ --db-host=localhost --db-name=magento_2 --db-user=root --db-password=giang --admin-firstname=admin --admin-lastname=admin --admin-email=admin@example.com --admin-user=admin --admin-password=admin123 --language=en_US --currency=USD --timezone=America/Chicago --use-sample-data --use-rewrites=1
@@ -122,3 +123,6 @@ Mage::getBaseDir('code') . "/local/Ebizmarts/lib
 
 
 http://emosys.dynns.com/2015_10_pawrus/customer/account/confirm/id/20/key/9b640f88a643b20ded859b98ed055b1a
+
+
+siew.wei.liang@rednine.com.sg

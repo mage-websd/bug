@@ -14,13 +14,12 @@ $width = $item->getWidth();
 $height = $item->getHeight();
 ?>
 <div class="brand-wrapper">
-    <h3><?php echo $this->__('MANUFACTURER'); ?></h3>
     <div class="bxslider-wrapper icycle-slider brands-grid">
         <div class="bx-container-controller icycle-controller">
             <span class="bx-prev bx-prev-<?php echo $suffix; ?>"></span>
             <span class="bx-next bx-next-<?php echo $suffix; ?>"></span>
         </div>
-        <div class="bxslider bxslider-<?php echo $class; ?>">
+        <div class="bxslider bxslider-<?php echo $suffix; ?>">
             <?php $i=0; foreach ($_imageList as &$_item) : $i++; ?>
                 <?php 
                 if($bannerUrl = $_helper->parseText($_item['link'])) {
@@ -61,7 +60,7 @@ jQuery(document).ready(function($){
         nextSelector: '.bx-next-<?php echo $suffix; ?>',
         prevSelector: '.bx-prev-<?php echo $suffix; ?>',
         pager: <?php echo $item->getExtraOption('pagination') ?>,
-        minSlides: <?php echo $item->getExtraOption('cols'); ?>,
+        minSlides: 1,
         maxSlides: <?php echo $item->getExtraOption('cols'); ?>,
         slideMargin: 20
     });
