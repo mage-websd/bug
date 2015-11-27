@@ -107,6 +107,7 @@ bundle checkbox: secret
 decimal number price: daily
 filter tap: leovas
 blog comment : better boy
+ajax load product more: better boy
 
 
 magento setup:install --base-url=http://magento.2x.local/ --db-host=localhost --db-name=magento_2 --db-user=root --db-password=giang --admin-firstname=admin --admin-lastname=admin --admin-email=admin@example.com --admin-user=admin --admin-password=admin123 --language=en_US --currency=USD --timezone=America/Chicago --use-sample-data --use-rewrites=1

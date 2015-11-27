@@ -325,3 +325,14 @@ UNLOCK TABLES;
 
 32: login customer
     Mage::getSingleton("customer/session")->isLoggedIn()
+33: minicart
+	jQuery(function($) {
+		$(document).on('mouseenter','.block-cart-header',function(event) {
+			$('.block-minicart-content').stop(true, true).delay(200).fadeIn(600, "easeOutCubic");
+			$(this).addClass('open');
+		});
+		$(document).on('mouseleave','.block-cart-header',function(event) {
+			$('.block-minicart-content').stop(true, true).delay(200).fadeOut(600, "easeOutCubic");
+			$(this).removeClass('open');
+		});
+	});

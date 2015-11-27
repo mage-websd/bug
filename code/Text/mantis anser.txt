@@ -285,3 +285,9 @@ This is function default of extension "Subscriptions" .
 - Then, you config price for subscription product: 
 	+ Subscriptions / Manager Subscriptions / add or edit object. https://goo.gl/RRBm9X
 	+ Choose tab "Subsriptions Types", add/edit type for this subscriptions https://goo.gl/Jw8nZa
+	
+	
+Hi admin,
+
+Icycle: auto play
+https://goo.gl/gqjzsy
