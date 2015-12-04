@@ -1,0 +1,78 @@
+<?php if($this->getCollection()->getSize()): ?>
+    <div class="block block-sortby collapse-wrapper">
+        <div class="block-title">
+            <strong><span><?php echo $this->__('Sort By') ?></span></strong>
+        </div>
+        <div class="block-content">
+            <dl>
+                <ol>
+                    <?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
+                        <?php
+                        if($_key=='position') {
+                            continue;
+                        }
+                        $html = '';
+                if($_key == 'entity_id'){
+                    $html .= '<li';
+                    if($this->isOrderCurrent($_key)) {
+                        $html .= ' class="active"';
+                    }
+                    $html .= '><a href="'.$this->getOrderUrl($_key, 'desc').'"';
+                    $html .= '>'.'Newest'.'</a></li>';
+                }
+                elseif($_key == 'name') {
+                    $html .= '<li';
+                    if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'asc') {
+                        $html .= ' class="active"';
+                    }
+                    $html .= '><a href="'.$this->getOrderUrl($_key, 'asc').'"';
+                    $html .= '>'.$_order.' (A to Z)'.'</a></li>';
+
+                    $html .= '<li''
+                     value="'.$this->getOrderUrl($_key, 'desc').'"';
+                    if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'desc') {
+                        $html .= ' class="active"';
+                    }
+                    $html .= '><a href="'.$this->getOrderUrl($_key, 'desc').'"';
+                    $html .= '>'.$_order.' (Z to A)'.'</a></li>';
+                }
+                elseif($_key == 'price') {
+                    $html .= '<li';
+                    if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'asc') {
+                        $html .= ' class="active"';
+                    }
+                    $html .= '><a href="'.$this->getOrderUrl($_key, 'asc').'"';
+                    $html .= '>'.$_order.' (Low to High)'.'</a></li>';
+
+                    $html .= '<li''
+                     value="'.$this->getOrderUrl($_key, 'desc').'"';
+                    if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'desc') {
+                        $html .= ' class="active"';
+                    }
+                    $html .= '><a href="'.$this->getOrderUrl($_key, 'desc').'"';
+                    $html .= '>'.$_order.' (High to Low)'.'</a></li>';
+                }
+                }else{
+                    $html .= '<li';
+                    if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'asc') {
+                        $html .= ' class="active"';
+                    }
+                    $html .= '><a href="'.$this->getOrderUrl($_key, 'asc').'"';
+                    $html .= '>'.$_order.' (Low to High)'.'</a></li>';
+
+                    $html .= '<li''
+                     value="'.$this->getOrderUrl($_key, 'desc').'"';
+                    if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'desc') {
+                        $html .= ' class="active"';
+                    }
+                    $html .= '><a href="'.$this->getOrderUrl($_key, 'desc').'"';
+                    $html .= '>'.$_order.' (High to Low)'.'</a></li>';
+                }
+                echo $html;
+                ?>
+                    <?php endforeach; ?>
+                </ol>
+            </dl>
+        </div>
+    </div>
+<?php endif ?>

@@ -33,15 +33,19 @@
 ?>
 <?php
     $_productCollection=$this->getProductCollection();
+    $_countCollection = count($_productCollection);
+    if(!$_countCollection) {
+        return;
+    }
     $_helper = $this->helper('catalog/output');
     $_cHelper = $this->helper('icategory');
-    $_width = 270;
-    $_height = 270;
+    $_width = 277;
+    $_height = 351;
     $_storeId = Mage::app()->getStore()->getId();
     $_columnCount = $this->getColumnCount() ? $this->getColumnCount() : 3;
-    $_countCollection = $_productCollection->count();
+
 ?>
-<?php if($_countCollection): ?>
+
 <div class="category-products-filter">
     <?php $i = 0; ?>
     <ul class="products-grid">
@@ -65,7 +69,9 @@
                     <p class="product-label out-of-stock"><span><?php echo $this->__('Sold Out') ?></span></p>
                 <?php endif; ?>
             </div></div>
-            <h3 class="product-name"><?php echo $_product->getName(); ?></h3>
+            <h2 class="product-name">
+                <a href="<?php echo $_product->getProductUrl(); ?>"><?php echo $_product->getName(); ?></a>
+            </h2>
             <div class="product-rating-list">
                 <?php echo $this->getReviewsSummaryHtml($_product,'short'); ?>
             </div>
@@ -84,4 +90,3 @@
         </li>
     <?php endforeach; ?>
 </div>
-<?php endif; ?>

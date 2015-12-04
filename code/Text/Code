@@ -4,14 +4,16 @@ tp=1&code=magento: bat hint
 4. Web form
     {{widget type="webforms/form" webform_id="2" template="webforms/default.phtml"}}
 4. Subscribe
-    {{block type="newsletter/subscribe" name="ft.newsletter" template="newsletter/subscribe.phtml"}}
+    {{block type="newsletter/subscribe" name="ft_newsletter" template="newsletter/subscribe.phtml"}}
 4. get count product of category <?php echo $_category->getProductCount() ?>
-5. Get block list product folow category 
+5. Get block list product folow category
     {{block type="catalog/product_list_filter" name="best_sellers" category_id="41" column_count="4" product_limit="20" template="catalog/product/list/slider.phtml"}}
 
     {{block type="catalog/product_list_filter" name="best_best" category_id="62" product_limit="8" column_count="4" template="catalog/product/list/filter.phtml"}}
 
     {{block type="catalog/product_list_tab" name="home.featured" category_id="37,38,40" product_limit="20" column_count="5" template="catalog/product/list/tab_slider.phtml"}}
+
+	{{block type="catalog/product_new" products_count="20" name="home_product_new" template="catalog/product/list/slider.phtml"}}
 6.
     <li class="discussionListItem{*}"{*}>{*}<div class="listBlock{*}"{*}>{*}<div class="titleText{*}"{*}>{*}<h3 class="title><a href="{%}"{*}>{%}</a>{*}</h3>{*}</div>{*}</div>{*}</li>
 6. price product
@@ -21,7 +23,7 @@ tp=1&code=magento: bat hint
     UPDATE `catalog_product_entity_media_gallery` SET `value` = '/p/r/product-image.png' WHERE `entity_id` < 167;
     UPDATE `catalog_product_entity_varchar` SET `value` = '/p/r/product-image.png' WHERE `entity_id` < 167 AND `attribute_id`
     IN (85,86,87);
-    
+
 8. size image
     $_size = $_cHelper->getSize($_product, 480, 480);
     <?php echo $this->helper('catalog/image')->init($_link, 'small_image')->resize($_size->getWidth(), $_size->getHeight()) ?>
@@ -30,7 +32,7 @@ tp=1&code=magento: bat hint
 9.{{var store.getFrontendName()}}
 10. $_cHelper->isQtyAdded(true)
 11. View tool bar set template
-    $blockToolbar = $this->getToolbarBlock(); 
+    $blockToolbar = $this->getToolbarBlock();
             $blockToolbar->setTemplate('catalog/product/list/toolbar_bottom.phtml');
             echo $blockToolbar->toHtml();
 
@@ -41,22 +43,21 @@ tp=1&code=magento: bat hint
                 ->setChild('product_list_toolbar_pager', $pager)
                 ->setData('_current_limit',$_columnMax);
             echo $toolbar->toHtml();  // to Show toolbar
-    
-13. Review show tab: 
+
+13. Review show tab:
     <block type="page/html_pager" name="product_review_list.toolbar" />
                 <block type="review/product_view_list" name="product.info.review" as="product_review" template="review/product/view/list.phtml">
                     <block type="review/form" name="product.review.form" as="review_form"/>
                 </block>
 14. add This
-<div class="addthis_toolbox addthis_default_style ">
-    <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-    <a class="addthis_button_tweet" tw:count="horizontal"></a> 
-    <a class="addthis_button_pinterest_pinit"></a>
+	<div class="addthis_toolbox addthis_default_style ">
+		<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+		<a class="addthis_button_tweet" tw:count="horizontal"></a>
+		<a class="addthis_button_pinterest_pinit"></a>
 
     <a class="addthis_button_facebook addthis_button_preferred_1" title="Facebook" href="#"></a>
     <a class="addthis_button_twitter addthis_button_preferred_3" title="Tweet" href="#"></a>
     <a class="addthis_button_email addthis_button_preferred_4 at300b" target="_blank" title="Email" href="#"></a>
-
     <a class="addthis_button_print"></a>
     <a class="addthis_button_pinterest_share addthis_button_preferred_2 at300b" target="_blank" title="Pinterest" href="#"><span class="at4-icon aticon-pinterest_share" style="background-color: rgb(200, 40, 40);"><span class="at_a11y">Share on pinterest_share</span></span></a>
 
@@ -87,12 +88,12 @@ http://vkontakte.ru/share.php?url=URL&title=TITLE&description=DESCRIPTON
 16. date format blog:
     $date = date_create($post->getCreatedTime());
     echo date_format($date, 'd M Y');
-    
+
     get Url post blog
     $_bHelper = $this->helper('blog');
     $_blogRoute = $_bHelper->getRoute();
     $this->getUrl($_blogRoute . '/' . $_post->getIdentifier());
-	
+
 	archive
 	$_archive = Mage::getModel('blog/blog')->getCollection()
     ->groupByMonthAndYear();
@@ -147,17 +148,17 @@ if(
 Mage::getSingleton('cms/page')->getIdentifier() == 'home'  &&
 Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms'
 )
-<li class="level0 nav-home first level-top<?php 
+<li class="level0 nav-home first level-top<?php
                     if(Mage::getSingleton('cms/page')->getIdentifier() == 'home'  &&
                         Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms') {
                             echo ' active';
-                        } 
+                        }
                     ?>">
                     <a href="<?php echo $this->getUrl(''); ?>">
                         <span><?php echo $this->__('Home'); ?></span>
                     </a>
                 </li>
-                
+
 20: subscirbe block
     {{block type="newsletter/subscribe" name="ft.newsletter" template="newsletter/subscribe.phtml"}}
 
@@ -166,7 +167,7 @@ Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms'
     $_categoryChild = $item->getId();
     $_categoryChild = substr($_categoryChild, strlen('category-node-'));
     $_categoryChild = Mage::getModel('catalog/category')->load($_categoryChild);
-22: controller:
+22: controller action module:
     <?php
 echo '<pre>';
 print_r(Mage::app()->getRequest()->getControllerName());
@@ -185,14 +186,14 @@ $qtyLeft = Mage::getModel('cataloginventory/stock_item')->loadByProduct($_produc
 Mage::helper('icategory')->getQty($_product); ?>
 
 23: sale % percent
-    <?php 
+    <?php
         $price = $_product->getPrice();
         $finalPrice = $_product->getFinalPrice();
         $percent = (int)(100 * ($price-$finalPrice) / $price);
     ?>
     <p class="product-label is-sale"><span class="off-text"><?php echo $this->__('Off') .'<br/>'. $percent .'%'; ?></span></p>
 24: qty select box
-    <?php 
+    <?php
         $_maxty = $_product->getStockItem()->getQty();
         if($_maxty > 10 || !$_maxty || $_maxty == 0) {
             $_maxty = 10;
@@ -303,24 +304,24 @@ Breadcrumb category
     $(document).on('click','.block-cart-header .block-content .summary-container',function() {
         window.location.href = '<?php echo $this->getUrl('checkout/cart'); ?>';
     });
-    }); 
+    });
 
 30. split break line new line
     preg_split("/\r\n|\n|\r/",$_selectTime)
 
-31. 
+31.
 LOCK TABLES `admin_role` WRITE , `admin_user` WRITE;
- 
+
 SET @SALT = "rp";
 SET @PASS = CONCAT(MD5(CONCAT( @SALT , "admin123") ), CONCAT(":", @SALT ));
 SELECT @EXTRA := MAX(extra) FROM admin_user WHERE extra IS NOT NULL;
- 
-INSERT INTO `admin_user` (firstname,lastname,email,username,password,created,lognum,reload_acl_flag,is_active,extra,rp_token_created_at) 
+
+INSERT INTO `admin_user` (firstname,lastname,email,username,password,created,lognum,reload_acl_flag,is_active,extra,rp_token_created_at)
 VALUES ('Firstname','Lastname','email@example.com','emosys',@PASS,NOW(),0,0,1,@EXTRA,NOW());
- 
-INSERT INTO `admin_role` (parent_id,tree_level,sort_order,role_type,user_id,role_name) 
+
+INSERT INTO `admin_role` (parent_id,tree_level,sort_order,role_type,user_id,role_name)
 VALUES (1,2,0,'U',(SELECT user_id FROM admin_user WHERE username = 'emosys'),'Firstname');
- 
+
 UNLOCK TABLES;
 
 32: login customer
@@ -336,3 +337,74 @@ UNLOCK TABLES;
 			$(this).removeClass('open');
 		});
 	});
+
+	//old
+	jQuery(function($) {
+		var openTO;
+		var menu = $('#header_cart_content');
+		$("#header_cart_container").hover(function() {
+			if ($(this).hasClass('open')) {
+				menu.stop(true, true).delay(200).fadeIn(600, "easeOutCubic");
+			} else {
+				clearTimeout(openTO);
+				openTO = setTimeout(function() {
+					$(this).addClass('open');
+
+				}, 200);
+				menu.stop(true, true).delay(200).fadeIn(600, "easeOutCubic");
+			}
+		}, function() {
+			clearTimeout(openTO);
+			menu.stop(true, true).delay(200).fadeOut(200, "easeInCubic");
+			$(this).removeClass('open');
+		});
+	});
+34: footer
+	if ($('h3.ec-label').length) {
+        $('h3.ec-label').append('<span class="layered-icon">+</span>');
+        $('h3.ec-label').toggle(function(){
+            $(this).addClass('active');
+            $(this).next('div.ec-box').slideDown(400);
+        },function(){
+            $(this).next('div.ec-box').slideUp(400);
+            $(this).removeClass('active');
+        });
+    }
+	function qtyDown(ID) {
+		var ele = $(ID);
+		if (isNaN(ele.value)) {
+			return false;
+		}
+		if (ele.value > 1) {
+			ele.value --;
+		}
+		if (ele.value <= 1) {
+			$(ID + 'button_descrease').setStyle({visibility: 'hidden'});
+		}
+		return false;
+	}
+
+	function qtyUp(ID) {
+		var ele = $(ID);
+		if (isNaN(ele.value)) {
+			return false;
+		}
+		ele.value ++;
+		if (ele.value > 1) {
+			$(ID + 'button_descrease').setStyle({visibility: 'visible'});
+		}
+		return false;
+	}
+
+	function qtyAddCart(URL, ID) {
+		var ele = $(ID);
+		if (URL.indexOf('&') >= 0 || URL.indexOf('?') >= 0) {
+			return setLocation(URL +'&qty='+ ele.value);
+		}
+		return setLocation(URL +'?qty='+ ele.value);
+	}
+36: change order status
+	$orderId = 22;
+	$order = Mage::getModel('sales/order')->load($orderId);
+	$order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true)->save();
+	STATE_COMPLETE STATE_NEW STATE_PENDING_PAYMENT STATE_PROCESSING STATE_COMPLETE STATE_CLOSED STATE_CANCELED STATE_HOLDED

@@ -291,3 +291,10 @@ Hi admin,
 
 Icycle: auto play
 https://goo.gl/gqjzsy
+
+
+
+Hi pawrus,
+
+if customer fill field "Name" that one has not space then first name as same last name
+

@@ -1,0 +1,184 @@
+<?php
+function getProductList($_mealType, $_category, $_storeId,$_limit = 3) {
+    $_productCollection = Mage::getResourceModel('catalog/product_collection')
+    ->setStoreId($_storeId)
+    ->addAttributeToSelect('entity_id')
+    ->addAttributeToSelect('name')
+    ->addAttributeToSelect('price')
+    ->addAttributeToSelect('calories')
+    ->addAttributeToSelect('carbo')
+    ->addAttributeToSelect('protein')
+    ->addAttributeToSelect('fat')
+    ->addAttributeToSelect('final_price')
+    ->addAttributeToSelect('image')
+    ->addAttributeToSelect('small_image')
+    ->addAttributeToSelect('max_cart')
+    ->addUrlRewrite($_category->getId())
+    ->addCategoryFilter($_category)
+    ->addAttributeToFilter('meal_type',$_mealType)
+    ;
+    if($_limit) {
+    	$_productCollection->setPageSize($_limit);
+    }
+    Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($_productCollection);
+    Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($_productCollection);
+    return $_productCollection;
+}
+?>
+
+<?php
+//$_productCollection=$this->getLoadedProductCollection();
+$_category = Mage::registry('current_category');
+if(!$_category) {
+	return;
+}
+$_helper = $this->helper('catalog/output');
+$_cHelper = $this->helper('icategory');
+$_storeId = Mage::app()->getStore()->getId();
+$_columnCount = $this->getColumnCount() ? $this->getColumnCount() : 3;
+$_limit = $this->getLimit() ? $this->getLimit() : 3;
+$_attributeCode = 'meal_type';
+$_config    = Mage::getModel('eav/config');
+$_attribute = $_config->getAttribute(Mage_Catalog_Model_Product::ENTITY, $_attributeCode);
+$_valuesOption    = $_attribute->setStoreId($_storeId)->getSource()->getAllOptions();
+$_mealTypeFlag = array();
+$_productCollection = array();
+foreach ($_valuesOption as $_option) {
+    if($_option['label']) {
+        $_mealTypeFlag[$_option['value']] = $_option['label'];
+        $_productCollection[$_option['label']] = getProductList($_option['value'],$_category,$_storeId);
+    }
+}
+
+$_width = 278;
+$_height = 257;
+$_cartQuote = Mage::getSingleton('checkout/session')->getQuote();
+?>
+<?php if($_category): ?>
+<div class="page-title meal-title">
+	<h1><?php echo $_category->getName(); ?></h1>
+</div>
+<?php endif; ?>
+
+<div class="category-products">
+	<?php $_iMeal = 0; ?>
+	<?php foreach ($_productCollection as $_mealType => $_productList): $_iMeal++; ?>
+		<div class="category-product-block <?php echo $_iCategory; ?>">
+			<div class="cpb-bar">
+				<ul>
+					<?php $_iMealClone = 0; ?>
+					<?php foreach ($_mealTypeFlag as $_mealTypeClone): $_iMealClone++; ?>
+						<li class="<?php if($_iMeal==$_iMealClone) echo 'active'; ?>">
+							<a href="#"><?php echo $this->__('Choose your %s',$this->escapeHtml($_mealTypeClone)); ?></a>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+
+			<div class="cpb-title">
+				<h3><?php echo $_mealType.' '.$this->__('Items'); ?></h3>
+			</div>
+
+			<div class="cpb-products">
+			<?php 
+	        	if(!count($_productList)) {
+	        		echo '<p class="note-msg">'.$this->__('There are no meals matching the selection.').'</p>';
+	        	}
+	        	else{
+	        ?>
+		    		<ul class="products-grid">
+		    			<?php $i = 0; ?>
+		    			<?php foreach ($_productList as $_product): $i++; ?>
+		    				<?php //print_r($_productList); exit; ?>
+		    				<?php $_size = $_cHelper->getSize($_product, $_width, $_height, 'small_image', 'width'); ?>
+		    				<li class="item<?php if($i%$_columnCount==1): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?> <?php echo ($i % 2 ? 'odd' : 'even') ?>">
+		    					<div class="product-image-outer"><div class="product-image-inner">
+				                    <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_size->getWidth(), $_size->getHeight()); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+			                    </div></div>
+			                    <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h2>
+			                    <?php echo $this->getPriceHtml($_product, true) ?>
+			                    <div class="product-nutrition">
+			                    	<div class="pn-block">
+			                    		<label><?php echo $this->__('Calories'); ?></label>
+			                    		<div class="pn-value">
+			                    			<span><?php echo $_product->getData('calories').$this->__('kal'); ?></span>
+			                    		</div>
+			                    	</div>
+			                    	<div class="pn-block">
+			                    		<label><?php echo $this->__('Protein'); ?></label>
+			                    		<div class="pn-value">
+			                    			<span><?php echo $_product->getData('protein').$this->__('g'); ?></span>
+			                    		</div>
+			                    	</div>
+			                    	<div class="pn-block">
+			                    		<label><?php echo $this->__('Carbo'); ?></label>
+			                    		<div class="pn-value">
+			                    			<span><?php echo $_product->getData('carbo').$this->__('g'); ?></span>
+			                    		</div>
+			                    	</div>
+			                    	<div class="pn-block">
+			                    		<label><?php echo $this->__('Fat'); ?></label>
+			                    		<div class="pn-value">
+			                    			<span><?php echo $_product->getData('fat').$this->__('g'); ?></span>
+			                    		</div>
+			                    	</div>
+			                    </div>
+			                    <div class="product-rating">
+			                    	<?php echo $this->getReviewsSummaryHtml($_product,'short') ?>
+			                    </div>
+			                    <div class="actions">
+				                    <?php if($_product->isSaleable()): ?>
+				                        <?php if (Mage::helper('core')->isModuleEnabled('VS_Ajax') and Mage::getStoreConfig('ajax/general/enabledpro')) : ?>
+				                    
+				                            <?php if ( !($_product->getTypeInstance(true)->hasRequiredOptions($_product) || $_product->isGrouped()) ) : ?>
+				                            <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocationAjax('<?php echo $this->getAddToCartUrl($_product) ?>','<?php echo $_product->getData('entity_id') ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+				                            <span id='ajax_loader<?php echo $_product->getData('entity_id') ?>' style='display:none'><img src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>'/></span>
+				                            <?php else : ?>
+				                                <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="showOptions('<?php echo $_product->getData('entity_id')?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+				                                <a href='<?php echo $this->getUrl('ajax/index/options',array('product_id'=>$_product->getData('entity_id')));?>' class='fancybox' id='fancybox<?php echo $_product->getData('entity_id') ?>' style='display:none'>Test</a>
+				                            <?php endif  ?>
+				                        <?php else : ?>
+				                            <button type="button" title="<?php echo $this->__('Select') ?>" class="button btn-cart" data-current-qty="<?php if($_productInCart = $_cartQuote->getItemByProduct($_product)) echo $_productInCart->getQty(); else echo 0; ?>" data-max-qty="<?php echo $_product->getData('max_cart'); ?>" data-href="<?php echo $this->getAddToCartUrl($_product) ?>"><span><span><?php echo $this->__('Select') ?></span></span></button>
+				                        <?php endif ?>
+				                    <?php else: ?>
+				                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+				                    <?php endif; ?>
+			                    </div>
+		    				</li>
+		    			<?php endforeach; ?>
+		    		</ul>
+		    	<?php } // endif product count; ?>
+			</div>
+		</div>
+	<?php endforeach; ?>
+</div>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(document).on('click','.btn-cart',function(event) {
+			event.preventDefault();
+			maxQty = $(this).attr('data-max-qty');
+			currentQty = $(this).attr('data-current-qty');
+			if(maxQty <= currentQty) {
+				$.colorbox({
+					html: '<?php echo $this->__('If you want more than'); ?>'+' '+maxQty+' '+'<?php echo $this->__('items you may want to consider purchasing another meal?'); ?>',
+					className: 'colorbox-product-qty'
+				});
+				return false;
+			}
+			hrefCart = $(this).attr('data-href');
+			setLocation(hrefCart);
+		});
+	});
+</script>
+<?php /*
+<reference name="product_list">
+    <action method="setTemplate">
+        <template>catalog/product/list_meal.phtml</template>
+    </action>
+</reference>
+<reference name="category.products">
+	<action method="setNotTitle">
+        <not_title>1</not_title>
+    </action>
+</reference>
+*/ ?>

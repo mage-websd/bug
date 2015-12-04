@@ -37,7 +37,8 @@ function getChildCollection($id,$showLeft = 0)
     $_categoryCollection = Mage::getModel('catalog/category')->getCollection()
     ->addAttributeToSelect(array('name','url_key'))
     ->addAttributeToFilter('is_active',1)
-    ->addAttributeToFilter('parent_id',$id);
+    ->addAttributeToFilter('parent_id',$id)
+	->addAttributeToSort('position');
     if($showLeft) {
         $_categoryCollection->addAttributeToFilter('show_left',1);
     }

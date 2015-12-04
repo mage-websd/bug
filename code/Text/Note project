@@ -31,7 +31,7 @@ pub: 737846092964903
 pri: 104b3ac82c05aa1dc1e9f843e1a91032
 
 
-map: <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1536877.1258810011!2d-98.830144171875!3d41.20622727991629!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1447142612076" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+map: <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1536877.1258810011!2d-98.830144171875!3d41.20622727991629!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1447142612076" width="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
 
 
 http://198.13.96.106/phpmyadmin
