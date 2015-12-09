@@ -52,7 +52,7 @@
     <?php foreach ($_productCollection as $_product): $i++; ?>
         <?php $_product = Mage::getModel('catalog/product')->setStoreId($_storeId)->load($_product->getId()); ?>
         <?php $_size = $_cHelper->getSize($_product, $_width, $_height); ?>
-        <li class="item<?php if($i%$_columnCount==1): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+        <li class="item<?php if($i%$_columnCount==1): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?> <?php if($i%2==0) echo 'even'; else echo 'odd'; ?>">
             <div class="product-image-outer"><div class="product-image-inner">
                 <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_size->getWidth(), $_size->getHeight()) ?>" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" />
                 </a>

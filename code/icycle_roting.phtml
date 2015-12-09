@@ -56,32 +56,33 @@
     $width = $item->getWidth() ? $item->getWidth() : 960;
     $height = $item->getHeight() ? $item->getHeight() : 474;
 ?>
-
-<div class="rotation-slider-container" style="width: <?php echo $width; ?>px;">
-    <?php if($item->getExtraOption('navigation') != 'false') : ?>
-        <div class="slider-rotation-controller">
-            <div class="controller-inner">
-                <a class="rotation-prev rotation-prev-<?php echo $suffix; ?>" href="#"><span>Prev</span></a>
-                <a class="rotation-next rotation-next-<?php echo $suffix; ?>" href="#"><span>Next</span></a>
-            </div>
-        </div>
-    <?php endif; ?>
-    <ul class="rotation-slider rotation-slider-<?php echo $suffix; ?>" style="width: <?php echo $width; ?>px; height: <?php echo $height; ?>px;">
-        <?php foreach ($_imageList as &$_item): ?>
-            <?php if ( $size = $_helper->getThumbSize($_item['file'], $width, $height) ) : ?>
-                <?php $thumb = $_iHelper->init($_item['file'])->resize($size->getWidth(), $size->getHeight()); ?>
-                <li class="rotation-item">
-                    <img src="<?php echo $thumb; ?>" />
-                    <?php if (isset($_item['description'][0])) : ?>
-                        <div class="icycle-description">
-                            <div class="id-inner"><?php echo $_helper->parseText($_item['description']); ?></div>
-                        </div>
-                    <?php endif; ?>
-                </li>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    </ul>
-    <div class="rotation-slider-pager rotation-pager-<?php echo $suffix; ?>"></div>
+<div class="rotation-wrapper">
+  <div class="rotation-slider-container" style="width: <?php echo $width; ?>px;">
+      <?php if($item->getExtraOption('navigation') != 'false') : ?>
+          <div class="slider-rotation-controller">
+              <div class="controller-inner">
+                  <a class="rotation-prev rotation-prev-<?php echo $suffix; ?>" href="#"><span>Prev</span></a>
+                  <a class="rotation-next rotation-next-<?php echo $suffix; ?>" href="#"><span>Next</span></a>
+              </div>
+          </div>
+      <?php endif; ?>
+      <ul class="rotation-slider rotation-slider-<?php echo $suffix; ?>" style="width: <?php echo $width; ?>px; height: <?php echo $height; ?>px;">
+          <?php foreach ($_imageList as &$_item): ?>
+              <?php if ( $size = $_helper->getThumbSize($_item['file'], $width, $height) ) : ?>
+                  <?php $thumb = $_iHelper->init($_item['file'])->resize($size->getWidth(), $size->getHeight()); ?>
+                  <li class="rotation-item">
+                      <img src="<?php echo $thumb; ?>" />
+                      <?php if (isset($_item['description'][0])) : ?>
+                          <div class="icycle-description">
+                              <div class="id-inner"><?php echo $_helper->parseText($_item['description']); ?></div>
+                          </div>
+                      <?php endif; ?>
+                  </li>
+              <?php endif; ?>
+          <?php endforeach; ?>
+      </ul>
+      <div class="rotation-slider-pager rotation-pager-<?php echo $suffix; ?>"></div>
+  </div>
 </div>
 <script type="text/javascript">
     jQuery(document).ready(function($) {
@@ -98,7 +99,7 @@
             next: '.rotation-next-<?php echo $suffix; ?>',
             pager: <?php echo $item->getExtraOption('pagination'); ?>,
             pagerDom: '.rotation-pager-<?php echo $suffix; ?>',
-            resize: '.before-main'
+            resize: '.rotation-wrapper'
         });
     });
 </script>

@@ -12,7 +12,7 @@ var CurX;
     document.onmousemove = getCursorXY;
 }
 
-function getCursorXY(e) {   
+function getCursorXY(e) {
     CurX = (window.Event) ? e.pageX : event.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft);
 console.log(CurX);
     CurY = (window.Event) ? e.pageY : event.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
@@ -141,7 +141,7 @@ Hi grab-id,
 - Menu Promotions => Shopping cart price rules => add new rule (https://goo.gl/sYHTCU)
 - Tab "Rule Information",fill fields. Like this https://goo.gl/kq6jVr
 - Tab "condition", not fill https://goo.gl/lgJvkv
-- Tab "Action", fill fields. 
+- Tab "Action", fill fields.
 	Apply: discount percent or fix price
 - Tab "label" - Label show frontend if customer use this coupon https://goo.gl/zw9RV7
 - Save
@@ -211,7 +211,7 @@ Hi admin,
 This task was done, please check.
 
 1. Home page
-    Change link to product detail: 
+    Change link to product detail:
         - Cms => Page => Choose object Asisa Farm Home page https://www.diigo.com/item/image/5cvf2/rotb
         - Tab Content, change link of product that you want in string "store url=???" https://www.diigo.com/item/image/5cvf2/428e
 2. Product page:
@@ -244,16 +244,16 @@ To product to video, you add/edit product have attribute set "video" https://www
 
 Hi admin,
 
-- Admin menu => Catalog / Manage Categories / Choose "Meals" category and add sub for this category 
+- Admin menu => Catalog / Manage Categories / Choose "Meals" category and add sub for this category
 - In tab General, fill in field information as name, image, is Active https://www.diigo.com/item/image/5cvf2/e0rn
-- In tab Custom Design, choose page layout "2 column right", fill Custom Layout Update https://www.diigo.com/item/image/5cvf2/5dh6. 
+- In tab Custom Design, choose page layout "2 column right", fill Custom Layout Update https://www.diigo.com/item/image/5cvf2/5dh6.
 
 You can reference from another sub category of "Meals", like "Palate Pleasers" category.
 
 Hi admin,
 
 You can assign each customer to group customer, then you permission group customer to access into category (gallery)
-- permission category: 
+- permission category:
     amin menu => Catalog => Manage Categories => Choose category object (Ex: Pri 1 - sub of Private) -> Choose group type can access to this category https://www.diigo.com/item/image/5cvf2/y4bm
 
 Hi admin,
@@ -282,11 +282,11 @@ Hi Pawrus,
 This is function default of extension "Subscriptions" .
 
 - "Every 2 Months [Save 10%] (-3.90)" is only label, not effetct to price. You can add/edit in Subscription / Subscription Types. https://goo.gl/NEljNA
-- Then, you config price for subscription product: 
+- Then, you config price for subscription product:
 	+ Subscriptions / Manager Subscriptions / add or edit object. https://goo.gl/RRBm9X
 	+ Choose tab "Subsriptions Types", add/edit type for this subscriptions https://goo.gl/Jw8nZa
-	
-	
+
+
 Hi admin,
 
 Icycle: auto play
@@ -298,3 +298,18 @@ Hi pawrus,
 
 if customer fill field "Name" that one has not space then first name as same last name
 
+
+Hi pawrus,
+
+Change email default:
+- System / Transaction Emails https://goo.gl/WFm8Kg
+- add/create new template https://goo.gl/11NJ02
+- Choose template default, then load template, and customer fields that you want https://goo.gl/FsFY69
+- Choose template that you was custom https://goo.gl/xY2zhY
+
+
+  Hi willy,
+
+  Tab New arrival: Config product is new https://goo.gl/16KiIz
+  Tab Featured: Add product for category featured: https://goo.gl/uml8qS
+  Tab bestseller: auto render for best seller product.

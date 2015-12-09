@@ -9,7 +9,7 @@ http://technicalsupport.com.sg/
 
 http://emosys.dynns.com/
 http://emosys.dynns.com/phpmyadmin/
-emosys/0VIVY4b2 
+emosys/0VIVY4b2
 
 admin/kelterintl1@3
 
@@ -26,7 +26,7 @@ sign: AFcWxV21C7fd0v3bYYYRCpSSRl31At0mIYbYVN4MZ76XUQjeT-QMs5i5
 giang_per@gmail.com
 
 key icyle: hdpmwkMrXNd+Pa4vIWKIVtruWdk0+RlGFNNUM1vi2aQ=
-face: 
+face:
 pub: 737846092964903
 pri: 104b3ac82c05aa1dc1e9f843e1a91032
 
@@ -82,12 +82,12 @@ Login/password : secret/admin123
 	</a>
 	<p><a href="{{store url="hamber-custom.html"}}">Create your own HAMPER</a></p>
 
-	
+
 	custommenu block - hamber - create category
 		navagation.php - emosys
 	copy template bundle/
 		catalog/product/view/scpoptions.phtml
-		
+
 
 ========
 
@@ -101,7 +101,24 @@ Control Panel: http://rednine-fashion.com/cpanel/ [^]
 Alternate Control Panel: http://marlin.vodien.com/cpanel/ [^]
 Username: redninef
 Password: 1xl3i4YaS4
+
+admin
+u: sweiliang
+p: password5
 ======
+2015_10_kondor
+
+Cpanel:
+URL : http://steelwatch.net:2082/ [^] [^]
+Username: steelwa1
+Password: lexus4610
+=================
+
+https://cpal.redhat.192.baomatweb.org:2083
+vothuatdienanh/-JN1&X4U#uL}
+123.30.214.192
+R$mWu+Nh5Eaw
+============
 color select change image: rednine
 bundle checkbox: secret
 decimal number price: daily

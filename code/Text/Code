@@ -408,3 +408,34 @@ UNLOCK TABLES;
 	$order = Mage::getModel('sales/order')->load($orderId);
 	$order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true)->save();
 	STATE_COMPLETE STATE_NEW STATE_PENDING_PAYMENT STATE_PROCESSING STATE_COMPLETE STATE_CLOSED STATE_CANCELED STATE_HOLDED
+37: configurable options
+	<div class="product-attribute size">
+                        <span><?php
+                        switch ($_product->getTypeId()) {
+                            case 'simple':
+                                $_attribute = $_product->getResource()->getAttribute('size');
+                                $attributeOptions = $_attribute->getFrontend()->getValue($_product);
+                                break;
+                            case 'configurable':
+                                $productAttributeOptions = $_product->getTypeInstance(true)->getConfigurableAttributesAsArray($_product);
+                                $attributeOptions = array();
+                                foreach ($productAttributeOptions as $productAttribute) {
+                                    if($productAttribute['attribute_code'] == 'size') {
+                                        foreach ($productAttribute['values'] as $attribute) {
+                                            $attributeOptions[] = $attribute['store_label'];
+                                        }
+                                    }
+                                }
+                                $attributeOptions = implode(', ', $attributeOptions);
+                                break;
+                            default:
+                                break;
+                        }
+                        if(isset($attributeOptions)) {
+                            echo $this->__('Size'). ' : ' . $attributeOptions;
+                        }
+                        ?></span>
+                    </div>
+38: date time timestamp
+	Mage::getSingleton('core/date')->date('Y-m-d H:i:s');
+	date("Y-m-d H:i:s", Mage::getSingleton('core/date')->timestamp(time()));
