@@ -1,5 +1,81 @@
+<style>
+.product-view .product-img-box { float:left; width:100%; padding:0; }
+.col3-layout .product-view .product-img-box { float:none; margin:0 auto; }
+.product-view .product-img-box .product-image { margin:0 0 25px; border: 0; padding:0; position: relative; min-height: 425px; max-height: 550px;}
+
+.product-view .product-img-box .product-image-zoom { position:relative; width:265px; height:265px; overflow:hidden; z-index:9; }
+.product-view .product-img-box .product-image-zoom img { position:absolute; left:0; top:0; cursor:move; }
+.product-view .product-img-box .zoom-notice { font-size:11px; margin:0 0 5px; text-align:center; }
+.product-view .product-img-box .zoom { position:relative; z-index:9; height:18px; margin:0 auto 13px; padding:0 28px; background:url(../images/slider_bg.gif) 50% 50% no-repeat; cursor:pointer; }
+.product-view .product-img-box .zoom.disabled { -moz-opacity:.3; -webkit-opacity:.3; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";/*IE8*/ opacity:.3; }
+.product-view .product-img-box .zoom #track { position:relative; height:18px; }
+.product-view .product-img-box .zoom #handle { position:absolute; left:0; top:-1px; width:9px; height:22px; background:url(../images/magnifier_handle.gif) 0 0 no-repeat;  }
+.product-view .product-img-box .zoom .btn-zoom-out { position:absolute; left:2px; top:0; }
+.product-view .product-img-box .zoom .btn-zoom-in { position:absolute; right:2px; top:0; }
+.product-view .product-img-box .more-views h2 { font-size:11px; border-bottom:1px solid #ccc; margin:0 0 8px; text-transform:uppercase; }
+
+.product-view .product-img-box .more-views li { float:left; margin:0 0 8px 9px; }
+.product-view .product-img-box .more-views li a { float:left; width:56px; height:56px; border:2px solid #ddd; overflow:hidden; }
+
+.product-image-popup { margin:0 auto; }
+.product-image-popup .buttons-set { float:right; clear:none; border:0; margin:0; padding:0; }
+.product-image-popup .nav { font-weight:bold; margin:0 100px; text-align:center; }
+.product-image-popup .image { display:block; margin:10px 0;  }
+.product-image-popup .image-label { font-size:13px; font-weight:bold; margin:0 0 10px; color:#2f2f2f; }
+.product-img-box .product-image:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+.product-img-box .swiper-container.gallery-thumbs{
+    width: 55px;
+    float: left;
+    height: auto !important;
+    position: absolute;
+    top: 75px;
+    left: 0;
+    height: 320px !important;
+}
+.product-img-box .swiper-container.gallery-thumbs .swiper-wrapper{
+    top: 40px;
+}
+.product-img-box .swiper-container.gallery-thumbs .swiper-slide{
+    border: 1px solid #e0e0e0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    cursor: pointer;
+}
+.product-img-box .swiper-container.gallery-thumbs .swiper-slide.swiper-slide-active{
+    border: 2px solid #cc4342;
+}
+
+
+.product-img-box .swiper-include {
+    width: 392px;
+    float: right;
+    height: 100%;
+    border: 1px solid #e7e7e7;
+    padding: 5px 20px;
+    position: relative;
+}
+.product-img-box .swiper-include .swiper-slide{
+    background:none !important;
+}
+.product-img-box .swiper-include .swiper-container.gallery-top{
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden;
+}
+.swiper-button-next.swiper-button-white{
+    background: url(../images/icon-next-preview-idv.png) bottom 7px center no-repeat !important;
+}
+.swiper-button-prev.swiper-button-white {
+    background: url(../images/icon-next-preview-idv.png) top 5px center no-repeat !important;
+}
+</style>
 <?php
-/**
+/**project iten
  * Magento
  *
  * NOTICE OF LICENSE
@@ -85,7 +161,7 @@
 
 <script>
     jQuery(document).ready(function($) {
-        <?php 
+        <?php
         $width    = $_zHelper->getDialogConfig('width');
         $maxWidth = $_zHelper->getDialogConfig('max_width');
         $height    = $_zHelper->getDialogConfig('height');
@@ -120,7 +196,7 @@
         prevButton: '.swiper-prev-<?php echo $suffix; ?>',
         spaceBetween: 10,
         loop:true,
-        loopedSlides: 5, //looped slides should be the same     
+        loopedSlides: 5, //looped slides should be the same
     });
     var galleryThumbs = new Swiper('.swipper-thumbs-<?php echo $suffix; ?>', {
         spaceBetween: 10,
@@ -133,5 +209,5 @@
         centeredSlides: true,
     });
     galleryTop.params.control = galleryThumbs;
-    galleryThumbs.params.control = galleryTop;    
+    galleryThumbs.params.control = galleryTop;
 </script>

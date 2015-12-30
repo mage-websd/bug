@@ -439,3 +439,41 @@ UNLOCK TABLES;
 38: date time timestamp
 	Mage::getSingleton('core/date')->date('Y-m-d H:i:s');
 	date("Y-m-d H:i:s", Mage::getSingleton('core/date')->timestamp(time()));
+39. attribute product group
+$setId = $_product->getData('attribute_set_id');
+$groupName = 'Extract'
+$groups = Mage::getModel('eav/entity_attribute_group')
+			->getResourceCollection()
+			->setAttributeSetFilter($setId)
+			->addFieldToFilter('attribute_group_name',$groupName)
+			->setSortOrder()
+			->load();
+$attributeCodes = array();
+foreach ($groups as $group) {
+	$groupName          = $group->getAttributeGroupName();
+	$groupId            = $group->getAttributeGroupId();
+	$attributes = Mage::getResourceModel('catalog/product_attribute_collection')
+			->setAttributeGroupFilter($group->getId())
+			->addVisibleFilter()
+			->checkConfigurableProducts()
+			->load();
+	if ($attributes->getSize() > 0) {
+			foreach ($attributes->getItems() as $attribute) {
+					/* @var $child Mage_Eav_Model_Entity_Attribute */
+					$attributeCodes[] = $attribute->getAttributeCode();
+			}
+	}
+}
+
+40.
+protected function _isAllowed()
+	 {
+			 return Mage::getSingleton('admin/session')->isAllowed('admin/ddate');
+	 }
+41. Address
+	$_order->getBillingAddress();
+	->getShippingAddress
+	Mage::getModel('directory/country')->load('FR')->getName();
+	$_order->getPayment()->getMethodInstance()
+		->getTitle()
+		->getCode();

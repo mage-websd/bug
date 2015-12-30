@@ -13,6 +13,11 @@
 
 <script type="text/javascript">
     jQuery(document).ready(function($) {
+      $(window).load(function(event) {
+            setTimeout(function() {
+                $('.popup-wrapper').addClass('active');
+            },1000);
+        });
         $(document).on('click','.link-popup',function(event) {
             event.preventDefault();
             $(this).siblings('.popup-wrapper').fadeIn(500);

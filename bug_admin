@@ -88,3 +88,9 @@ if(!Mage::registry('current_category')) {
     {{htmlescape var=$billing.getFirstname()}}
     {{htmlescape var=$order.getCustomerName()}}
     {{htmlescape var=$order.getCustomerEmail()}}
+10. get Config
+  Mage::getConfig()->getTablePrefix()
+11. get table of attributes
+$attributeName = Mage::getSingleton('eav/config')
+          ->getAttribute('customer', 'firstname');
+  $attributeName->getBackendTable();

@@ -105,7 +105,11 @@
             var bxslider_<?php echo $suffix; ?> = $('.bxslider-<?php echo $suffix; ?>').bxSlider({
                 mode: 'horizontal',
                 speed: 500,
-                infiniteLoop: true,
+                <?php if ( $_countCollection > $_columnCount) : ?>
+                    infiniteLoop: true,
+                <?php else: ?>
+                    infiniteLoop: false,
+                <?php endif; ?>
                 auto: false,
                 pause: 4000,
                 moveSlides: 1,
@@ -120,25 +124,6 @@
                     $('.bxslider-<?php echo $suffix; ?> >li').removeClass('active');
                     $('.bxslider-<?php echo $suffix; ?> >li').eq(newIndex + 1).addClass('active');
                 }
-            });
-
-            $(window).resize(function(e) {
-                e.preventDefault();
-                bxslider_<?php echo $suffix; ?>.reloadSlider({
-                    mode: 'horizontal',
-                    speed: 500,
-                    infiniteLoop: true,
-                    auto: false,
-                    pause: 4000,
-                    moveSlides: 1,
-                    slideMargin: 20,
-                    slideWidth: <?php echo $_width; ?>,
-                    minSlides: 1,
-                    maxSlides: <?php echo $_columnCount; ?>,
-                    nextSelector: '.bx-next-<?php echo $suffix; ?>',
-                    prevSelector: '.bx-prev-<?php echo $suffix; ?>',
-                    pager: false
-                });
             });
         });
         //]]>

@@ -45,8 +45,8 @@ function getChildCollection($id,$showLeft = 0)
     return $_categoryCollection;
 }
 ?>
-<?php 
-$_helper = $this->helper('catalog/output'); 
+<?php
+$_helper = $this->helper('catalog/output');
 $_cHelper = $this->helper('icategory');
 $_categoryRootId = Mage::app()->getStore()->getRootCategoryId();
 $_children1 = getChildCollection($_categoryRootId,1);
@@ -123,3 +123,41 @@ if($_currentCategory) {
         $('.block-layered-nav.filter-wrapper').collapse();
     });
 </script>
+
+
+
+
+
+
+<?php
+$_helper  = $this->helper('catalog/output');
+$_cHelper = $this->helper('icategory');
+$_currentCategory = Mage::registry('current_category');
+if(!$_currentCategory) {
+    return;
+}
+$path = $_currentCategory->getPath();
+$children = $_cHelper->getCategoryCollection($_currentCategory->getId());
+$_countCollection = count($children);
+if(!$_countCollection) {
+    return;
+}
+?>
+<div class="block block-layered-nav">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Browse By') ?></span></strong>
+    </div>
+    <div class="block-content">
+        <dl id="narrow-by-list2">
+        <?php foreach($children as $_child) : ?>
+            <?php if ($_child->getIsActive()) : ?>
+                <dt>
+                    <label>
+                        <a href="<?php echo $_child->getUrl() ?>"><?php echo $this->htmlEscape($_child->getName()) ?></a>
+                    </label>
+                </dt>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        </dl>
+    </div>
+</div>
