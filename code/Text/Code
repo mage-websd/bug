@@ -148,6 +148,7 @@ if(
 Mage::getSingleton('cms/page')->getIdentifier() == 'home'  &&
 Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms'
 )
+Mage_Core_Model_Store::URL_TYPE_WEB
 <li class="level0 nav-home first level-top<?php
                     if(Mage::getSingleton('cms/page')->getIdentifier() == 'home'  &&
                         Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms') {
@@ -477,3 +478,11 @@ protected function _isAllowed()
 	$_order->getPayment()->getMethodInstance()
 		->getTitle()
 		->getCode();
+43: attribute system
+	UPDATE `emosys_2015_12_eubiq`.`eav_attribute` SET `is_user_defined` = '1' WHERE `eav_attribute`.`attribute_code` IN
+		('sku','weight','news_from_date','news_to_date','country_of_manufacture','price','group_price',
+		'special_price','special_from_date','special_to_date','tier_price','msrp_enabled','msrp_display_actual_price_type',
+		'msrp','tax_class_id','price_view','meta_title','meta_keyword','meta_description','image',
+		'small_image','thumbnail','media_gallery','gallery','is_recurring','recurring_profile','custom_design',
+		'custom_design_from','custom_design_to','custom_layout_update','page_layout','options_container',
+		'gift_message_available') AND `eav_attribute`.`entity_type_id`='4';

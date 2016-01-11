@@ -1,0 +1,171 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product media data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+?>
+<?php
+    $_product = $this->getProduct();
+    $_galleryImage = $this->getGalleryImages();
+    $_countGallery = count($_galleryImage);
+    if(!$_countGallery) {
+      $_smallDefault = 'images/catalog/product/placeholder/small_image.jpg';
+      $_imageDefault = $this->getSkinUrl($_smallDefault);
+      $data = array(
+          'file' => $_imageDefault,
+          'path' => Mage::getBaseDir('skin').'/frontend/default/default/'.$_smallDefault,
+      );
+      $_galleryImage = new Varien_Data_Collection();
+      $_item = new Varien_Object();
+      $_item->setData($data);
+      $_galleryImage->addItem($_item);
+      $_countGallery = 1;
+    }
+    $_helper = $this->helper('catalog/output');
+    $_iHelper = $this->helper('catalog/image');
+    $_zHelper = $this->helper('izoom');
+    $suffix = md5(microtime() . mt_rand());
+    $m = $_zHelper->getImageSizeByProduct($_product->getId(), 'image', 'width');
+    $_widthBig = $m->getWidth();
+    $_heightBig = $m->getHeight();
+    $_widthSmaill = Mage::getStoreConfig('izoom/general/thumbnail_width');
+    $_heightSmaill = Mage::getStoreConfig('izoom/general/thumbnail_height');
+    $_perThumb = 3;
+?>
+<div class="product-image">
+    <div class="swiper-include">
+        <div class="swiper-container gallery-top gallery-top-<?php echo $suffix; ?>" style="width: <?php echo $_widthBig; ?>px;height: <?php echo $_heightBig; ?>px;">
+            <div class="swiper-wrapper">
+                <?php $i=0; ?>
+                <?php foreach($_galleryImage as $_image): ?>
+                    <?php if (file_exists($_image->getPath())): $i++; ?>
+                        <div class="swiper-slide colorbox-product-image" href="<?php echo $_iHelper->init($_product, 'image', $_image->getFile()); ?>"<?php /*style="background-image:url(<?php echo $_iHelper->init($_product, 'image', $_image->getFile()); ?>)" href="<?php echo $_iHelper->init($_product, 'image', $_image->getFile()); ?>"*/ ?>>
+                            <a href="<?php echo $_iHelper->init($_product, 'image', $_image->getFile()); ?>" class="cloud-zoom cloud-zoom-<?php echo $i; ?>" rel="zoomWidth:'<?php echo $_zHelper->getZoomConfig('zoom_width') ?>', zoomHeight:'<?php echo $_zHelper->getZoomConfig('zoom_height') ?>', lensWidth:'<?php echo $_zHelper->getZoomConfig('lens_width') ?>', lensHeight:'<?php echo $_zHelper->getZoomConfig('lens_height') ?>', border:<?php echo (int)$_zHelper->getZoomConfig('border') ?>, position:'<?php echo $_zHelper->getZoomConfig('position') ?>', showTitle:<?php echo $_zHelper->getZoomConfig('show_title') ?>, adjustX:10, adjustY:-4, eventHandler:'<?php echo $_zHelper->getZoomConfig('event_handler') ?>'">
+                                <img id="image" src="<?php echo $_iHelper->init($_product, 'image', $_image->getFile())->resize($m->getWidth(), $m->getHeight()) ?>" alt="<?php echo $this->htmlEscape($this->getImageLabel()) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel()) ?>" />
+                            </a>
+                        </div>
+                        <script type="text/javascript">
+                            jQuery(document).ready(function($) {
+                                jQuery('.cloud-zoom-<?php echo $i; ?>').CloudZoom();
+                            });
+                        </script>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+            <?php if($_countGallery>1): ?>
+                <div class="swiper-button-prev swiper-button-main swiper-prev-<?php echo $suffix; ?>"></div>
+                <div class="swiper-button-next swiper-button-main swiper-next-<?php echo $suffix; ?>"></div>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <div class="swiper-container gallery-thumbs swipper-thumbs-<?php echo $suffix; ?>" style="width: <?php echo $_widthSmaill; ?>px;height: <?php echo $_heightSmaill; ?>px;">
+        <div class="swiper-wrapper">
+            <?php foreach($_galleryImage as $_image): ?>
+                <?php if (file_exists($_image->getPath())) : ?>
+                    <div class="swiper-slide"<?php /*) style="background-image:url(<?php echo $_iHelper->init($_product, 'image', $_image->getFile()); ?>)"*/?>>
+                        <img src="<?php echo $_iHelper->init($_product, 'image', $_image->getFile())->resize($_widthSmaill,$_heightSmaill); ?>" />
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+        <?php if($_countGallery > 1): ?>
+            <div class="swiper-button-prev swiper-button-prev-thum  swiper-prev-thum-<?php echo $suffix; ?>"></div>
+            <div class="swiper-button-next swiper-button-next-thum swiper-next-thum-<?php echo $suffix; ?>"></div>
+        <?php endif; ?>
+    </div>
+</div>
+
+
+<script>
+    jQuery(document).ready(function($) {
+        <?php
+        $width    = $_zHelper->getDialogConfig('width');
+        $maxWidth = $_zHelper->getDialogConfig('max_width');
+        $height    = $_zHelper->getDialogConfig('height');
+        $maxHeight = $_zHelper->getDialogConfig('max_height');
+        ?>
+        $(".colorbox-product-image").colorbox({
+            rel: 'color-box',
+            opacity: 0.5,
+            speed: <?php echo (int) $_zHelper->getDialogConfig('speed') ?>,
+            current: '{current} / {total}',
+
+            <?php if (strpos($width, 'false') === false) : ?>
+            width: '<?php echo $width ?>',
+            <?php endif; ?>
+            <?php if (strpos($maxWidth, 'false') === false) : ?>
+            maxWidth: '<?php echo $maxWidth ?>',
+            <?php endif; ?>
+
+            <?php if (strpos($height, 'false') === false) : ?>
+            height: '<?php echo $height ?>',
+            <?php endif; ?>
+            <?php if (strpos($maxHeight, 'false') === false) : ?>
+            maxHeight: '<?php echo $maxHeight ?>',
+            <?php endif; ?>
+
+            fixed: <?php echo $_zHelper->getDialogConfig('fixed') ?>,
+            className: 'zoom'
+        });
+    });
+    var galleryTop = new Swiper('.gallery-top-<?php echo $suffix; ?>', {
+        <?php if($_countGallery > 1): ?>
+            nextButton: '.swiper-next-<?php echo $suffix; ?>',
+            prevButton: '.swiper-prev-<?php echo $suffix; ?>',
+        <?php endif; ?>
+        spaceBetween: 10,
+        <?php if($_countGallery > 1): ?>
+            loop:true,
+        <?php else: ?>
+            loop:false,
+        <?php endif; ?>
+        loopedSlides: 5, //looped slides should be the same
+    });
+    var galleryThumbs = new Swiper('.swipper-thumbs-<?php echo $suffix; ?>', {
+        spaceBetween: 10,
+        slidesPerView: <?php echo $_perThumb; ?>,
+        touchRatio: 0.2,
+        <?php if($_countGallery > $_perThumb): ?>
+            loop:true,
+        <?php else: ?>
+            loop:false,
+        <?php endif; ?>
+        loopedSlides: 5, //looped slides should be the same
+        slideToClickedSlide: true,
+        <?php /*direction: 'vertical',*/ ?>
+        <?php if($_countGallery > 1): ?>
+            nextButton: '.swiper-next-thum-<?php echo $suffix; ?>',
+            prevButton: '.swiper-prev-thum-<?php echo $suffix; ?>',
+        <?php endif; ?>
+        centeredSlides: true,
+    });
+    galleryTop.params.control = galleryThumbs;
+    galleryThumbs.params.control = galleryTop;
+</script>

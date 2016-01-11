@@ -26,5 +26,15 @@
             event.preventDefault();
             $('.popup-wrapper').fadeOut(500);
         });
+
+        $(window).load(function(event) {
+            setTimeout(function() {
+                $('.popup-wrapper.popup-subscribe').addClass('active');
+            },1000);
+        });
+        $(document).on('click','.popup-close-btn a',function(event) {
+            event.preventDefault();
+            $('.popup-wrapper').removeClass('active');
+        });
     });
 </script>

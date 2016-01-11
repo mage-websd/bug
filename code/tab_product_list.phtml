@@ -1,0 +1,148 @@
+<?php
+function getCollectionHtml($collection,$item,$storeId,$_cHelper,$_width,$_height,$_this,$_columnCount=4)
+{
+    $html = '';
+    $id = null;
+    if(is_object($item)) {
+        $id = $item->getId();
+    }
+    else {
+        $id = $item;
+    }
+    $html .= "<div id=\"product_tabs_{$id}_contents\">";
+    $_countCollection = count($collection);
+    if ($_countCollection) {
+        $suffix = md5(microtime() . mt_rand());
+        if ( $_countCollection > $_columnCount) {
+            $html .= "<div class=\"ts-nav-container bx-container-controller\">";
+                $html .= "<span id=\"ts-prev-product_tabs_{$id}\" class=\"ts-prev bx-prev-{$suffix} bx-prev\"></span>";
+                $html .= "<span id=\"ts-next-product_tabs_{$id}\" class=\"ts-next bx-next-{$suffix} bx-next\"></span>";
+            $html .= "</div>";
+        }
+        $html .= "<div class=\"ts_container\">";
+            $html .= "<div id=\"product_tabs_{$id}_slider\" class=\"bxslider bxslider-{$suffix}\">";
+                foreach ($collection as $_product) {
+                    /*$p = Mage::getModel('catalog/product')->setStoreId($storeId)->load($_product->getId());
+                    $_product = $p;*/
+                    $s = $_cHelper->getSize($_product, $_width, $_height, 'small_image', 'width');
+                    $html .= "<div class=\"slide slider-item\">";
+                        $html .= "<div class=\"product-image-outer\"><div class=\"product-image-inner\">";
+                            $html .= "<a href=\"{$_product->getProductUrl()}\" class=\"product-image\"><img src=\"{$_this->helper('catalog/image')->init($_product, 'small_image')->resize($s->getWidth(), $s->getHeight())}\" /></a>";
+                        $html .= "</div></div>";
+                        $html .= "<h2 class=\"product-name\">";
+                            $html .= "<a href=\"{$_product->getProductUrl()}\">{$_product->getName()}</a>";
+                        $html .= "</h2>";
+                    $html .= "</div>";
+                }
+            $html .= "</div>";
+        $html .= "</div>";
+        $html .= "<script type=\"text/javascript\">
+                    //<![CDATA[
+                    jQuery(document).ready(function($) {
+                        var bxslider_{$suffix} = $('.bxslider-{$suffix}').bxSlider({
+                            mode: 'horizontal',
+                            speed: 500,";
+                    if ( $_countCollection > $_columnCount) {
+                        $html.="infiniteLoop: true,";
+                    }
+                    else {
+                        $html.="infiniteLoop: false,";
+                    }
+                    $html .= "auto: false,
+                            pause: 4000,
+                            moveSlides: 1,
+                            slideMargin: 10,
+                            slideWidth: {$_width},
+                            minSlides: 1,
+                            maxSlides: {$_columnCount},";
+                    if ( $_countCollection > $_columnCount) {
+                        $html .= "nextSelector: '.bx-next-{$suffix}',
+                            prevSelector: '.bx-prev-{$suffix}',
+                            controls: true,";
+                    }
+                    else {
+                        $html .= "controls: false,";
+                    }
+                    $html .= "pager: false
+                        });
+                    bxsliderTab['{$id}'] = bxslider_{$suffix};
+                    });
+                    //]]>
+                    </script>";
+    }
+    $html .= "</div>";
+    return $html;
+}
+?>
+
+<?php
+$_helper = $this->helper('catalog/output');
+$_cHelper = $this->helper('icategory');
+$_ehlper = $this->helper('emosys');
+$storeId = Mage::app()->getStore()->getId();
+$_width = 275;
+$_height = 275;
+$category = $this->getCategory();
+?>
+<script type="text/javascript">
+    bxsliderTab = [];
+</script>
+<div class="ts-container">
+    <ul class="tabs">
+        <li id="product_tabs_type" class="active first" data-suffix="type">
+            <a href="#"><?php echo $this->__('Type'); ?></a>
+        </li>
+        <li id="product_tabs_latest" data-suffix="latest">
+            <a href="#"><?php echo $this->__('Latest'); ?></a>
+        </li>
+        <li id="product_tabs_bestseller" data-suffix="bestseller">
+            <a href="#"><?php echo $this->__('Best Seller'); ?></a>
+        </li>
+        <li id="product_tabs_sale" data-suffix="sale">
+            <a href="#"><?php echo $this->__('On Sale'); ?></a>
+        </li>
+    </ul>
+    <div class="padder">
+        <?php
+
+        $_collection = $_ehlper->getProductCategory($category);
+        echo getCollectionHtml($_collection,'type',$storeId,$_cHelper,$_width,$_height,$this);
+
+        $_collection = $this->helper('emosys')->getNew();
+        echo getCollectionHtml($_collection,'latest',$storeId,$_cHelper,$_width,$_height,$this);
+
+        $_collection = $this->helper('emosys')->getBestSeller();
+        echo getCollectionHtml($_collection,'bestseller',$storeId,$_cHelper,$_width,$_height,$this);
+
+        $_collection = $this->helper('emosys')->getSale();
+        echo getCollectionHtml($_collection,'sale',$storeId,$_cHelper,$_width,$_height,$this);
+
+        ?>
+    </div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+    jQuery(document).ready(function($) {
+        $(window).load(function(){
+            $('.tabs').each(function(){
+                idTab = $(this).children('.active').attr('id');
+                $(this).next('.padder').children().hide();
+                $(this).next('.padder').children('#'+idTab+'_contents').show();
+            });
+        });
+
+        $(document).on('click','.tabs > li',function() {
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+            idTab = $(this).attr('id');
+            $(this).parent().next('.padder').children().hide();
+            $(this).parent().next('.padder').children('#'+idTab+'_contents').show();
+            suffixData = $(this).attr('data-suffix');
+            if(bxsliderTab[suffixData]) {
+                bxsliderTab[suffixData].reloadSlider();
+            }
+            return false;
+        });
+    });
+//]]>
+</script>

@@ -117,8 +117,13 @@
                 slideWidth: <?php echo $_width; ?>,
                 minSlides: 1,
                 maxSlides: <?php echo $_columnCount; ?>,
-                nextSelector: '.bx-next-<?php echo $suffix; ?>',
-                prevSelector: '.bx-prev-<?php echo $suffix; ?>',
+                <?php if ( $_countCollection > $_columnCount) : ?>
+                    nextSelector: '.bx-next-<?php echo $suffix; ?>',
+                    prevSelector: '.bx-prev-<?php echo $suffix; ?>',
+                    controls: true,
+                <?php else: ?>
+                    controls: false,
+                <?php endif; ?>
                 pager: false,
                 onSlideAfter: function(slideElement, oldIndex, newIndex){
                     $('.bxslider-<?php echo $suffix; ?> >li').removeClass('active');
