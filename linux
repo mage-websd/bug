@@ -156,4 +156,7 @@
 		yum install php-gd --enablerepo=remi,remi-php55
 		ip link set eth1 up
 		/etc/init.d/network restart
-19.
+19. copy
+	all file include hiden cp -rfR dir/. dir2/
+20. networking
+	service network-manager start
