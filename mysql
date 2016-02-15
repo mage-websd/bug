@@ -6,7 +6,7 @@
 	GRANT [type of permission] ON [database name].[table name] TO ‘[username]’@'localhost’; : them quuyen
 		type: ALL PRIVILEGES, CREATE, DROP, DELETE, INSERT, SELECT, UPDATE, GRANT OPTION
 		db name, table name: *
-		
+
 	GRANT CREATE VIEW,INDEX,LOCK TABLES,REFERENCES, CREATE,DROP, DELETE, INSERT, SELECT, UPDATE, ALTER, CREATE TEMPORARY TABLES ON dbname.* TO 'username'@'%'
 
 	REVOKE [type of permission] ON [database name].[table name] FROM ‘[username]’@‘localhost’; :  xoa quyen
@@ -14,10 +14,10 @@
 
 2. dum import
 
-mysqldump -h host -u root -p  --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false dbname | gzip > file.sql.gz
+mysqldump -h localhost -u root -p  --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false dbname | gzip > file.sql.gz
 
 mysql -u root -p --default-character-set=utf8 dbname < file.sql
-
+..\..\..\..\mysql\bin\mysql -u root -p --default-character-set=utf8
 
 option
 --where="colum > 1"

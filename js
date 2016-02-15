@@ -81,3 +81,31 @@ $(document).mouseup(function (e)
         container.hide();
     }
 });
+
+--------------------------------------------------------------------------
+scrool banner
+jQuery(document).ready(function($) {
+      function aliginBanner() {
+        widthWindown = $(window).width();
+        widthContainer = $('.nav-container .container').width();
+        widthBlogTag = $('.banner-run .block-tag').width();
+        left = (widthWindown - widthContainer) / 2 - widthBlogTag;
+        $('.banner-run .block-tag.tag-post').css('margin-left',left+'px');
+        $('.banner-run .block-tag.tag-most').css('margin-right',left+'px');
+      }
+      aliginBanner()
+      $(window).resize(function(event) {
+        aliginBanner()
+      });
+      $(window).scroll(function(){
+            tTop = $('.nav-container').offset().top;
+            t = parseInt($(window).scrollTop());
+            position = t - tTop + 20;
+            if(t > tTop) {
+                $('.block-tag').stop().animate({marginTop:position},1000,'easeOutBack');
+            }
+            else {
+                $('.block-tag').stop().animate({marginTop:20},1000,'easeOutBack');
+            }
+        })
+    });
