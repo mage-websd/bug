@@ -35,7 +35,8 @@
 
 	sudo apt-get install apache2
 	sudo apt-get install mysql-server
-	sudo apt-get install php5 libapache2-mod-php5
+	sudo apt-get install php5 libapache2-mod-php5 php5-mysql php5-mcrypt php5-xsl php5-intl mcrypt
+	php5enmod mcrypt
 	sudo apt-get install sendmail
 	php5-curl php5-mcrypt php5-gd
 	a2enmod rewrite
@@ -47,7 +48,8 @@
     mysql, file config: bind-address 127.0.0.1: chi cho truy cap tu localhost, comment => another host
     sudo update-rc.d -f  apache2 remove: disabel start apache
     sudo update-rc.d apache2 disable
-    echo "manual" >> /etc/init/mysql.override : disable start mysql
+    disable start mysql: systemctl disable mysql
+    					nano /etc/init/mysql.conf => comment start on
     ssl:
     	key: openssl genrsa -des3 -out giangssl.key 1024
     	request: openssl req -new -key giangssl.key -out giangssl.csr

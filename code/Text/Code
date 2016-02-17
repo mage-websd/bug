@@ -331,6 +331,24 @@ UNLOCK TABLES;
 
 32: login customer
     Mage::getSingleton("customer/session")->isLoggedIn()
+		$customer = Mage::getSingleton("customer/session")->getCustomer();
+    $address = $customer->getPrimaryBillingAddress();
+    print_r($address->getData());
+    $address_id = $customer->getDefaultBilling();
+    print_r((int)$address_id);
+    if ($address_id) {
+        $address = Mage::getModel('customer/address')->load($address_id);
+        $mydatas['name'] = $address->getFirstname().' '.$address->getLastname();
+        $mydatas['company'] = $address->getCompany();
+        $mydatas['zip'] = $address->getPostcode();
+        $mydatas['city'] = $address->getCity();
+        $street = $address->getStreet();
+        $mydatas['street'] = $street[0];
+        $mydatas['telephone'] = $address->getTelephone();
+        $mydatas['fax'] = $address->getFax();
+        $mydatas['country'] = $address->getCountry();
+        print_r($mydatas);
+    }
 33: minicart
 	jQuery(function($) {
 		$(document).on('mouseenter','.block-cart-header',function(event) {

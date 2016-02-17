@@ -5,3 +5,10 @@ $collection->joinTermTables('category');
 $wpDatabase = Mage::helper('wordpress/database');
 $read = $wpDatabase->getReadAdapter();
 $write = $wpDatabase->getWriteAdapter();
+
+
+bin/magento setup:install --base-url=http://127.0.0.1/mage/202/ \
+--db-host=localhost --db-name=magento_2 --db-user=root --db-password=giang \
+--admin-firstname=Magento --admin-lastname=User --admin-email=truonggiang.92.soda@gmail.com \
+--admin-user=admin --admin-password=admin123 --language=en_US \
+--currency=USD --timezone=America/Chicago --use-rewrites=1
