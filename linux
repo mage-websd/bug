@@ -7,7 +7,7 @@
 	nen tar.bz2:  tar -jcvf archive_name.tar.bz2 directory_to_compress
 	nen zip:  zip -r archive_name.zip directory_to_compress
 	giai nen zip:  unzip archive_name.zip
-	nen 
+	nen
 	giai nen gz: gunzip file.gz or gzip -d file.gz
 	giai nen tar.gz:  tar zxvf file.tar.gz
 
@@ -83,7 +83,7 @@
 	mkdir /media/DriveD
 	sudo ntfs-3g /dev/sda3 /media/DriveD
 	chown
-	
+
 	sendmail /core/email/template.php
 		$config = array(
 	        'ssl' => 'tls',
@@ -116,7 +116,7 @@
 	killall name_process: kill process
 16. install theme mouse cursor
 	sudo ln -fs /usr/share/icons/Red-Devil/cursor.theme /etc/alternatives/x-cursor-theme: active
-	~/.Xresources file: Xcursor.theme: Red-Devil 
+	~/.Xresources file: Xcursor.theme: Red-Devil
 						Xcursor.size: 64
 	ubuntu tweak => choose mouse => restart
 17. network
@@ -150,7 +150,7 @@
 	ip link set card_name down (or up) : disable card networking
 	service iptables stop : tat tuong lua de truy cap web tu ngoai
 	G, 4G: go to bottom file, line 4 file in vi
-	Create vhost: 
+	Create vhost:
 		httpd.conf: add Include site-enabled/*.conf
 		mkdir /etc/httpd/site-enabled/
 		add file conf
@@ -162,3 +162,18 @@
 	all file include hiden cp -rfR dir/. dir2/
 20. networking
 	service network-manager start
+
+21.
+find * -type d -print0 | xargs -0 chmod 755
+find . -type f -print0 | xargs -0 chmod 644
+
+22. monogdb
+	sudo apt-get install upstart-sysv
+	
+	echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+	sudo apt-get update
+	sudo apt-get install -y mongodb-org
+
+	sudo apt-get purge mongodb-org
+	sudo apt-get autoremove
+	sudo rm /etc/apt/sources.list.d/mongodb.list

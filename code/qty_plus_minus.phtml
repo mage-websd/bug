@@ -49,36 +49,36 @@ inproduct	<input type="text" name="qty" value="1" title="<?php echo $this->__('Q
 })(jQuery);
 //!function(s){s.fn.qtyNumber=function(){s(document).on("click",".btn-qty-number",function(){var t=s(this).siblings(".qty"),i=t.val();if(isNaN(i))return!1;if(s(this).hasClass("btn-minus")){if(2>i)return s(this).addClass("disable"),s(this).attr("disable"),!1;if(i--,t.val(i),2>i)return s(this).addClass("disable"),s(this).attr("disable"),!1}else if(i++,t.val(i),i>1)return s(this).removeClass("disable"),s(this).removeAttr("disable"),!1;return!1})}}(jQuery);
 jQuery(document).ready(function($) {
-    $(document).on('click','.btn-qty-number',function() {
-        var domQty = $(this).siblings('.qty');
-        var valueQty = domQty.val();
-        if(isNaN(valueQty)) {
-            return false;
-        }
-        if($(this).hasClass('btn-minus')) {
-            if(valueQty < 2) {
-                $(this).addClass('disable');
-                $(this).attr('disable');
-                return false;
-            }
-            valueQty--;
-            domQty.val(valueQty);
-            if(valueQty < 2) {
-                $(this).addClass('disable');
-                $(this).attr('disable');
-                return false;
-            }
-        }
-        else {
-            valueQty++;
-            domQty.val(valueQty);
-            if(valueQty > 1) {
-                $(this).removeClass('disable');
-                $(this).removeAttr('disable');
-                return false;
-            }
-        }
-        return false;
-    });
+	$(document).on('click', '.btn-qty-number', function (event) {
+							event.preventDefault();
+							var domQty = $(this).siblings('.qty');
+							var valueQty = domQty.val();
+							if (isNaN(valueQty)) {
+									valueQty = 1;
+							}
+							if ($(this).hasClass('btn-minus')) {
+									if (valueQty < 2) {
+											$(this).addClass('disable');
+											$(this).attr('disable');
+											domQty.val(valueQty);
+											return false;
+									}
+									valueQty--;
+									domQty.val(valueQty);
+									if (valueQty < 2) {
+											$(this).addClass('disable');
+											$(this).attr('disable');
+											return false;
+									}
+							} else {
+									valueQty++;
+									domQty.val(valueQty);
+									if (valueQty > 1) {
+											$(this).siblings('.btn-minus').removeClass('disable');
+											$(this).siblings('.btn-minus').removeAttr('disable');
+											return false;
+									}
+							}
+					});
 });
 </script>
