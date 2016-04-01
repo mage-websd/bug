@@ -135,3 +135,138 @@
         </script>
     </div>
 </div>
+
+<script type="text/javascript">
+//<![CDATA[
+(function($){
+$.fn.columnReponsive = function(object) {
+var defaultConfig = {
+    column: 5
+},
+config = $.extend(defaultConfig,object);
+width = $(window).width();
+if(width>960) {
+    columnSlider = config.column;
+}
+else if(width >480) {
+    columnSlider = parseInt(config.column/2);
+}
+else {
+    columnSlider = 1;
+}
+return columnSlider;
+};
+})(jQuery);
+    jQuery(document).ready(function($) {
+        columnSlider = $(document).columnReponsive({
+            column: <?php echo $_columnCount; ?>
+        });
+        if(<?php echo $_countCollection; ?> > (columnSlider*2) && columnSlider > 1) {
+            var bxslider_<?php echo $suffix; ?> = $('.bxslider-<?php echo $suffix; ?>').bxSlider({
+                mode: 'horizontal',
+                speed: 500,
+                infiniteLoop: true,
+                auto: false,
+                pause: 4000,
+                moveSlides: 1,
+                slideMargin: 20,
+                slideWidth: <?php echo $_width; ?>,
+                minSlides: 1,
+                maxSlides: columnSlider,
+                controls: true,
+                nextSelector: '.bx-next-<?php echo $suffix; ?>',
+                prevSelector: '.bx-prev-<?php echo $suffix; ?>',
+                pager: false
+            });
+        }
+        else if(<?php echo $_countCollection; ?> > (columnSlider*2) && columnSlider == 1) {
+            var bxslider_<?php echo $suffix; ?> = $('.bxslider-<?php echo $suffix; ?>').bxSlider({
+                mode: 'horizontal',
+                speed: 500,
+                infiniteLoop: true,
+                auto: false,
+                pause: 4000,
+                moveSlides: 1,
+                slideMargin: 20,
+                slideWidth: <?php echo $_width; ?>,
+                minSlides: 1,
+                maxSlides: columnSlider,
+                controls: false,
+                pager: false
+            });
+        }
+        else {
+            var bxslider_<?php echo $suffix; ?> = $('.bxslider-<?php echo $suffix; ?>').bxSlider({
+                mode: 'horizontal',
+                speed: 500,
+                infiniteLoop: false,
+                auto: false,
+                pause: 4000,
+                moveSlides: 1,
+                slideMargin: 20,
+                slideWidth: <?php echo $_width; ?>,
+                minSlides: 1,
+                maxSlides: columnSlider,
+                controls: false,
+                pager: false
+            });
+        }
+
+        $(window).resize(function(event) {
+            columnSlider = $(document).columnReponsive({
+                column: <?php echo $_columnCount; ?>
+            });
+            if(<?php echo $_countCollection; ?> > (columnSlider*2) && columnSlider > 1) {
+                bxslider_<?php echo $suffix; ?>.reloadSlider({
+                    mode: 'horizontal',
+                    speed: 500,
+                    infiniteLoop: true,
+                    auto: false,
+                    pause: 4000,
+                    moveSlides: 1,
+                    slideMargin: 20,
+                    slideWidth: <?php echo $_width; ?>,
+                    minSlides: 1,
+                    maxSlides: columnSlider,
+                    controls: true,
+                    nextSelector: '.bx-next-<?php echo $suffix; ?>',
+                    prevSelector: '.bx-prev-<?php echo $suffix; ?>',
+                    pager: false
+                });
+            }
+            else if(<?php echo $_countCollection; ?> > (columnSlider*2) && columnSlider == 1) {
+                    bxslider_<?php echo $suffix; ?>.reloadSlider({
+                    mode: 'horizontal',
+                    speed: 500,
+                    infiniteLoop: true,
+                    auto: false,
+                    pause: 4000,
+                    moveSlides: 1,
+                    slideMargin: 20,
+                    slideWidth: <?php echo $_width; ?>,
+                    minSlides: 1,
+                    maxSlides: columnSlider,
+                    controls: false,
+                    pager: false
+                });
+            }
+            else {
+                bxslider_<?php echo $suffix; ?>.reloadSlider({
+                    mode: 'horizontal',
+                    speed: 500,
+                    infiniteLoop: false,
+                    auto: false,
+                    pause: 4000,
+                    moveSlides: 1,
+                    slideMargin: 20,
+                    slideWidth: <?php echo $_width; ?>,
+                    minSlides: 1,
+                    maxSlides: columnSlider,
+                    controls: false,
+                    pager: false
+                });
+            }
+        });
+    });
+//]]>
+</script>

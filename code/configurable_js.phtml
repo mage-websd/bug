@@ -1,0 +1,84 @@
+<?php 
+$_product = $this->getProduct();
+$_htmlMedia = array();
+if($_product->isConfigurable()):
+    $_helper = $this->helper('catalog/output');
+    $_imgHelper = $this->helper('catalog/image');
+
+    $_childProductIds = Mage::getModel('catalog/product_type_configurable')
+                    ->getChildrenIds($_product->getId());
+    if(count($_childProductIds)) {
+        $_childProductIds = $_childProductIds[0];
+    }
+    if(count($_childProductIds)) {
+        foreach($_childProductIds as $_productId) {
+            $_productChild = Mage::getModel('catalog/product')->load($_productId);
+            if(!$_productChild->getId()) {
+                continue;
+            }
+            Mage::unregister('current_product');
+            Mage::unregister('product');
+            Mage::register('product', $_productChild);
+            Mage::register('current_product', $_productChild);
+            $_html = $this->getLayout()->createBlock('catalog/product_view_media')
+                    ->setTemplate('catalog/product/view/media.phtml')->toHtml();
+            $_htmlMedia[$_productId] = $_html;
+        }
+    }
+    if($_htmlMedia): ?>
+        <?php $_htmlMedia = json_encode($_htmlMedia); ?>
+<script>
+    spConfig.getIdOfSelectedProduct = function () {
+        var existingProducts = new Object();
+        for (var i = this.settings.length - 1; i >= 0; i--) {
+            var selected = this.settings[i].options[this.settings[i].selectedIndex];
+            if (selected.config) {
+                for (var iproducts = 0; iproducts < selected.config.products.length; iproducts++) {
+                    var usedAsKey = selected.config.products[iproducts] + "";
+                    if (existingProducts[usedAsKey] == undefined) {
+                        existingProducts[usedAsKey] = 1;
+                    } else {
+                        existingProducts[usedAsKey] = existingProducts[usedAsKey] + 1;
+                    }
+                }
+            }
+        }
+        for (var keyValue in existingProducts) {
+            for (var keyValueInner in existingProducts) {
+                if (Number(existingProducts[keyValueInner]) < Number(existingProducts[keyValue])) {
+                    delete existingProducts[keyValueInner];
+                }
+            }
+        }
+        var sizeOfExistingProducts = 0;
+        var currentSimpleProductId = "";
+        for (var keyValue in existingProducts) {
+            currentSimpleProductId = keyValue;
+            sizeOfExistingProducts = sizeOfExistingProducts + 1
+        }
+        if (sizeOfExistingProducts == 1) {
+            return currentSimpleProductId;
+        }
+        return null;
+    }
+    selectSupperAttribute = document.querySelectorAll("select.super-attribute-select");
+    htmlMedia = <?php echo $_htmlMedia; ?>;
+    htmlMediaOrigin = document.querySelectorAll("div.product-img-box")[0].innerHTML;
+    for(selectDom in selectSupperAttribute) {
+        if(isNaN(selectDom)) {
+            continue;
+        }
+        selectSupperAttribute[selectDom].addEventListener("change", function() {
+            productIdSimple = spConfig.getIdOfSelectedProduct();
+            if(productIdSimple && htmlMedia.hasOwnProperty(productIdSimple)) {
+                document.querySelectorAll("div.product-img-box")[0].innerHTML = htmlMedia[productIdSimple];
+            }
+            else {
+                document.querySelectorAll("div.product-img-box")[0].innerHTML = htmlMediaOrigin;
+            }
+        });
+    }
+
+</script>
+    <?php endif; //endif check media html
+endif; //endif product configurable ?>

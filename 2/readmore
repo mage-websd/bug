@@ -1,0 +1,73 @@
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(["jquery"], factory);
+    } else {
+        factory(jQuery);
+    }
+}(function ($) {
+    $.fn.collapseReadMore = function(object) {
+        var thisDom = $(this),
+        defaultConfig = {
+            textMore: 'read more',
+            textLess: 'less',
+            line: 2,
+            classLess: '',
+            classMore: '',
+            domReference: false,
+            addMarginChild: true,
+            showInline: true
+        },
+        config = $.extend(defaultConfig,object),
+        heightDom = thisDom.height(),
+        showMore = $('<div/>')
+            .addClass('link')
+            .addClass('readmore-wrapper')
+            .addClass(config.classMore)
+            .css('display','none')
+            .html('<a class="link-readmore">'+config.textMore+'</a>'),
+        showMore = $('<div/>')
+            .addClass('link')
+            .addClass('readmore-wrapper')
+            .addClass(config.classMore)
+            .css('display','none')
+            .html('<a class="link-readless">'+config.textLess+'</a>');
+        if(config.height == undefined) {
+            lineHeight = parseFloat(thisDom.css('line-height'));
+            config.height = lineHeight * config.line;
+        }
+        if(config.domReference && $(config.domReference).length) {
+            heightDomReference = $(config.domReference).height();
+            if(heightDomReference > config.height) {
+                config.height = heightDomReference;
+            }
+        }
+        if (heightDom > config.height){
+            if(config.showInline) {
+                thisDom.append(showMore);
+                thisDom.append(showLess);
+            }
+            else {
+                thisDom.after(showMore);
+                thisDom.after(showLess);
+            }
+            
+            thisDom.css({'overflow':'hidden'});
+            if(config.addMarginChild && thisDom.children().length) {
+                marginChild = thisDom.children().first().offset().top - thisDom.offset().top;
+                config.height += marginChild;
+            }
+            thisDom.css({'max-height': config.height +'px'});
+            showMore.show();
+            $('a.link-readmore', showMore).click(function(){
+                thisDom.css('max-height', 'none');
+                showMore.hide();
+                showLess.show();
+            });
+            $('a.link-readless', showLess).click(function(){
+                thisDom.css('max-height', config.height+'px');
+                showLess.hide();
+                showMore.show();
+            });
+        }
+    }
+}));
