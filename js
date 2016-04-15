@@ -207,4 +207,35 @@ $.fn.collapseReadMore = function(object) {
 $.fn.collapseReadMore=function(e){var s=$(this),h={textMore:"read more",textLess:"less",line:2,classLess:"",classMore:"",domReference:!1,addMarginChild:!0,showInline:!1},i=$.extend(h,e),a=s.height(),n=$("<div/>").addClass("link").addClass("readmore-wrapper").addClass(i.classMore).css("display","none").html('<a class="link-readmore" href="#">'+i.textMore+"</a>"),l=$("<div/>").addClass("link").addClass("readmore-wrapper").addClass(i.classMore).css("display","none").html('<a class="link-readless" href="#">'+i.textLess+"</a>");void 0==i.height&&(lineHeight=parseFloat(s.css("line-height")),i.height=lineHeight*i.line),i.domReference&&$(i.domReference).length&&(heightDomReference=$(i.domReference).height(),heightDomReference>i.height&&(i.height=heightDomReference)),a>i.height&&(i.showInline?(s.append(n),s.append(l)):(s.after(n),s.after(l)),s.css({overflow:"hidden"}),i.addMarginChild&&s.children().length&&(marginChild=s.children().first().offset().top-s.offset().top,i.height+=marginChild),s.css({"max-height":i.height+"px"}),n.show(),$("a.link-readmore",n).click(function(e){e.preventDefault(),s.css("max-height","none"),n.hide(),l.show()}),$("a.link-readless",l).click(function(e){e.preventDefault(),s.css("max-height",i.height+"px"),l.hide(),n.show()}))};
 
 ----------------------- ------------------------------------------------- --------------------------
-qty +-
+disable submit
+jQuery(document).ready(function($) {
+        var subscribeSubmit = false;
+        $(document).on('submit','#newsletter-validate-detail',function(event) {
+            if($(this).find('.validation-failed').length) {
+                return false;
+            }
+            else {
+                if(subscribeSubmit) {
+                    return false;
+                }
+                subscribeSubmit = true;
+                return true;
+            }
+        });
+    });
+----------------------- ------------------------------------------------- --------------------------
+trim
+    function trimSlash(x) {
+        return x.replace(/^[\/]+|[\/]+$/gm,'');
+    }
+
+----------------------- ------------------------------------------------- --------------------------
+format js
+return x.replace(/./g, function(c, i, a) {
+        return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
+    });
+----------------------- ------------------------------------------------- --------------------------
+
+----------------------- ------------------------------------------------- --------------------------
+
+----------------------- ------------------------------------------------- --------------------------
