@@ -34,3 +34,6 @@ window.fbAsyncInit = function() {
     git branch -d branch_name: delete branch local
     git config core.fileMode false: ignore chmod permission
     git rebase -i HEAD~4
+
+    git tag -f tag-name
+    git push -f origin tag-name
