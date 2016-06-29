@@ -35,6 +35,7 @@
 	sudo apt-get install apache2
 	sudo apt-get install mysql-server
 	sudo apt-get install php5 libapache2-mod-php5 php5-mysql php5-mcrypt php5-xsl php5-intl mcrypt
+		php7.0-mysql php-mbstring php7.0-mbstring php-gettext
 	php5enmod mcrypt
 	sudo apt-get install sendmail
 	php5-curl php5-mcrypt php5-gd
@@ -186,3 +187,8 @@ find . -type f -print0 | xargs -0 chmod 644
 cat /etc/*-release
 23: info
 	sudo dmidecode
+
+24: may ao vagrant
+	sudo sed -i 's/SELINUX=\(enforcing\|permissive\)/SELINUX=disabled/g' /etc/selinux/config
+	cp /etc/selinux/config /etc/sysconfig/selinux
+	sudo setenforce 0
