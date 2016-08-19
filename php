@@ -121,3 +121,18 @@ else
         </filesmatch>
     </ifmodule>
 7. textarea break line: nl2br(string)
+8. wordpress delete post
+
+    delete from `wp_woocommerce_order_itemmeta` where `order_item_id` IN (select `order_item_id` from `wp_woocommerce_order_items` join `wp_posts` on `wp_posts`.`ID` = `wp_woocommerce_order_items`.`order_id` where `post_status` = 'trash' and `post_type` = 'shop_order');
+    
+    delete from `wp_woocommerce_order_items` where `order_id` IN (select ID from `wp_posts` where `post_status` = 'trash' and `post_type` = 'shop_order');    
+
+
+    delete from `wp_postmeta` where `post_id` IN (select ID from `wp_posts` where `post_status` = 'trash' and `post_type` = 'shop_order');
+
+    delete from `wp_commentmeta` where `comment_id` IN (select `comment_ID` from `wp_comments` join `wp_posts` on `wp_posts`.`ID` = `wp_comments`.`comment_post_ID` where `post_status` = 'trash' and `post_type` = 'shop_order');
+    
+    delete from `wp_comments` where `comment_post_ID` IN (select ID from `wp_posts` where `post_status` = 'trash' and `post_type` = 'shop_order');
+
+    delete from `wp_posts` where `post_status` = 'trash' and `post_type` = 'shop_order';
+    

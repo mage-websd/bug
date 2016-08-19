@@ -235,7 +235,37 @@ return x.replace(/./g, function(c, i, a) {
         return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
     });
 ----------------------- ------------------------------------------------- --------------------------
-
+click without dom
+var clicky;
+$(document).mousedown(function(e) {
+    clicky = e.target;
+});
+$(document).mouseup(function() {
+    clicky = null;
+});
+$.fn.isClickWithoutDom = function(option) {
+    if (option == undefined || 
+        option.container == undefined || 
+        option.except == undefined
+    ) {
+        return false;
+    }
+    if (option.type == undefined) {
+        option.type = 0;
+    }
+    if (option.except.is(clicky)
+        || option.except.has(clicky).length !== 0
+    ){
+        return false;
+    } else if (! option.container.is(clicky)
+        && option.container.has(clicky).length === 0
+    ) {
+        return true;
+    }
+};
 ----------------------- ------------------------------------------------- --------------------------
+
+
+
 
 ----------------------- ------------------------------------------------- --------------------------

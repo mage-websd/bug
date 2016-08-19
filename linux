@@ -22,6 +22,8 @@
 	
 7. vmware
 	sudo su -c "apt-get install open-vm-tools open-vm-tools-dev open-vm-dkms open-vm-toolbox gcc build-essential"
+	
+	apt-get install virtualbox-guest-additions-iso
 8.apache2
 	apache2ctl -M: list all mod
 9. startup
@@ -39,6 +41,7 @@
 	php5enmod mcrypt
 	sudo apt-get install sendmail
 	php5-curl php5-mcrypt php5-gd
+	service php7.0-fpm reload
 	a2enmod rewrite
 	sudo apt-get purge openjdk*
     sudo add-apt-repository ppa:webupd8team/java
@@ -192,3 +195,6 @@ cat /etc/*-release
 	sudo sed -i 's/SELINUX=\(enforcing\|permissive\)/SELINUX=disabled/g' /etc/selinux/config
 	cp /etc/selinux/config /etc/sysconfig/selinux
 	sudo setenforce 0
+25. ssh
+	ssh -p 22 -i ~/.ssh/id_rsa user@ip-cua-ban
+26. 
