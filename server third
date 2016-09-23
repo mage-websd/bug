@@ -24,6 +24,35 @@ window.fbAsyncInit = function() {
             xfbml      : true,  // parse social plugins on this page
             version    : 'v2.2' // use version 2.2
 });}
+
+
+//        FB.ui(
+//        {
+//         method: 'share',
+//         href: 'https://developers.facebook.com/docs/'
+//       }, function(response){
+//           console.log(response);
+//       });
+       
+       FB.Event.subscribe('edge.create', handleResponse);
+
+        var handleResponse = function(response) {
+           alert ('You liked the URL: ' + response);
+        };
+
+        FB.Event.unsubscribe('edge.create', handleResponse);
+        
+        var page_like_or_unlike_callback = function(url, html_element) {
+            console.log("page_like_or_unlike_callback");
+            console.log(url);
+            console.log(html_element);
+            console.log(jQuery(html_element).data('post'));
+            console.log(jQuery(html_element).attr('data-post'));
+        };
+
+        // In your onload handler
+        FB.Event.subscribe('edge.create', page_like_or_unlike_callback);
+        FB.Event.subscribe('edge.remove', page_like_or_unlike_callback);
 4. git
 	git reset --hard ma_commit
 	git push -f: push len sau khi reset commit

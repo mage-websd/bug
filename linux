@@ -175,6 +175,8 @@
 21.
 find * -type d -print0 | xargs -0 chmod 755
 find . -type f -print0 | xargs -0 chmod 644
+find . -maxdepth 1 -name "f*" -print0 | xargs -0 rm
+find . -maxdepth 1 -name '*.pdf' -delete
 
 22. monogdb
 	sudo apt-get install upstart-sysv
@@ -197,4 +199,6 @@ cat /etc/*-release
 	sudo setenforce 0
 25. ssh
 	ssh -p 22 -i ~/.ssh/id_rsa user@ip-cua-ban
-26. 
+26. df -h
+	du -sh
+	lsof | grep deleted
