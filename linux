@@ -202,3 +202,63 @@ cat /etc/*-release
 26. df -h
 	du -sh
 	lsof | grep deleted
+26. process
+	ps auxw | grep post
+
+27. setup alias
+	alias python=/usr/local/bin/python2.7
+28. startup
+	/sbin/chkconfig --level 35 odoo on
+	chkconfig mysqld on
+28. odoo
+	
+	yum install -y postgresql-devel python-devel libxml2-devel libxslt-devel
+	sudo su - postgres
+	initdb
+	exit
+
+	echo -e "odoo_dev\nodoo_dev\n" | su - postgres -c "createuser --createdb --username postgres --no-createrole --no-superuser --pwprompt odoo_dev3"
+
+	createuser --createdb --username postgres --no-createrole --pwprompt -s odoo_dev
+
+	alias python=/usr/local/bin/python2.7
+	rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+	yum install -y python-pip
+	pip install --upgrade lxml
+
+	source odoo/bin/activate
+	psql
+	local all all peer
+	error:
+	khong tim thay postgress.pid -- tao symlink tu /tmp
+	xem cong 5642 cua postgresql
+	ma hoa md5 cua postgresql
+	
+	echo -e "odoo_dev\nodoo_dev\n" | su - postgres -c "createuser --createdb --username postgres --no-createrole --no-superuser --pwprompt odoo_dev"	
+
+	echo -e "odoo_dev\nodoo_dev\n" | su - postgres -c "createuser --createdb --username postgres --no-createrole -s --pwprompt odoo_dev"
+
+	change password of postgres
+	\password
+
+	yum install -y postgresql-devel python-devel python-lmxl
+	PATH=$PATH:/usr/pgsql-9.5/bin/ pip install psycopg2
+	pip install django
+
+	wget https://bootstrap.pypa.io/ez_setup.py
+	python ez_setup.py
+	easy_install pip
+	python setup.py
+	pip install django
+	pip install virtualenv
+
+	export PATH=$PATH:/usr/pgsql-9.5/bin/
+29: firewall config
+	firewall-cmd --get-active-zones
+	firewall-cmd --zone=public --add-port=2888/tcp --permanent
+	firewall-cmd --permanent --zone=public --add-service=http 
+	firewall-cmd --permanent --zone=public --add-service=https
+	firewall-cmd --reload
+	firewall-cmd --reload
+
+	systemctl stop firewalld
