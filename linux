@@ -253,8 +253,11 @@ cat /etc/*-release
 	pip install virtualenv
 
 	export PATH=$PATH:/usr/pgsql-9.5/bin/
+	npm install -g less less-plugin-clean-css
+	systemctl daemon-reload
+
 29: firewall config
-	firewall-cmd --get-active-zones
+	firewall-cmd --get-active-zonessetsebool
 	firewall-cmd --zone=public --add-port=2888/tcp --permanent
 	firewall-cmd --permanent --zone=public --add-service=http 
 	firewall-cmd --permanent --zone=public --add-service=https
@@ -262,3 +265,8 @@ cat /etc/*-release
 	firewall-cmd --reload
 
 	systemctl stop firewalld
+
+	setsebool -P httpd_can_network_connect 1 giangsd123
+
+	sed -i "s/\/opt\/odoo\//\/app\/odoo\//g" /etc/init.d/odoo
+	/opt/odoo/

@@ -9,6 +9,11 @@
 
 	GRANT CREATE VIEW,INDEX,LOCK TABLES,REFERENCES, CREATE,DROP, DELETE, INSERT, SELECT, UPDATE, ALTER, CREATE TEMPORARY TABLES ON dbname.* TO 'username'@'%'
 
+
+
+	SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EVENT, TRIGGER
+
+
 	REVOKE [type of permission] ON [database name].[table name] FROM ‘[username]’@‘localhost’; :  xoa quyen
 	DROP USER ‘demo’@‘localhost’; : xoa user
 
@@ -25,6 +30,8 @@ CREATE DATABASE database_name;
 ALTER DATABASE database_name CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 3. create database magento_1910 CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
+4. reset password:
+grep 'temporary password' /var/log/mysqld.log
 
 option
 --where="colum > 1"

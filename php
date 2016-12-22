@@ -136,3 +136,7 @@ else
 
     delete from `wp_posts` where `post_status` = 'trash' and `post_type` = 'shop_order';
     
+9. Show error
+    ini_set('display_startup_errors', 1);
+    ini_set('display_errors', 1);
+    error_reporting(-1);
