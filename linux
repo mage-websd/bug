@@ -53,6 +53,23 @@
     sudo update-rc.d apache2 disable
     disable start mysql: systemctl disable mysql
     					nano /etc/init/mysql.conf => comment start on
+	php7: 
+		yum install epel-release
+		rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+		yum-config-manager --enable remi-php70
+		yum install php70w
+		php70w-mysql php70w-gettext
+
+		php70w-xml php70w-soap php70w-xmlrpc
+		php70w-mbstring php70w-json php70w-gd php70w-mcrypt
+
+	yum install nginx -y
+	yum install mariadb-server -y
+	nginx: config socket trong fpm/pool.d/www.conf: change user listen file
+		user = www-data
+		listen = /run/php/php7.0-fpm.sock
+
+
     ssl:
     	key: openssl genrsa -des3 -out giangssl.key 1024
     	request: openssl req -new -key giangssl.key -out giangssl.csr
@@ -270,3 +287,15 @@ cat /etc/*-release
 
 	sed -i "s/\/opt\/odoo\//\/app\/odoo\//g" /etc/init.d/odoo
 	/opt/odoo/
+
+	# iptables -P INPUT ACCEPT
+	# iptables -F
+	# iptables -A INPUT -i lo -j ACCEPT
+	# iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+	# iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+	# iptables -P INPUT DROP
+	# iptables -P FORWARD DROP
+	# iptables -P OUTPUT ACCEPT
+	# iptables -L -v
+
+	netstat -tulpn

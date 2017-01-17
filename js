@@ -264,7 +264,23 @@ $.fn.isClickWithoutDom = function(option) {
     }
 };
 ----------------------- ------------------------------------------------- --------------------------
+var loadJS = function(url, implementationCode, location){
+    //url is URL of external file, implementationCode is the code
+    //to be called from the file, location is the location to
+    //insert the <script> element
 
+    var scriptTag = document.createElement('script');
+    scriptTag.src = url;
+
+    scriptTag.onload = implementationCode;
+    scriptTag.onreadystatechange = implementationCode;
+
+    location.appendChild(scriptTag);
+};
+var yourCodeToBeCalled = function(){
+//your code goes here
+}
+loadJS('http://rikkei.vn/adminlte/plugins/jQuery/jquery-2.2.3.min.js', false, document.body);
 
 
 
