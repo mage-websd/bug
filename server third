@@ -67,3 +67,5 @@ window.fbAsyncInit = function() {
     git tag -f tag-name
     git push -f origin tag-name
     git config --global http.postBuffer 1048576000 : error fatal: The remote end hung up unexpectedly
+
+    git diff-tree -r --no-commit-id --name-only --diff-filter=ACMRT  d2feae | xargs tar -rf file.tar
