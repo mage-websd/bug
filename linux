@@ -63,6 +63,9 @@
 		php70w-xml php70w-soap php70w-xmlrpc
 		php70w-mbstring php70w-json php70w-gd php70w-mcrypt
 
+        sudo apt-get install php7.0-mysql php7.0-mcrypt php7.0-xsl php7.0-intl mcrypt php7.0-mbstring php7.0-gettext php7.0-curl php7.0-gd
+
+
 	yum install nginx -y
 	yum install mariadb-server -y
 	nginx: config socket trong fpm/pool.d/www.conf: change user listen file
@@ -123,6 +126,22 @@
 		ls /opt/jdk
 		update-alternatives --install /usr/bin/java java /opt/jdk/jdk1.8.0_05/bin/java 100
 		update-alternatives --install /usr/bin/javac javac /opt/jdk/jdk1.8.0_05/bin/javac 100
+
+
+	# cd /opt/
+	# wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz
+	# tar xzf jdk-8u25-linux-x64.tar.gz
+	# cd /opt/jdk1.8.0_25/
+	# alternatives --install /usr/bin/java java /opt/jdk1.8.0_25/bin/java 2
+	# alternatives --config java
+	# alternatives --install /usr/bin/jar jar /opt/jdk1.8.0_25/bin/jar 2
+	# alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_25/bin/javac 2
+	# alternatives --install /usr/bin/javaws javaws /opt/jdk1.8.0_25/bin/javaws 2
+	# alternatives --set jar /opt/jdk1.8.0_25/bin/jar
+	# alternatives --set javac /opt/jdk1.8.0_25/bin/javac
+	# java -version
+
+	
 12. delete file
 	delete folder ngoai tru file: find . ! -name '*.sql' ! -name '*.gz' ! -name '*.bz2' -maxdepth 1 -type f -delete
 		u.txt, p.txt: ngoai tru 2 file nay, ko delete
@@ -298,4 +317,24 @@ cat /etc/*-release
 	# iptables -P OUTPUT ACCEPT
 	# iptables -L -v
 
-	netstat -tulpn
+	port: netstat -tulpn
+			lsof -Pnl +M -i4
+
+	core: lscpu
+30. start script
+
+	file: /etc/init.d and symlink /etc/rc.d
+
+	#!/bin/bash
+	# chkconfig: 345 99 10
+	# description: auto start apex listener
+	#
+	case "$1" in
+	 'start')
+	   su - oracle -c "cd /opt/apex ; java -jar apex.war > logs/apex.log 2>logs/apex_error.log &";;
+	 'stop')
+	   echo "put something to shutdown or kill the process here";;
+	esac
+
+	or crontab -e
+	@reboot /path/to/file

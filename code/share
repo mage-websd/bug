@@ -1,0 +1,9 @@
+<a href="https://twitter.com/share?url=linkHere&text=descriptHere">twitter</a>
+
+<a href="https://www.facebook.com/sharer/sharer.php?u=linkHere" target="_blank">
+  Share on Facebook
+</a>
+
+<a href="http://pinterest.com/pin/create/button/?url=linkHere&media=linkImageHere&description=descripHere" class="pin-it-button" count-layout="horizontal">
+    pin it
+</a>

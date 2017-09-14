@@ -69,3 +69,10 @@ window.fbAsyncInit = function() {
     git config --global http.postBuffer 1048576000 : error fatal: The remote end hung up unexpectedly
 
     git diff-tree -r --no-commit-id --name-only --diff-filter=ACMRT  d2feae | xargs tar -rf file.tar
+
+    - modify when pull code:
+    git rm .gitattributes
+    git rm --cached -r .
+    git reset --h
+    git config --global core.safecrlf false
+    git config --global core.autocrlf false
