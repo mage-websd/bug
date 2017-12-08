@@ -34,13 +34,17 @@
 11. install ububutu
 	apt-get update
 
-	sudo apt-get install apache2
+	sudo apt-get install nginx
 	sudo apt-get install mysql-server
 	sudo apt-get install php5 libapache2-mod-php5 php5-mysql php5-mcrypt php5-xsl php5-intl mcrypt
-		php7.0-mysql php-mbstring php7.0-mbstring php-gettext
+		php5-curl php5-mcrypt php5-gd
+		
+		php7.0 php7.0-mysql php-mbstring php7.0-mbstring php-gettext php7.0-mcrypt php7.0-xsl php7.0-intl mcrypt php7.0-cli php7.0-common php7.0-gd php7.0-xml php7.0-mcrypt php7.0-zip
+
+	 	libapache2-mod-php7.0 
 	php5enmod mcrypt
 	sudo apt-get install sendmail
-	php5-curl php5-mcrypt php5-gd
+	
 	service php7.0-fpm reload
 	a2enmod rewrite
 	sudo apt-get purge openjdk*
@@ -58,10 +62,7 @@
 		rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 		yum-config-manager --enable remi-php70
 		yum install php70w
-		php70w-mysql php70w-gettext
-
-		php70w-xml php70w-soap php70w-xmlrpc
-		php70w-mbstring php70w-json php70w-gd php70w-mcrypt
+		php70w-mysql php70w-gettext php70w-xml php70w-soap php70w-xmlrpc php70w-mbstring php70w-json php70w-gd php70w-mcrypt php70w-fpm
 
         sudo apt-get install php7.0-mysql php7.0-mcrypt php7.0-xsl php7.0-intl mcrypt php7.0-mbstring php7.0-gettext php7.0-curl php7.0-gd
 
@@ -72,7 +73,8 @@
 		user = www-data
 		listen = /run/php/php7.0-fpm.sock
 
-
+	apt-get install redis-server
+	
     ssl:
     	key: openssl genrsa -des3 -out giangssl.key 1024
     	request: openssl req -new -key giangssl.key -out giangssl.csr
@@ -338,3 +340,17 @@ cat /etc/*-release
 
 	or crontab -e
 	@reboot /path/to/file
+
+31: nodejs npm
+	error: npm install --no-bin-links
+
+error apt
+	apt --fix-broken install
+	dpkg --configure -a
+	apt dist-upgrade -y
+
+
+
+32: conflict install
+	rpm -qa | grep -i mysql
+	yum remove MySQL-devel-advanced-5.5.27-1.el6.x86_64

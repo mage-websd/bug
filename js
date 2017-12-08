@@ -285,3 +285,11 @@ loadJS('http://rikkei.vn/adminlte/plugins/jQuery/jquery-2.2.3.min.js', false, do
 
 
 ----------------------- ------------------------------------------------- --------------------------
+git get branch
+var gitBranch = '';
+$('.git-revision-dropdown .dropdown-content ul li:not(.dropdown-header)').each(function(i,v) {
+    gitBranch += $(v).find('a').html() + ' ';
+});
+console.log(gitBranch);
+
+----------------------- ------------------------------------------------- --------------------------
