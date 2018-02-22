@@ -57,6 +57,13 @@ GRANT UPDATE ON magento_1910.* TO 'c37v4l'@'%';
 4. Dung chung data ubuntu windows folder khac nhau
 mount --bind /path/to/mysql/data/of/windows /var/lib/mysql
 
+5. sql mode
+select @@sql_mode;
+SELECT @@GLOBAL.sql_mode;
+SET global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+
+org: ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+
 
 5. empty
 SET FOREIGN_KEY_CHECKS=0;

@@ -66,6 +66,22 @@
 
         sudo apt-get install php7.0-mysql php7.0-mcrypt php7.0-xsl php7.0-intl mcrypt php7.0-mbstring php7.0-gettext php7.0-curl php7.0-gd
 
+    multi:
+    	yum install -y epel-release
+		wget https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+		rpm -ivh remi-release-7.rpm
+		yum update
+		yum install php56 php56-php php56-php-mysqlnd php56-php-gd php56-php-mcrypt php56-php-mbstring php56-php-xml php56-php-cli
+		yum install php56-php-fpm
+		vi /opt/remi/php56/root/etc/php-fpm.d/www.conf
+		systemctl restart php56-php-fpm
+
+		yum install -y php71 php71-php php71-php-mysqlnd php71-php-gd php71-php-mcrypt php71-php-mbstring php71-php-xml php71-php-cli php71-php-fpm
+
+		folder config php56, php56-fpm va 71: /opt/remi/
+		folder config php71-fpm: /etc/opt/remi/php71
+		service fpm: php56-php-fpm, php71-php-fpm
+		bash php: php56 <=> alias: php, php71
 
 	yum install nginx -y
 	yum install mariadb-server -y
@@ -210,12 +226,15 @@
 20. networking
 	service network-manager start
 
+	// not ping from another LAN
+	systemctl stop NetworkManager
+	systemctl restart network
 21.
 find * -type d -print0 | xargs -0 chmod 755
 find . -type f -print0 | xargs -0 chmod 644
 find . -maxdepth 1 -name "f*" -print0 | xargs -0 rm
 find . -maxdepth 1 -name '*.pdf' -delete
-
+-path public/adminlte -prune: exclude foder public adminlte
 22. monogdb
 	sudo apt-get install upstart-sysv
 
@@ -354,3 +373,8 @@ error apt
 32: conflict install
 	rpm -qa | grep -i mysql
 	yum remove MySQL-devel-advanced-5.5.27-1.el6.x86_64
+
+33: remote
+	authorized_keys
+34: set default path
+	sudo update-alternatives --set php /usr/bin/php5.6
