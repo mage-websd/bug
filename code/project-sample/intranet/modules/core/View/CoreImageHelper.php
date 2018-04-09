@@ -446,6 +446,42 @@ class CoreImageHelper
             ];
         }
     }
+
+    /**
+     * resize image
+     * 
+     * @param string $width
+     * @param string $height
+     * @param boolean $resizeGreater allow resize if expect greater origin
+     * @return type
+     */
+    public function resizeWatermark($widthBox, $heightBox)
+    {
+        if (! $this->imageInfo) {
+            return null;
+        }
+        $name = $this->imageInfo['name'] . '-rw-' . $widthBox . 
+                '-' . $heightBox . '.png';
+        // check file exists
+        if (File::exists($this->imageInfo['full_path_cache'] . $name)) {
+            return URL::asset($this->cacheFolderShort . $name);
+        }
+        list($width, $height) = $this->calculatorSizeRatio($widthBox, $heightBox, false);
+        $image = Image::make($this->imageInfo['full_path']);
+        $exifInfo = $image->exif();
+        if (!$exifInfo || !isset($exifInfo['FileType']) ||
+            (isset($exifInfo['FileType']) && $exifInfo['FileType'] != IMAGETYPE_PNG)
+        ) {
+            $image->encode('png', 100);
+        }
+        $image->resize($width, $height);
+        // insert watermark to full box
+        $watermark = Image::make(public_path('common/images/watermark-small.png'));
+        $watermark->resize($widthBox, $heightBox);
+        $watermark->insert($image, 'center');
+        $watermark->save($this->imageInfo['full_path_cache'] . $name);
+        return URL::asset($this->cacheFolderShort . $name);
+    }
     
     /**
      * upload file
