@@ -368,7 +368,7 @@ error apt
 	dpkg --configure -a
 	apt dist-upgrade -y
 
-
+$abc= substr ( $this->imageInfo['full_path'] , 1, strlen($this->imageInfo['full_path'])-2);
 
 32: conflict install
 	rpm -qa | grep -i mysql
@@ -378,3 +378,11 @@ error apt
 	authorized_keys
 34: set default path
 	sudo update-alternatives --set php /usr/bin/php5.6
+35. php remi
+php71-devel
+phpize
+/opt/remi/php71/root/lib64/php/build/
+/opt/remi/php71/root/usr/bin/php-config
+/opt/remi/php71/root/usr/lib64/php/modules
+/opt/remi/php71/root/usr/include/php
+imagick.so
