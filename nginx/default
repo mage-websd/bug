@@ -20,6 +20,41 @@ server {
         index index.php index.html index.htm;
         try_files $uri $uri/ /wakeitup/wakeitup_code/public/index.php?$args;
     }
+    # alias sub uri subfolder
+    location ^~ /gtest {
+
+        alias        /usr/share/nginx/html/ams_test/current/public/;
+        index index.php index.html index.htm;
+        try_files $uri $uri/ /gtest/index.php?$args;
+
+        if (!-e $request_filename) { rewrite ^ /gtest/index.php last; }
+        location ~ \.php$ {
+                    if (!-f $request_filename) { return 404; }
+                    fastcgi_pass 127.0.0.1:9000;
+
+                    include fastcgi_params;
+                    fastcgi_param SCRIPT_FILENAME $request_filename;
+                    fastcgi_param SCRIPT_NAME $fastcgi_script_name;
+                }
+
+        }
+        # alias single file
+        location ~ /adminer-g.php {
+        alias /usr/share/nginx/html/ams/adminer.php;
+        # root /usr/share/nginx/html/ams/adminer.php;
+
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_param   SCRIPT_FILENAME /usr/share/nginx/html/ams/adminer.php;
+                fastcgi_param   QUERY_STRING     $query_string;
+                fastcgi_param   REQUEST_METHOD   $request_method;
+                fastcgi_param   CONTENT_TYPE     $content_type;
+                fastcgi_param   CONTENT_LENGTH   $content_length;
+                include         fastcgi_params;
+              fastcgi_param   SCRIPT_FILENAME  $request_filename;
+        fastcgi_param SCRIPT_NAME $fastcgi_script_name;
+        }
+
+
 }
 
 

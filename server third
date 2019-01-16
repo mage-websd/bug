@@ -76,3 +76,5 @@ window.fbAsyncInit = function() {
     git reset --h
     git config --global core.safecrlf false
     git config --global core.autocrlf false
+
+    remove remote branch: git remote prune

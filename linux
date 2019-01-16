@@ -234,6 +234,7 @@ find * -type d -print0 | xargs -0 chmod 755
 find . -type f -print0 | xargs -0 chmod 644
 find . -maxdepth 1 -name "f*" -print0 | xargs -0 rm
 find . -maxdepth 1 -name '*.pdf' -delete
+count: find . -maxdepth 1 -type d | wc -l
 -path public/adminlte -prune: exclude foder public adminlte
 22. monogdb
 	sudo apt-get install upstart-sysv
@@ -319,10 +320,11 @@ cat /etc/*-release
 	firewall-cmd --permanent --zone=public --add-service=http 
 	firewall-cmd --permanent --zone=public --add-service=https
 	firewall-cmd --reload
-	firewall-cmd --reload
 
-	systemctl stop firewalld
+	systemctl restart firewalld
 
+	firewall-cmd --list-all
+	
 	setsebool -P httpd_can_network_connect 1 giangsd123
 
 	sed -i "s/\/opt\/odoo\//\/app\/odoo\//g" /etc/init.d/odoo
@@ -338,7 +340,7 @@ cat /etc/*-release
 	# iptables -P OUTPUT ACCEPT
 	# iptables -L -v
 
-	port: netstat -tulpn
+	port listen: netstat -tulpn
 			lsof -Pnl +M -i4
 
 	core: lscpu
@@ -386,3 +388,11 @@ phpize
 /opt/remi/php71/root/usr/lib64/php/modules
 /opt/remi/php71/root/usr/include/php
 imagick.so
+
+36: remote ssh
+	edit: /etc/hosts.allow => sshd: 101.12.34.134
+ 	edit /etc/hosts.deny => sshd: All
+
+
+38:ssh quyen
+quen home: chmod go-w ~, cap 600 /etc/ssh, /home/user/.ssh

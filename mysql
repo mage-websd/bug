@@ -39,11 +39,15 @@ option
 --ignore-table=database.table1
 
 
-Change password mysql:
+5. Change password mysql:
  mysqladmin -u root password NEWPASSWORD
 OR
 	update user set password=PASSWORD("NEWPASSWORD") where User='root';
 	flush privileges;
+6. empty table
+SELECT concat('DROP TABLE IF EXISTS `', table_name, '`;')
+FROM information_schema.tables
+WHERE table_schema = 'MyDatabaseName';
 
 GRANT CREATE ON magento_1910.* TO 'user2'@'%';
 GRANT DROP ON magento_1910.* TO 'c37v4l'@'%';
@@ -64,6 +68,11 @@ SET global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_
 
 org: ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
 
+6. max created_at group by
+
+SET @same = '1';
+
+select * from (SELECT *, IF(@same = email, 1, 2) as same_before, @same := email FROM `name` order by email asc, created_at desc) as t where t.same_before = 2;
 
 5. empty
 SET FOREIGN_KEY_CHECKS=0;

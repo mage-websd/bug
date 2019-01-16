@@ -292,4 +292,16 @@ $('.git-revision-dropdown .dropdown-content ul li:not(.dropdown-header)').each(f
 });
 console.log(gitBranch);
 
+- branch merge create
+var branchMerge = '';
+
+gitBranch = gitBranch.split(/\s+/);
+branchMerge = branchMerge.split(/\s+/);
+var resultDelete = '';
+gitBranch.forEach(function (item) {
+    if (branchMerge.indexOf(item) === -1) { // not merge => delete
+        resultDelete += item + ' ';
+    }
+});
+console.log(resultDelete);
 ----------------------- ------------------------------------------------- --------------------------
