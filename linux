@@ -159,6 +159,14 @@
 	# alternatives --set javac /opt/jdk1.8.0_25/bin/javac
 	# java -version
 
+11.1: basic authentication
+- install apache2-utils or httpd-tools.
+- add user to file pass:  sudo htpasswd -c /path/to/project/.htpasswd username
+ex file: giangsoda:$apr1$L/0R92tI$nYzLbjXzBYtn8QTkBWWWL/
+- vhost: location /api {
+	    auth_basic "Giang Soda site";
+	    auth_basic_user_file /path/to/project/.htpasswd;
+	}
 	
 12. delete file
 	delete folder ngoai tru file: find . ! -name '*.sql' ! -name '*.gz' ! -name '*.bz2' -maxdepth 1 -type f -delete
@@ -316,7 +324,7 @@ cat /etc/*-release
 
 29: firewall config
 	firewall-cmd --get-active-zonessetsebool
-	firewall-cmd --zone=public --add-port=2888/tcp --permanent
+	firewall-cmd --zone=public --add-port=80/tcp --permanent
 	firewall-cmd --permanent --zone=public --add-service=http 
 	firewall-cmd --permanent --zone=public --add-service=https
 	firewall-cmd --reload
@@ -396,3 +404,5 @@ imagick.so
 
 38:ssh quyen
 quen home: chmod go-w ~, cap 600 /etc/ssh, /home/user/.ssh
+39. create user
+adduser bpo

@@ -1,0 +1,43 @@
+# package general
+yum install git -y
+yum install yum-utils -y
+yum install -y wget
+
+# nginx
+yum install epel-release -y
+yum install nginx -y
+systemctl enable nginx
+# enable firewalld, ko co thi thoi
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+firewall-cmd --permanent --zone=public --add-service=http 
+firewall-cmd --permanent --zone=public --add-service=https
+firewall-cmd --reload
+systemctl restart firewalld
+
+# mysql
+wget https://dev.mysql.com/get/mysql80-community-release-el7-9.noarch.rpm
+wget https://repo.mysql.com/mysql80-community-release-el7-1.noarch.rpm
+# yum localinstall mysql80-community-release-el7-1.noarch.rpm
+rpm -ivh mysql80-community-release-el7-1.noarch.rpm
+yum install mysql-server -y
+systemctl enable mysqld
+mysql_secure_installation
+# grep 'temporary password' /var/log/mysqld.log : view password
+# ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'xxx'; 
+
+
+# php 7.2
+wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+rpm -Uvh remi-release-7.rpm
+yum-config-manager --enable remi-php72  
+yum -y --enablerepo=remi,remi-php72 install php-fpm php-common php-cli php-pear php-pdo php-mysqlnd php-pecl-redis php-gd php-mbstring php-mcrypt php-xml php-gettext php7.0-xsl php-intl mcrypt php-zip
+systemctl enable php-fpm
+# vao file /etc/php-fpm.d/www.conf, edit user va group nginx
+
+# if error permission
+setsebool -P httpd_can_network_connect on 
+getenforce
+chcon -Rt httpd_sys_content_t /path/to/www
+
+# composer
+dowload home page in install
