@@ -1,0 +1,42 @@
+version: '3.6'
+
+services:
+  php:
+    build: ./
+    volumes:
+      - ./:/var/www/html
+      - /var/www/html/build/
+    ports:
+      - 8080:8080
+    networks:
+      - link
+
+  database:
+    image: mysql:5.7
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root"
+    # volumes:
+    #   - ./build/docker/db:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - link
+
+  redis:
+    image: redis:4.0
+    ports:
+      - "6379:6379"
+    networks:
+      - link
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 3002:8080
+    networks:
+      - link
+
+networks:
+  link:
+    driver: bridge

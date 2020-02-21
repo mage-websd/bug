@@ -292,7 +292,7 @@ $('.git-revision-dropdown .dropdown-content ul li:not(.dropdown-header)').each(f
 });
 console.log(gitBranch);
 
-- branch merge create
+// branch merge create
 var branchMerge = '';
 
 gitBranch = gitBranch.split(/\s+/);
@@ -305,3 +305,49 @@ gitBranch.forEach(function (item) {
 });
 console.log(resultDelete);
 ----------------------- ------------------------------------------------- --------------------------
+url params;
+var SDFunction = {
+        urlParams: function () {
+            var params = [];
+            decodeURIComponent(window.location.search).replace(/[?&]+([^=&]+)=([^&]*)/gi, function (str, key, value) {
+                params.push({key: key, value: value});
+            });
+            return params;
+        },
+        paramsArrayToUrl: function (params) {
+            var url = '';
+            $.each (params, function (index, obj) {
+                url += obj.key + '=' + obj.value + '&';
+            });
+            return encodeURI(url.slice(0, -1));
+        },
+        urlReplace: function (newParams, url) {
+            if (typeof url === 'undefined' || url === null) {
+                url = location.origin + location.pathname;
+            }
+            var params = [];
+            var oldParams = this.urlParams();
+            $.each (oldParams, function (index, pObj) {
+                var isAssign = false;
+                $.each (newParams, function (kNew, vNew) {
+                    if (pObj.key === kNew) {
+                        params.push({key: kNew, value: vNew});
+                        isAssign = true;
+                        delete newParams[kNew];
+                        return false;
+                    }
+                });
+                if (!isAssign) {
+                    params.push(pObj);
+                }
+            });
+            $.each (newParams, function (kNew, vNew) {
+                params.push({key: kNew, value: vNew});
+            });
+            if ($.isEmptyObject(params)) {
+                return url;
+            }
+            return url + '?' + this.paramsArrayToUrl(params);
+        }
+    };
+    ----------------------- ------------------------------------------------- --------------------------

@@ -107,6 +107,17 @@
 		    SSLCertificateFile /etc/ssl/www.thegeekstuff.com.crt
 		    SSLCertificateKeyFile /etc/ssl/www.thegeekstuff.com.key
 		</VirtualHost>
+		nginx ssl https 443:
+		openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/bp.key -out /etc/nginx/ssl/bp.crt
+		openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+		server {
+		    listen 443 http2 ssl;
+		    listen [::]:443 http2 ssl;
+		    server_name server_IP_address;
+		    ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
+		    ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+		    ssl_dhparam /etc/ssl/certs/dhparam.pem;
+		}
 
 		Memcache: php5-memcache
 			sudo apt-get install memcached
@@ -352,6 +363,12 @@ cat /etc/*-release
 			lsof -Pnl +M -i4
 
 	core: lscpu
+Ubuntu 18.04
+	ufw default allow outgoing
+	ufw default deny incoming
+	ufw allow ssh
+	ufw allow 2222
+
 30. start script
 
 	file: /etc/init.d and symlink /etc/rc.d

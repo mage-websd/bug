@@ -7,6 +7,8 @@
 		type: ALL PRIVILEGES, CREATE, DROP, DELETE, INSERT, SELECT, UPDATE, GRANT OPTION
 		db name, table name: *
 
+GRANT ALL PRIVILEGES ON db_name.* TO 'username'@'%';
+
 GRANT SELECT, CREATE TEMPORARY TABLES, EXECUTE, CREATE ROUTINE, EVENT, TRIGGER, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, LOCK TABLES, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE ON intranet_live.* TO 'giang'@'localhost';
 
 REVOKE [type of permission] ON [database name].[table name] FROM ‘[username]’@‘localhost’; :  xoa quyen
@@ -15,6 +17,9 @@ DROP USER ‘demo’@‘localhost’; : xoa user
 2. dum import
 
 mysqldump -h localhost -u root -p  --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false dbname | gzip > file.sql.gz
+
+mysqldump -h localhost --user=compiler --password=compiler@123  --no-data=false --no-create-info=false --extended-insert=true --complete-insert=false --skip-tz-utc --force --add-drop-table=false --comments=false --create-options=true --dump-date=false --lock-tables=false --add-locks=false --compact=false --disable-keys=false complier | gzip > complier_20191114.sql.gz
+
 
 
 mysql -u root -p --default-character-set=utf8 dbname < file.sql
@@ -42,7 +47,7 @@ option
 5. Change password mysql:
  mysqladmin -u root password NEWPASSWORD
 OR
-	update user set password=PASSWORD("NEWPASSWORD") where User='root';
+	update user set authentication_string=PASSWORD("NEWPASSWORD") where User='root';
 	flush privileges;
 6. empty table
 SELECT concat('DROP TABLE IF EXISTS `', table_name, '`;')
@@ -73,6 +78,9 @@ org: ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_F
 SET @same = '1';
 
 select * from (SELECT *, IF(@same = email, 1, 2) as same_before, @same := email FROM `name` order by email asc, created_at desc) as t where t.same_before = 2;
+
+5. drop all table
+SELECT Concat('DROP TABLE ', TABLE_NAME, ';') FROM information_schema.tables WHERE table_schema = 'code_platform';
 
 5. empty
 SET FOREIGN_KEY_CHECKS=0;
