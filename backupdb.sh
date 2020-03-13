@@ -1,17 +1,18 @@
 #!/bin/sh
 now="$(date +'%Y%m%d_%H%M%S')"
-filename="db_intranet_$now".sql.gz
-backupfolder="/app/intranet/shared/backup/db"
+filename="db_file$now".sql.gz
+backupfolder="/path/to/folder/back/db"
 fullpathbackupfile="$backupfolder/$filename"
-maxNumberFile=7
+pathdump="/opt/mysql_client/mysql_80/bin/"
+maxNumberFile=30
 
 mysqlHost="127.0.0.1"
-mysqlUser="dev"
-mysqlPass="dev@intranet"
-mysqlDb="live_intranet_db"
+mysqlUser="root"
+mysqlPass="password"
+mysqlDb="db_name"
 
 mkdir -p $backupfolder
-mysqldump --user=$mysqlUser --password=$mysqlPass \
+"$pathdump"mysqldump --host=$mysqlHost --user=$mysqlUser --password=$mysqlPass \
     --default-character-set=utf8 $mysqlDb | gzip > "$fullpathbackupfile"
 
 fileCount="$(ls -l $backupfolder/*.sql.gz | wc -l)"

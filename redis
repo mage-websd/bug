@@ -1,7 +1,0 @@
-config set stop-writes-on-bgsave-error no
-
-CONFIG GET dir
-CONFIG GET dbfilename
-
-CONFIG SET dir /tmp/some/directory/other/than/var
-CONFIG SET dbfilename temp.rdb

@@ -33,6 +33,14 @@ ALTER DATABASE database_name CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 4. reset password:
 grep 'temporary password' /var/log/mysqld.log
 
+5. update column in table
+update dn_nationwide_recruitment
+join dn_nationwide_recruitment as t_2 on t_2.id = (dn_nationwide_recruitment.id % 10 + 1)
+set dn_nationwide_recruitment.cover_url = t_2.cover_url
+where dn_nationwide_recruitment.id > 10
+and dn_nationwide_recruitment.cover_url is null
+
+
 option
 --where="colum > 1"
 --no-create-info : only data
