@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7.29
+    container_name: app_db
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+        - "3306:3306"
+    environment:
+      MYSQL_USER: 'root'
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: 'app_db'
+    volumes:
+      - ./mysqldata:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    restart: always
+    container_name: app_adminer
+    ports:
+      - 3002:8080
+
+  redis:
+    image: redis:6.0-rc-buster
+    restart: always
+    container_name: app_redis
+    ports:
+      - 6379:6379
+
+  ### python django - program language
+  python:
+    restart: always
+    container_name: app_python
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src/code/:/app/code
+    environment:
+      DEBUG: 'true'
+    command: python /app/code/manage.py runserver 0:8000
+    depends_on:
+      - db
