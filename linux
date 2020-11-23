@@ -423,3 +423,9 @@ imagick.so
 quen home: chmod go-w ~, cap 600 /etc/ssh, /home/user/.ssh
 39. create user
 adduser bpo
+40: remote web http qua ssh
+ssh -N -T -L localhost:3012:localhost:3012 -i /path/pemkey user@ip
+
+41. open ssh key to pem key
+ssh-keygen -p -N "" -m pem -f /path/to/key
+
