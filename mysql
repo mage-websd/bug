@@ -59,6 +59,7 @@ option
  mysqladmin -u root password NEWPASSWORD
 OR
 	update user set authentication_string=PASSWORD("NEWPASSWORD") where User='root';
+	ALTER USER 'userName'@'localhost' IDENTIFIED WITH mysql_native_password BY 'admin123';
 	flush privileges;
 6. empty table
 SELECT concat('DROP TABLE IF EXISTS `', table_name, '`;')
