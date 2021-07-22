@@ -9,7 +9,8 @@
 	giai nen zip:  unzip archive_name.zip
 	nen
 	giai nen gz: gunzip file.gz or gzip -d file.gz
-	giai nen tar.gz:  tar zxvf file.tar.gz
+	giai nen tar.gz:  tar xzvf file.tar.gz
+	nen tar.gz: tar -czvf file.tar.gz /path/to/directory-or-file
 
 	.7z: 7za x name.7z
 	nen bo qua folder con: them option vao cuoi: --exclude folder1  --exclude folder2...
@@ -426,6 +427,11 @@ adduser bpo
 40: remote web http qua ssh
 ssh -N -T -L localhost:3012:localhost:3012 -i /path/pemkey user@ip
 
-41. open ssh key to pem key
+41: screen scroll
+vi ~/.screenrc
+-> shell "/usr/bin/bash"
+termcapinfo xterm* ti@:te@
+
+42. open ssh key to pem key
 ssh-keygen -p -N "" -m pem -f /path/to/key
 
