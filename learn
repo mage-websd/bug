@@ -1,7 +1,1 @@
-1. Author:
-	AuthUserFile /var/www/clients/client22/web48/web/.htpasswd
- 	AuthType Basic
- 	AuthName "Basic authentication"
- 	Require valid-user
-
-	htpasswd -c .htpasswd c17sleepingduck
+notion: https://valley-microwave-608.notion.site/Giang-Soda-blog-12d6f689c7b980569b22f33d124130b8
